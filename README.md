@@ -1,4 +1,6 @@
 # CheapShopWeb
+[Link to project prototype](https://balsamiq.cloud/s1t2s57/ppuwmlt/r2278)
+
 <h3>Requirements:</h3>
 
 :red_square:Lazy initialization.

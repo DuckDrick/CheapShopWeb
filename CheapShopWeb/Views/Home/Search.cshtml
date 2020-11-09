@@ -3,96 +3,191 @@
     ViewBag.Title = "Search";
 }
 
-<h2>Search</h2>
-<div class="jumbotron">
-    <blockquote class="blockquote">
-        <p class="mb-0 font-weight-bold font-italic">If you would be wealthy, think of saving as well as getting.</p>
-        <footer class="blockquote-footer font-weight-bolder">Benjamin Franklin</footer>
-    </blockquote>
+<div>
 
-
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-10 col-lg-8">
+            <form>
+                <div class="card-body row no-gutters align-items-center">
+                    <div class="col-auto">
+                        <i class="h4 text-body"></i>
+                    </div>
+                    <!--end of col-->
+                    <div class="col">
+                        <input class="form-control form-control-lg" type="search" placeholder="Search...">
+                    </div>
+                    <!--end of col-->
+                    <div class="col-auto">
+                        <button class="btn btn-lg btn-success" type="submit">Search</button>
+                    </div>
+                    <!--end of col-->
+                </div>
+            </form>
+        </div>
+        <!--end of col-->
+    </div>
 
 </div>
 
 <div class="row">
-    <div class="col-lg-3 col-md-6">
-        <div class="card">
-            <img class="card-img-top img-fluid" src="//placehold.it/500x200" alt="Card image cap">
-            <div class="card-block">
-                <h4 class="card-title">Computers</h4>
-                <p class="card-text">Computers, laptops, accessories and other useful products in the category of computers</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+    <div id="wrapper">
+        <div id="first">
+            <div id="boarderdefault">
+                <label for="fname">Nuo:</label><br>
+                <input type="text" id="fname" name="fname" value="Nuo"><br>
+                <input type="text" id="fname" name="fname" value="Iki"><br>
+            </div>
+            <div id="boarderdefault">
+
+                <input type="checkbox" name="favorite1"  />
+                <label for="rde">Rde</label><br>
+                <input type="checkbox" name="favorite1"  />
+                <label for="bigbox">Bigbox</label><br>
+
+
             </div>
         </div>
-    </div>
-    <div class="col-lg-3 col-md-6">
-        <div class="card">
-            <img class="card-img-top img-fluid" src="//placehold.it/500x200" alt="Card image cap">
-            <div class="card-block">
-                <h4 class="card-title">Phones</h4>
-                <p class="card-text">Huawei, IPhone, Samsung and lots of other brands of phones as well as phone accessories</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        <div id="second">
+            <div class="productholder">
+                <img src="http://lorempixel.com/100/100" alt="" />
+
+                <div class="productinfo">
+                    <h2>Product Name</h2>
+                    <p>Shop</p>
+                    <p>Category</p>
+                </div>
+
+                <div class="productprice">
+                    <h2>599.99</h2>
+                    <Button type="productlink">Link</Button>
+                </div>
             </div>
+            <div class="productholder">
+                <img src="http://lorempixel.com/100/100" alt="" />
+
+                <div class="productinfo">
+                    <h2>Product Name</h2>
+                    <p>Shop</p>
+                    <p>Category</p>
+                </div>
+
+                <div class="productprice">
+                    <h2>599.99</h2>
+                    <Button type="productlink">Link</Button>
+                </div>
+            </div>
+            <div class="productholder">
+                <img src="http://lorempixel.com/100/100" alt="" />
+
+                <div class="productinfo">
+                    <h2>Product Name</h2>
+                    <p>Shop</p>
+                    <p>Category</p>
+                </div>
+
+                <div class="productprice">
+                    <h2>599.99</h2>
+                    <Button type="productlink">Link</Button>
+                </div>
+            </div>
+            <div class="productholder">
+                <img src="http://lorempixel.com/100/100" alt="" />
+
+                <div class="productinfo">
+                    <h2>Product Name</h2>
+                    <p>Shop</p>
+                    <p>Category</p>
+                </div>
+
+                <div class="productprice">
+                    <h2>599.99</h2>
+                    <Button type="productlink">Link</Button>
+                </div>
+            </div>
+            <div class="productholder">
+                <img src="http://lorempixel.com/100/100" alt="" />
+
+                <div class="productinfo">
+                    <h2>Product Name</h2>
+                    <p>Shop</p>
+                    <p>Category</p>
+                </div>
+
+                <div class="productprice">
+                    <h2>599.99</h2>
+                    <Button type="productlink">Link</Button>
+                </div>
+            </div>
+
         </div>
     </div>
-    <div class="col-lg-3 col-md-6">
-        <div class="card">
-            <img class="card-img-top img-fluid" src="//placehold.it/500x200" alt="Card image cap">
-            <div class="card-block">
-                <h4 class="card-title">Foto and video</h4>
-                <p class="card-text">Some text</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-6">
-        <div class="card">
-            <img class="card-img-top img-fluid" src="//placehold.it/500x200" alt="Card image cap">
-            <div class="card-block">
-                <h4 class="card-title">Furniture</h4>
-                <p class="card-text">Some text</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-6">
-        <div class="card">
-            <img class="card-img-top img-fluid" src="//placehold.it/500x200" alt="Card image cap">
-            <div class="card-block">
-                <h4 class="card-title">Audio</h4>
-                <p class="card-text">Some text</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-6">
-        <div class="card">
-            <img class="card-img-top img-fluid" src="//placehold.it/500x200" alt="Card image cap">
-            <div class="card-block">
-                <h4 class="card-title">Clothing</h4>
-                <p class="card-text">Some text</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-6">
-        <div class="card">
-            <img class="card-img-top img-fluid" src="//placehold.it/500x200" alt="Card image cap">
-            <div class="card-block">
-                <h4 class="card-title">Card title</h4>
-                <p class="card-text">Some text</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-6">
-        <div class="card">
-            <img class="card-img-top img-fluid" src="//placehold.it/500x200" alt="Card image cap">
-            <div class="card-block">
-                <h4 class="card-title">Card title</h4>
-                <p class="card-text">Some text</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-            </div>
-        </div>
-    </div>
+    <style>
+        #wrapper {
+            overflow: hidden; /* will contain if #first is longer than #second */
+        }
+
+        #first {
+            float: left; /* add this */
+            border: 2px solid red;
+        }
+
+        #second {
+            height: 100%;
+            border: 2px solid green;
+            overflow: hidden; /* if you don't want #second to wrap below #first */
+        }
+
+        #boarderdefault {
+            @*border: 2px solid red*@
+            margin-bottom: 30px;
+            padding: 10px
+        }
+
+        .full-height {
+            height: 100%;
+        }
+
+        .myDiv {
+            border: 5px outset grey;
+            @*background-color: lightblue;*@
+            text-align: center;
+        }
+
+        .productholder {
+            width: 954px;
+            @* margin-bottom: 30px;
+            background-color: aqua;*@
+            border: 1px solid green;
+        }
+
+            .productholder img {
+                display: inline-block;
+                margin: 50px;
+            }
+
+        .productinfo {
+            border: 1px solid green;
+            display: inline-block;
+            margin: 20px 0;
+            vertical-align: top;
+            width: 500px;
+            color: black;
+            background-color:antiquewhite;
+        }
+
+            .productinfo input {
+                float: right;
+                margin-top: 20px;
+                color: ;
+            }
+
+        .productprice {
+            width: 150px;
+            float: right;
+            margin: 20px;
+            text-align: center;
+        }
+    </style>
+
 </div>
+

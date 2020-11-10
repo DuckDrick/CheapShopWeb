@@ -18,6 +18,11 @@ namespace CheapShopWeb
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+            routes.MapRoute(
+                name: "Search",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Search", action = "Search", id = UrlParameter.Optional }
+            );
         }
     }
 }

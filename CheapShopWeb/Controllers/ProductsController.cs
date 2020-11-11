@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using CheapShopWeb.DataContext;
 using CheapShopWeb.Models;
+using CheapShopWeb.Services;
 
 namespace CheapShopWeb.Controllers
 {
@@ -18,7 +19,7 @@ namespace CheapShopWeb.Controllers
         // GET: Products
         public ActionResult Index(string name, string min, string max, string group, string source )
         {
-            return View(db.Products.ToList().Where(product => product.name.ToLower().Contains(name.ToLower())).ToList());
+            return View(Filtering.Filter(db.Products.ToList(), name, min, max, group, source));
         }
 
         // GET: Products/Details/5

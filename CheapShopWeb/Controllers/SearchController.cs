@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using CheapShopWeb.DataContext;
+using Microsoft.SqlServer.Server;
 
 namespace CheapShopWeb.Controllers
 {
@@ -16,10 +17,9 @@ namespace CheapShopWeb.Controllers
         {
             _db = new ProductDbContext();
         }
-
-        public ActionResult Search()
+        public ActionResult Search(String searchString)
         {
-            var products = _db.Products.ToArray();
+            var products = _db.Search(searchString);
             return View(products);
         }
     }

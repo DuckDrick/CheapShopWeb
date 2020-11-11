@@ -1,39 +1,44 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
+@using (Html.BeginForm(new {controller = "Search", action = "Search"}))
+{
+    <div class="jumbotron">
+        <blockquote class="blockquote">
+            <p class="mb-0 font-weight-bold font-italic">If you would be wealthy, think of saving as well as getting.</p>
+            <footer class="blockquote-footer font-weight-bolder">Benjamin Franklin</footer>
+        </blockquote>
 
-<div class="jumbotron">
-    <blockquote class="blockquote">
-        <p class="mb-0 font-weight-bold font-italic">If you would be wealthy, think of saving as well as getting.</p>
-        <footer class="blockquote-footer font-weight-bolder">Benjamin Franklin</footer>
-    </blockquote>
 
 
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-10 col-lg-8">
+                <form>
+                    <div class="card-body row no-gutters align-items-center">
+                        <div class="col-auto">
+                            <i class="h4 text-body"></i>
+                        </div>
+                        <!--end of col-->
 
-    <div class="row justify-content-center">
-        <div class="col-12 col-md-10 col-lg-8">
-            <form>
-                <div class="card-body row no-gutters align-items-center">
-                    <div class="col-auto">
-                        <i class="h4 text-body"></i>
+                        <div class="col">
+                            <input class="form-control form-control-lg" type="search" name="searchString" placeholder="Search...">
+                        </div>
+                        <!--end of col-->
+                        <div class="col-auto">
+                            @*<a href="https://localhost:44360/Home/Search" class="btn btn-primary">Search</a>*@
+
+                            <button class="btn btn-lg btn-success" type="submit">Search</button>
+                        </div>
+
+                        <!--end of col-->
                     </div>
-                    <!--end of col-->
-                    <div class="col">
-                        <input class="form-control form-control-lg" type="search" placeholder="Search...">
-                    </div>
-                    <!--end of col-->
-                    <div class="col-auto">
-                        <button class="btn btn-lg btn-success" type="submit">Search</button>
-                    </div>
-                    <!--end of col-->
-                </div>
-            </form>
+                </form>
+            </div>
+            <!--end of col-->
         </div>
-        <!--end of col-->
+
     </div>
-
-</div>
-
+}
 <div class="row">
     <div class="col-lg-3 col-md-6">
         <div class="card">
@@ -115,4 +120,5 @@
             </div>
         </div>
     </div>
+
 </div>

@@ -13,22 +13,15 @@ namespace CheapShopWeb.Controllers
     {
         private ProductAndSearchString ps;
         // GET: Search
-        private ProductDbContext _db;
 
-        public SearchController()
-        {
-            _db = new ProductDbContext();
-        }
         public ActionResult Search(String searchString, String priceFrom, String priceTo)
         {
             //if (!string.IsNullOrEmpty(search)) //gali buti spaudziamas search mygtukas
             //var products = _db.Search(searchString);
-                ps = new ProductAndSearchString
-                {
-                    list = _db.Search(searchString),
-                    searchString = searchString
-                };
-                return View(ps);  
+            ps = new ProductAndSearchString();
+            ps.list = ps.Search(searchString);
+            ps.searchString = searchString;
+            return View(ps);  
         //kitu atveju spaudziamas filtravimas //doesnt work?
             /*{
 

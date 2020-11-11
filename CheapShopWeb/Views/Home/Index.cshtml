@@ -1,7 +1,6 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-@using (Html.BeginForm(new {controller = "Search", action = "Search"}))
 {
     <div class="jumbotron">
         <blockquote class="blockquote">
@@ -13,7 +12,7 @@
 
         <div class="row justify-content-center">
             <div class="col-12 col-md-10 col-lg-8">
-                <form>
+                <form action="@Url.Action("Search","Search")" method="get">
                     <div class="card-body row no-gutters align-items-center">
                         <div class="col-auto">
                             <i class="h4 text-body"></i>
@@ -21,11 +20,11 @@
                         <!--end of col-->
 
                         <div class="col">
-                            <input class="form-control form-control-lg" type="search" name="searchString" placeholder="Search...">
+                            <input class="form-control form-control-lg" type="search" name="search" placeholder="Search...">
                         </div>
                         <!--end of col-->
                         <div class="col-auto">
-                            @*<a href="https://localhost:44360/Home/Search" class="btn btn-primary">Search</a>*@
+                           
 
                             <button class="btn btn-lg btn-success" type="submit">Search</button>
                         </div>

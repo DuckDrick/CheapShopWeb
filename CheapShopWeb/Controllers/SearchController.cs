@@ -5,24 +5,22 @@ using System.Web;
 using System.Web.Mvc;
 using CheapShopWeb.DataContext;
 using CheapShopWeb.Models;
+using CheapShopWeb.Services;
 using Microsoft.SqlServer.Server;
 
 namespace CheapShopWeb.Controllers
 {
     public class SearchController : Controller
     {
-        private ProductAndSearchString ps;
+  
+        private ProductDbContext db = new ProductDbContext();
         // GET: Search
-
-        public ActionResult Search(String searchString, String priceFrom, String priceTo)
+        public ActionResult Search(string search, string priceFrom, string priceTo, string group, string source)
         {
             //if (!string.IsNullOrEmpty(search)) //gali buti spaudziamas search mygtukas
             //var products = _db.Search(searchString);
-            ps = new ProductAndSearchString();
-            ps.list = ps.Search(searchString);
-            ps.searchString = searchString;
-            return View(ps);  
-        //kitu atveju spaudziamas filtravimas //doesnt work?
+            return View(Filtering.Filter(db.Products.ToList(), search, priceFrom, priceTo, group, source));
+            //kitu atveju spaudziamas filtravimas //doesnt work?
             /*{
 
                 ps = new ProductAndSearchString

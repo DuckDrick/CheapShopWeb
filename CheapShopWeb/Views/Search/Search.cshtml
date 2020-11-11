@@ -1,5 +1,5 @@
 ﻿@using Microsoft.Ajax.Utilities
-@model CheapShopWeb.Models.ProductAndSearchString
+@model IEnumerable<CheapShopWeb.Models.Product>
 @{
     ViewBag.Title = "Search";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -16,11 +16,11 @@
                     </div>
                     <!--end of col-->
                     <div class="col">
-                        <input class="form-control form-control-lg" type="search" name="searchString" placeholder=@Model.searchString>
+                        <input class="form-control form-control-lg" type="search" name="search" placeholder=@(ViewContext.RouteData.Values["search"])>
                     </div>
                     <!--end of col-->
                     <div class="col-auto">
-                        <button class="btn btn-lg btn-success" name="search"type="submit" >Search</button>
+                        <button class="btn btn-lg btn-success" type="submit">Search</button>
                     </div>
                     <!--end of col-->
                 </div>
@@ -48,46 +48,48 @@
 
 
             </div>
-            <Button class="btn btn-lg btn-success" name="filter" type="submit" >Filter</Button>
+            <Button class="btn btn-lg btn-success" name="filter" type="submit">Filter</Button>
         </div>
         <div id="second">
-            @if(Model.list!=null)
-            {foreach (var item in Model.list)
+            @if (Model != null)
             {
-                <div class="productholder">
-                    <img src=@item.plink alt=""/>
+                foreach (var item in Model)
+                {
+                    <div class="productholder">
+                        <img src=@item.photo_link alt="" />
+
+                        <div class="productinfo">
+                            <h2>@item.name</h2>
+                            <p>Grupė: @item.group</p>
+                        </div>
+
+                        <div class="productprice">
+                            <h2>@item.price</h2>
+                            <a href=@item.product_link class="btn btn-primary">Link</a>
+                        </div>
+                    </div>
+                }
+            }
+
+            @*<div class="productholder">
+                    <img src="http://lorempixel.com/100/100" alt=""/>
 
                     <div class="productinfo">
-                        <h2>@item.name</h2>
-                        <p>Grupė: @item.item_group</p>
+                        <h2>Product Name</h2>
+                        <p>Shop</p>
+                        <p>Category</p>
                     </div>
 
                     <div class="productprice">
-                        <h2>@item.price</h2>
-                        <a href=@item.link class="btn btn-primary">Link</a>
+                        <h2>599.99</h2>
+                        <Button>Link</Button>
                     </div>
-                </div>
-            }}
-
-            @*<div class="productholder">
-                <img src="http://lorempixel.com/100/100" alt=""/>
-
-                <div class="productinfo">
-                    <h2>Product Name</h2>
-                    <p>Shop</p>
-                    <p>Category</p>
-                </div>
-
-                <div class="productprice">
-                    <h2>599.99</h2>
-                    <Button>Link</Button>
-                </div>
-            </div>*@
+                </div>*@
 
 
         </div>
     </div>
-    
+
 
     <style>
         #wrapper {
@@ -104,7 +106,7 @@
             border: 2px solid green;
             overflow: hidden; /* if you don't want #second to wrap below #first */
         }
-
+        
         #boarderdefault {
             @*border: 2px solid red*@
             margin-bottom: 30px;
@@ -122,6 +124,7 @@
         }
 
         .productholder {
+            display: flex;
             width: 954px;
             @* margin-bottom: 30px;
             background-color: aqua;*@

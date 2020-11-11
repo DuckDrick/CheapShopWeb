@@ -15,21 +15,21 @@ namespace CheapShopWeb.Services
             {
                 productList = productList.FindAll(product => product.name.ToLower().Contains(name.ToLower()));
             }
-            if (min != null)
+            if (!string.IsNullOrEmpty(min))
             {
                 productList = productList.FindAll(product => float.Parse(product.price.Replace('.',',')) >= float.Parse(min));
             }
-            if (max != null)
+            if (!string.IsNullOrEmpty(max))
             {
                 productList = productList.FindAll(product => float.Parse(product.price.Replace('.', ',')) <= float.Parse(max));
             }
             if (groups != null)
             {
-                productList = productList.FindAll(product => groups.Split(' ').Any(group => product.group.Equals(group)));
+                productList = productList.FindAll(product => groups.Split(' ').Any(group => product.group.ToLower().Equals(group.ToLower())));
             }
             if (sources != null)
             {
-                productList = productList.FindAll(product => sources.Split(' ').Any(source => product.source.Equals(source)));
+                productList = productList.FindAll(product => sources.Split(' ').Any(source => product.source.ToLower().Equals(source.ToLower())));
             }
 
             return productList;

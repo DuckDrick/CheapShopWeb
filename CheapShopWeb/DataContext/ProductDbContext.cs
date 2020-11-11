@@ -1,6 +1,7 @@
 ﻿using CheapShopWeb.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
@@ -11,5 +12,7 @@ namespace CheapShopWeb.DataContext
     {
         public ProductDbContext() : base(nameOrConnectionString: "connection"){}
         public virtual DbSet<Product> Products { get; set; }
+
+        
     }
 }

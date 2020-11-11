@@ -1,0 +1,162 @@
+﻿@using Microsoft.Ajax.Utilities
+@model CheapShopWeb.Models.ProductAndSearchString
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-10 col-lg-8">
+            <form>
+                <div class="card-body row no-gutters align-items-center">
+                    <div class="col-auto">
+                        <i class="h4 text-body"></i>
+                    </div>
+                    <!--end of col-->
+                    <div class="col">
+                        <input class="form-control form-control-lg" type="search" name="searchString" placeholder=@Model.searchString>
+                    </div>
+                    <!--end of col-->
+                    <div class="col-auto">
+                        <button class="btn btn-lg btn-success" name="search"type="submit" >Search</button>
+                    </div>
+                    <!--end of col-->
+                </div>
+            </form>
+        </div>
+        <!--end of col-->
+    </div>
+
+</div>
+
+<div class="row">
+    <div id="wrapper">
+        <div id="first">
+            <div id="boarderdefault">
+                <label for="fname">Nuo:</label><br>
+                <input type="text" name="priceFrom" placeholder="Nuo"><br>
+                <input type="text" name="priceTo" placeholder="Iki"><br>
+            </div>
+            <div id="boarderdefault">
+
+                <input type="checkbox" name="favorite1" />
+                <label for="rde">Rde</label><br>
+                <input type="checkbox" name="favorite1" />
+                <label for="bigbox">Bigbox</label><br>
+
+
+            </div>
+            <Button class="btn btn-lg btn-success" name="filter" type="submit" >Filter</Button>
+        </div>
+        <div id="second">
+            @if(Model.list!=null)
+            {foreach (var item in Model.list)
+            {
+                <div class="productholder">
+                    <img src=@item.plink alt=""/>
+
+                    <div class="productinfo">
+                        <h2>@item.name</h2>
+                        <p>Grupė: @item.item_group</p>
+                    </div>
+
+                    <div class="productprice">
+                        <h2>@item.price</h2>
+                        <a href=@item.link class="btn btn-primary">Link</a>
+                    </div>
+                </div>
+            }}
+
+            @*<div class="productholder">
+                <img src="http://lorempixel.com/100/100" alt=""/>
+
+                <div class="productinfo">
+                    <h2>Product Name</h2>
+                    <p>Shop</p>
+                    <p>Category</p>
+                </div>
+
+                <div class="productprice">
+                    <h2>599.99</h2>
+                    <Button>Link</Button>
+                </div>
+            </div>*@
+
+
+        </div>
+    </div>
+    
+
+    <style>
+        #wrapper {
+            overflow: hidden; /* will contain if #first is longer than #second */
+        }
+
+        #first {
+            float: left; /* add this */
+            border: 2px solid red;
+        }
+
+        #second {
+            height: 100%;
+            border: 2px solid green;
+            overflow: hidden; /* if you don't want #second to wrap below #first */
+        }
+
+        #boarderdefault {
+            @*border: 2px solid red*@
+            margin-bottom: 30px;
+            padding: 10px
+        }
+
+        .full-height {
+            height: 100%;
+        }
+
+        .myDiv {
+            border: 5px outset grey;
+            @*background-color: lightblue;*@
+            text-align: center;
+        }
+
+        .productholder {
+            width: 954px;
+            @* margin-bottom: 30px;
+            background-color: aqua;*@
+            border: 1px solid green;
+        }
+
+        .productholder img {
+            display: inline-block;
+            margin: 50px;
+        }
+
+        .productinfo {
+            border: 1px solid green;
+            display: inline-block;
+            margin: 20px 0;
+            vertical-align: top;
+            width: 500px;
+            color: black;
+            background-color:antiquewhite;
+        }
+
+        .productinfo input {
+            float: right;
+            margin-top: 20px;
+            color: ;
+        }
+
+        .productprice {
+            width: 150px;
+            float: right;
+            margin: 20px;
+            text-align: center;
+        }
+    </style>
+
+</div>
+
+

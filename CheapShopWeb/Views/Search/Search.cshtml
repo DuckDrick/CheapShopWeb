@@ -32,39 +32,63 @@
 </div>
 
 <div class="row">
-    <div id="wrapper">
-        <div id="first">
-            <div id="boarderdefault">
-                <label for="fname">Nuo:</label><br>
-                <input type="text" name="priceFrom" placeholder="Nuo"><br>
-                <input type="text" name="priceTo" placeholder="Iki"><br>
-            </div>
-            <div id="boarderdefault">
+    <div id="wrapper" class="row">
+        <div id="first" class="col-sm-4 col-md-3 col-lg-2">
+            <form>
+                <div class="form-group">
+                    <label for="priceFrom">Min price</label>
+                    <input step=".01" type="number" class="form-control" id="priceFrom" placeholder="Min">
+                </div>
+                <div class="form-group">
+                    <label for="priceTo">Max price</label>
+                    <input step=".01" type="number" class="form-control" id="priceTo" placeholder="Max">
+                </div>
+                <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" id="Rde">
+                    <label class="form-check-label" for="Rde">Rde</label>
+                </div>
+                <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" id="BigBox">
+                    <label class="form-check-label" for="BigBox">BigBox</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
 
-                <input type="checkbox" name="favorite1" />
-                <label for="rde">Rde</label><br>
-                <input type="checkbox" name="favorite1" />
-                <label for="bigbox">Bigbox</label><br>
-
-
-            </div>
-            <Button class="btn btn-lg btn-success" name="filter" type="submit" >Filter</Button>
+            @* <div id="boarderdefault"> *@
+            @*     <label for="fname">Nuo:</label><br> *@
+            @*     <input type="text" name="priceFrom" placeholder="Nuo"><br> *@
+            @*     <input type="text" name="priceTo" placeholder="Iki"><br> *@
+            @* </div> *@
+            @* <div id="boarderdefault"> *@
+            @* *@
+            @*     <input type="checkbox" name="favorite1"/> *@
+            @*     <label for="rde">Rde</label><br> *@
+            @*     <input type="checkbox" name="favorite1"/> *@
+            @*     <label for="bigbox">Bigbox</label><br> *@
+            @* *@
+            @* *@
+            @* </div> *@
+            @* <Button class="btn btn-lg btn-success" name="filter" type="submit">Filter</Button> *@
         </div>
-        <div id="second">
+        <div id="second" class="col-sm-8 col-md-9 col-lg-10">
             @if(Model.list!=null)
             {foreach (var item in Model.list)
             {
-                <div class="productholder">
-                    <img src=@item.plink alt=""/>
+                <div class="container-fluid border border-dark">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-3 border border-danger">
+                            <img class="img-fluid mx-auto d-block" src=@item.plink alt=""/>
+                        </div>
+                        <div class="col-sm-12 col-md-6 border border-primary">
+                            <h2>@item.name</h2>
+                            <p>Grupė: @item.item_group</p>
+                        </div>
 
-                    <div class="productinfo">
-                        <h2>@item.name</h2>
-                        <p>Grupė: @item.item_group</p>
-                    </div>
-
-                    <div class="productprice">
-                        <h2>@item.price</h2>
-                        <a href=@item.link class="btn btn-primary">Link</a>
+                        <div class="col-sm-12 col-md-3">
+                            <h2>@item.price</h2>
+                            <a href=@item.link class="btn btn-primary">Link</a>
+                        </div>
+                        <div class="clearfix"></div>
                     </div>
                 </div>
             }}
@@ -122,7 +146,7 @@
         }
 
         .productholder {
-            width: 954px;
+            width: 800px;
             @* margin-bottom: 30px;
             background-color: aqua;*@
             border: 1px solid green;
@@ -135,10 +159,7 @@
 
         .productinfo {
             border: 1px solid green;
-            display: inline-block;
-            margin: 20px 0;
             vertical-align: top;
-            width: 500px;
             color: black;
             background-color:antiquewhite;
         }
@@ -146,7 +167,6 @@
         .productinfo input {
             float: right;
             margin-top: 20px;
-            color: ;
         }
 
         .productprice {

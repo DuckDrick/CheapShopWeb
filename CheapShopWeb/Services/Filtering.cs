@@ -13,7 +13,7 @@ namespace CheapShopWeb.Services
 
             if (name != null)
             {
-                productList = productList.FindAll(product => product.name.ToLower().Contains(name.ToLower()));
+                productList = productList.FindAll(product => name.ToLower().Split(' ').All(query => product.name.ToLower().Contains(query)));
             }
             if (!string.IsNullOrEmpty(min))
             {

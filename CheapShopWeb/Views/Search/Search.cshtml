@@ -1,5 +1,5 @@
 ﻿@using Microsoft.Ajax.Utilities
-@model CheapShopWeb.Models.ProductAndSearchString
+@model IEnumerable<CheapShopWeb.Models.Product>
 @{
     ViewBag.Title = "Search";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -16,11 +16,11 @@
                     </div>
                     <!--end of col-->
                     <div class="col">
-                        <input class="form-control form-control-lg" type="search" name="searchString" placeholder=@Model.searchString>
+                        <input class="form-control form-control-lg" type="search" name="search" placeholder=@(ViewContext.RouteData.Values["search"])>
                     </div>
                     <!--end of col-->
                     <div class="col-auto">
-                        <button class="btn btn-lg btn-success" name="search"type="submit" >Search</button>
+                        <button class="btn btn-lg btn-success" type="submit">Search</button>
                     </div>
                     <!--end of col-->
                 </div>
@@ -31,10 +31,11 @@
 
 </div>
 
+@if(Model.Count() > 0){
 <div class="row">
     <div id="wrapper" class="row">
         <div id="first" class="col-sm-4 col-md-3 col-lg-2">
-            <form>
+            <form class="border border-dark">
                 <div class="form-group">
                     <label for="priceFrom">Min price</label>
                     <input step=".01" type="number" class="form-control" id="priceFrom" placeholder="Min">
@@ -71,112 +72,38 @@
             @* <Button class="btn btn-lg btn-success" name="filter" type="submit">Filter</Button> *@
         </div>
         <div id="second" class="col-sm-8 col-md-9 col-lg-10">
-            @if(Model.list!=null)
-            {foreach (var item in Model.list)
+            @if (Model != null)
             {
-                <div class="container-fluid border border-dark">
-                    <div class="row">
-                        <div class="col-sm-12 col-md-3 border border-danger">
-                            <img class="img-fluid mx-auto d-block" src=@item.plink alt=""/>
-                        </div>
-                        <div class="col-sm-12 col-md-6 border border-primary">
-                            <h2>@item.name</h2>
-                            <p>Grupė: @item.item_group</p>
-                        </div>
+                foreach (var item in Model)
+                {
+                    <div class="container-fluid border border-dark mb-4">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-3">
+                                <img class="img-fluid mx-auto d-block" src=@item.photo_link alt="" />
+                            </div>
+                            <div class="col-sm-12 col-md-6 border border-primary">
+                                <h2>@item.name</h2>
+                                <p>Grupė: @item.group</p>
+                            </div>
 
-                        <div class="col-sm-12 col-md-3">
-                            <h2>@item.price</h2>
-                            <a href=@item.link class="btn btn-primary">Link</a>
+                            <div class="col-sm-12 col-md-3">
+                                <h2>@item.price</h2>
+                                <a href=@item.product_link class="btn btn-primary">Link</a>
+                            </div>
+                            <div class="clearfix"></div>
                         </div>
-                        <div class="clearfix"></div>
                     </div>
-                </div>
-            }}
-
-            @*<div class="productholder">
-                <img src="http://lorempixel.com/100/100" alt=""/>
-
-                <div class="productinfo">
-                    <h2>Product Name</h2>
-                    <p>Shop</p>
-                    <p>Category</p>
-                </div>
-
-                <div class="productprice">
-                    <h2>599.99</h2>
-                    <Button>Link</Button>
-                </div>
-            </div>*@
-
-
+                }
+            }
         </div>
     </div>
-    
 
-    <style>
-        #wrapper {
-            overflow: hidden; /* will contain if #first is longer than #second */
-        }
 
-        #first {
-            float: left; /* add this */
-            border: 2px solid red;
-        }
-
-        #second {
-            height: 100%;
-            border: 2px solid green;
-            overflow: hidden; /* if you don't want #second to wrap below #first */
-        }
-
-        #boarderdefault {
-            @*border: 2px solid red*@
-            margin-bottom: 30px;
-            padding: 10px
-        }
-
-        .full-height {
-            height: 100%;
-        }
-
-        .myDiv {
-            border: 5px outset grey;
-            @*background-color: lightblue;*@
-            text-align: center;
-        }
-
-        .productholder {
-            width: 800px;
-            @* margin-bottom: 30px;
-            background-color: aqua;*@
-            border: 1px solid green;
-        }
-
-        .productholder img {
-            display: inline-block;
-            margin: 50px;
-        }
-
-        .productinfo {
-            border: 1px solid green;
-            vertical-align: top;
-            color: black;
-            background-color:antiquewhite;
-        }
-
-        .productinfo input {
-            float: right;
-            margin-top: 20px;
-        }
-
-        .productprice {
-            width: 150px;
-            float: right;
-            margin: 20px;
-            text-align: center;
-        }
-    </style>
+   
 
 </div>
+}else{
+<div><p class="h4">Nothing</p></div>
+}
 
 

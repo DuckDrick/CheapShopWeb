@@ -7,13 +7,17 @@ using System.Web;
 
 namespace CheapShopWeb.Models
 {
-    [Table("novastar", Schema = "public")]
+    [Table("product", Schema = "public")]
     public class Product
     {
-        [Key] public string name { get; set; }
-        public string item_group { get; set; }
-        public string link { get; set; }
-        public string plink { get; set; }
+        [Key]
+        public string id { get; set; }
+        public string name { get; set; }
+        public string source { get; set; }
         public string price { get; set; }
+        public string photo_link { get; set; }
+        public string product_link { get; set; }
+        public string group { get; set; }
+     
     }
 }

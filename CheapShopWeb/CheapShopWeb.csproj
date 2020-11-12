@@ -162,7 +162,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="DataContext\ProductDbContext.cs" />
     <Compile Include="Global.asax.cs">
@@ -171,6 +171,7 @@
     <Compile Include="Models\ProductAndSearchString.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Filtering.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="connections.config" />
@@ -313,6 +314,11 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Products\Create.cshtml" />
+    <Content Include="Views\Products\Delete.cshtml" />
+    <Content Include="Views\Products\Details.cshtml" />
+    <Content Include="Views\Products\Edit.cshtml" />
+    <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\Product\Product.cshtml" />
     <Content Include="Views\Search\Search.cshtml" />
   </ItemGroup>

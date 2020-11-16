@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using CheapShopWeb.Models;
+using Comparison_shopping_engine;
 
 namespace CheapShopWeb.Services
 {
@@ -23,9 +24,15 @@ namespace CheapShopWeb.Services
             {
                 productList = productList.FindAll(product => float.Parse(product.price.Replace('.', ',')) <= float.Parse(max));
             }
-            if (groups != null)
+            if (!string.IsNullOrEmpty(groups))
             {
-                productList = productList.FindAll(product => groups.Split(' ').Any(group => product.group.ToLower().Equals(group.ToLower())));
+
+                var method = typeof(SmallerGroups).GetMethod(groups+"Group");
+                var smallerGroupList = (List<string>)method.Invoke(new SmallerGroups(), null);
+
+                productList = productList.FindAll(product =>
+                        smallerGroupList.Any(group => product.group.ToLower().Equals(group.ToLower())));
+
             }
             if (sources != null)
             {

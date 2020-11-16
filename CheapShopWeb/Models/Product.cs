@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -8,7 +9,7 @@ using System.Web;
 namespace CheapShopWeb.Models
 {
     [Table("product", Schema = "public")]
-    public class Product
+    public class Product : IEnumerable
     {
         [Key]
         public string id { get; set; }
@@ -18,6 +19,10 @@ namespace CheapShopWeb.Models
         public string photo_link { get; set; }
         public string product_link { get; set; }
         public string group { get; set; }
-     
+
+        public IEnumerator GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

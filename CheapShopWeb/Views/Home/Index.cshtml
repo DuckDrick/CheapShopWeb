@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-{
+
     <div class="jumbotron">
         <blockquote class="blockquote">
             <p class="mb-0 font-weight-bold font-italic">If you would be wealthy, think of saving as well as getting.</p>
@@ -37,87 +37,217 @@
         </div>
 
     </div>
-}
+
 <div class="row">
     <div class="col-lg-3 col-md-6">
+        
         <div class="card">
-            <img class="card-img-top img-fluid" src="//placehold.it/500x200" alt="Card image cap">
+            <a href=@Url.Action( "SearchGroup", "Search", new { group = "Computer"}, null)>
+                <img class="card-img-top img-fluid" src="~/Content/Images/computer.jfif" alt="Card image cap">
+            </a>
             <div class="card-block">
-                <h4 class="card-title">Computers</h4>
-                <p class="card-text">Computers, laptops, accessories and other useful products in the category of computers</p>
+                <a href=@Url.Action( "SearchGroup", "Search", new { group = "Computer"}, null)>
+                    <h4 class="card-title">Computers</h4>
+                </a>
+                <p class="card-text">Computers, laptops, games, accessories for computers</p>
                 <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
             </div>
         </div>
     </div>
     <div class="col-lg-3 col-md-6">
         <div class="card">
-            <img class="card-img-top img-fluid" src="//placehold.it/500x200" alt="Card image cap">
+            <a href=@Url.Action( "SearchGroup", "Search", new { group = "Phone"}, null)>
+            <img class="card-img-top img-fluid" src="~/Content/Images/phone.jpg" alt="Card image cap">
+            </a>
+                <div class="card-block">
+                    <a href=@Url.Action("SearchGroup", "Search", new {group = "Phone"}, null)>
+                        <h4 class="card-title">Phones</h4>
+                    </a>
+                    <p class="card-text">Phones and phone accessories</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="card">
+            <a href=@Url.Action( "SearchGroup", "Search", new { group = "Camera"}, null)>
+            <img class="card-img-top img-fluid" src="~/Content/Images/camera.jpg" alt="Card image cap">
+            </a>
             <div class="card-block">
-                <h4 class="card-title">Phones</h4>
-                <p class="card-text">Huawei, IPhone, Samsung and lots of other brands of phones as well as phone accessories</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                <a href=@Url.Action( "SearchGroup", "Search", new { group = "Camera"}, null)>
+                <h4 class="card-title">Camera, Video</h4>
+                </a>
+                    <p class="card-text">Photo cameras, lenses, video cameras, accessories</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
             </div>
         </div>
     </div>
     <div class="col-lg-3 col-md-6">
         <div class="card">
-            <img class="card-img-top img-fluid" src="//placehold.it/500x200" alt="Card image cap">
+            <a href=@Url.Action( "SearchGroup", "Search", new { group = "Furniture"}, null)>
+            <img class="card-img-top img-fluid" src="~/Content/Images/furniture.jpg" alt="Card image cap">
+            </a>
             <div class="card-block">
-                <h4 class="card-title">Foto and video</h4>
-                <p class="card-text">Some text</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-6">
-        <div class="card">
-            <img class="card-img-top img-fluid" src="//placehold.it/500x200" alt="Card image cap">
-            <div class="card-block">
+                <a href=@Url.Action( "SearchGroup", "Search", new { group = "Furniture"}, null)>
                 <h4 class="card-title">Furniture</h4>
-                <p class="card-text">Some text</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </a>
+                    <p class="card-text">Some text</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
             </div>
         </div>
     </div>
     <div class="col-lg-3 col-md-6">
         <div class="card">
-            <img class="card-img-top img-fluid" src="//placehold.it/500x200" alt="Card image cap">
-            <div class="card-block">
-                <h4 class="card-title">Audio</h4>
-                <p class="card-text">Some text</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-            </div>
+            <a href=@Url.Action( "SearchGroup", "Search", new { group = "Audio"}, null)>
+            <img class="card-img-top img-fluid" src="~/Content/Images/audio.jpg" alt="Card image cap">
+            </a>
+                <div class="card-block">
+                    <a href=@Url.Action( "SearchGroup", "Search", new { group = "Audio"}, null)>
+                    <h4 class="card-title">Audio</h4>
+                    </a>
+                        <p class="card-text">Some text</p>
+                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
         </div>
     </div>
     <div class="col-lg-3 col-md-6">
         <div class="card">
-            <img class="card-img-top img-fluid" src="//placehold.it/500x200" alt="Card image cap">
+            <a href=@Url.Action( "SearchGroup", "Search", new { group = "Clothing"}, null)>
+            <img class="card-img-top img-fluid" src="~/Content/Images/clothing.jpg" alt="Card image cap">
+            </a>
             <div class="card-block">
+                <a href=@Url.Action( "SearchGroup", "Search", new { group = "Clothing"}, null)>
                 <h4 class="card-title">Clothing</h4>
-                <p class="card-text">Some text</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </a>
+                    <p class="card-text">Some text</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
             </div>
         </div>
     </div>
     <div class="col-lg-3 col-md-6">
         <div class="card">
-            <img class="card-img-top img-fluid" src="//placehold.it/500x200" alt="Card image cap">
+            <a href=@Url.Action( "SearchGroup", "Search", new { group = "Car"}, null)>
+            <img class="card-img-top img-fluid" src="~/Content/Images/car.jpg" alt="Card image cap">
+            </a>
             <div class="card-block">
-                <h4 class="card-title">Card title</h4>
-                <p class="card-text">Some text</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                <a href=@Url.Action( "SearchGroup", "Search", new { group = "Car"}, null)>
+                <h4 class="card-title">Car parts</h4>
+                </a>
+                    <p class="card-text">Some text</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
             </div>
         </div>
     </div>
     <div class="col-lg-3 col-md-6">
         <div class="card">
-            <img class="card-img-top img-fluid" src="//placehold.it/500x200" alt="Card image cap">
+            <a href=@Url.Action( "SearchGroup", "Search", new { group = "Household"}, null)>
+            <img class="card-img-top img-fluid" src="~/Content/Images/household.jpg" alt="Card image cap">
+            </a>
             <div class="card-block">
-                <h4 class="card-title">Card title</h4>
-                <p class="card-text">Some text</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                <a href=@Url.Action( "SearchGroup", "Search", new { group = "Household"}, null)>
+                <h4 class="card-title">Household supplies</h4>
+                </a>
+                    <p class="card-text">Some text</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
             </div>
         </div>
     </div>
-
+    <div class="col-lg-3 col-md-6">
+        <div class="card">
+            <a href=@Url.Action( "SearchGroup", "Search", new { group = "Garden"}, null)>
+            <img class="card-img-top img-fluid" src="~/Content/Images/garden.jpg" alt="Card image cap">
+            </a>
+            <div class="card-block">
+                <a href=@Url.Action( "SearchGroup", "Search", new { group = "Garden"}, null)>
+                <h4 class="card-title">Garden supplies</h4>
+                </a>
+                    <p class="card-text">Some text</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+</div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="card">
+            <a href=@Url.Action( "SearchGroup", "Search", new { group = "Kids"}, null)>
+            <img class="card-img-top img-fluid" src="~/Content/Images/kids.jpg" alt="Card image cap">
+            </a>
+            <div class="card-block">
+                <a href=@Url.Action( "SearchGroup", "Search", new { group = "Kids"}, null)>
+                <h4 class="card-title">Children's goods</h4>
+                </a>
+                    <p class="card-text">Toys, clothes</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="card">
+            <a href=@Url.Action( "SearchGroup", "Search", new { group = "Animals"}, null)>
+            <img class="card-img-top img-fluid" src="~/Content/Images/animals.png" alt="Card image cap">
+            </a>
+            <div class="card-block">
+                <a href=@Url.Action( "SearchGroup", "Search", new { group = "Animals"}, null)>
+                <h4 class="card-title">Animal goods</h4>
+                </a>
+                    <p class="card-text">Some text</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="card">
+            <a href=@Url.Action( "SearchGroup", "Search", new { group = "Beauty"}, null)>
+            <img class="card-img-top img-fluid" src="~/Content/Images/makeup.jfif" alt="Card image cap">
+            </a>
+            <div class="card-block">
+                <a href=@Url.Action( "SearchGroup", "Search", new { group = "Beauty"}, null)>
+                <h4 class="card-title">Makeup and Beauty</h4>
+                </a>
+                    <p class="card-text">Some text</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="card">
+            <a href=@Url.Action( "SearchGroup", "Search", new { group = "Stationery"}, null)>
+            <img class="card-img-top img-fluid" src="~/Content/Images/stationery.jfif" alt="Card image cap">
+            </a>
+            <div class="card-block">
+                <a href=@Url.Action( "SearchGroup", "Search", new { group = "Stationery"}, null)>
+                <h4 class="card-title">Stationery supplies</h4>
+                </a>
+                    <p class="card-text">Some text</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="card">
+            <a href=@Url.Action( "SearchGroup", "Search", new { group = "Books"}, null)>
+            <img class="card-img-top img-fluid" src="~/Content/Images/books.jpg" alt="Card image cap">
+            </a>
+            <div class="card-block">
+                <a href=@Url.Action( "SearchGroup", "Search", new { group = "Books"}, null)>
+                <h4 class="card-title">Books</h4>
+                </a>
+                    <p class="card-text">Some text</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="card">
+            <a href=@Url.Action( "SearchGroup", "Search", new { group = "Leisure"}, null)>
+            <img class="card-img-top img-fluid" src="~/Content/Images/leisure.jpg" alt="Card image cap">
+            </a>
+            <div class="card-block">
+                <a href=@Url.Action( "SearchGroup", "Search", new { group = "Leisure"}, null)>
+                    <h4 class="card-title">Leisure</h4>
+                </a>
+                    <p class="card-text">Some text</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            </div>
+        </div>
+    </div>
 </div>

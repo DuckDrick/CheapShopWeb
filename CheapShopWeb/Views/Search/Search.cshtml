@@ -16,7 +16,7 @@
                     </div>
                     <!--end of col-->
                     <div class="col">
-                        <input class="form-control form-control-lg" type="search" name="search" placeholder="@Request.Params["search"]">
+                        <input class="form-control form-control-lg" type="search" name="search" value="@Request.Params["search"]">
                     </div>
                     <!--end of col-->
                     <div class="col-auto">
@@ -94,22 +94,26 @@
 <div><p class="h4">Nothing</p></div>
 }
 
-
+ 
 @section scripts{
     <script type="text/javascript">
-        $("#form1").submit(function (e) {
+        $("#form1").submit(function(e) {
             e.preventDefault();
 
             var yourArray = [];
-            $("input:checkbox[name=group]:checked").each(function(){
+            //function() { yourArray.push($("input:number[name=priceFrom]").val()) };
+
+            //function() { yourArray.push($("input:number[name=priceTo]").val()) };
+
+            $("input:checkbox[name=group]:checked").each(function() {
                 yourArray.push($(this).val());
             });
             var key = encodeURIComponent("source");
-            var value = encodeURIComponent(yourArray)
+            var value = encodeURIComponent(yourArray);
             var kvp = document.location.search.substr(1).split('&');
-            var i=0;
+            var i = 0;
             console.log(kvp)
-            for(; i<kvp.length; i++){
+            for (; i < kvp.length; i++) {
                 if (kvp[i].startsWith(key + '=')) {
                     var pair = kvp[i].split('=');
                     pair[1] = value;
@@ -117,8 +121,8 @@
                     break;
                 }
             }
-            if(i >= kvp.length){
-                kvp[kvp.length] = [key,value].join('=');
+            if (i >= kvp.length) {
+                kvp[kvp.length] = [key, value].join('=');
             }
             var params = kvp.join('&');
             document.location.search = params;

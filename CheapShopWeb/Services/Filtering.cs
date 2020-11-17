@@ -36,7 +36,7 @@ namespace CheapShopWeb.Services
             }
             if (sources != null)
             {
-                productList = productList.FindAll(product => sources.Split(' ').Any(source => product.source.ToLower().Equals(source.ToLower())));
+                productList = productList.FindAll(product => sources.Split(',').Any(source => product.source.ToLower().Equals(source.ToLower())));
             }
 
             return productList;

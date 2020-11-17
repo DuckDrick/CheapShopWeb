@@ -35,7 +35,8 @@
 {
     <div class="row">
         <div class="col-sm-4 col-md-3 col-lg-2">
-            <form class="border border-dark">
+            <form id="form1" class="border border-dark">
+
                 <div class="form-group">
                     <label for="priceFrom">Min price</label>
                     <input step=".01" type="number" class="form-control" name="priceFrom" placeholder="Min">
@@ -44,23 +45,23 @@
                     <label for="priceTo">Max price</label>
                     <input step=".01" type="number" class="form-control" name="priceTo" placeholder="Max">
                 </div>
-                <div class="form-group form-check">
-                    <input type="checkbox" class="form-check-input" id="Rde" value="Rde">Rde<br />
+                <div class="form-group form-check" name="group">
+                    <input type="checkbox" class="form-check-input" id="Rde" name="group" value="Rde">Rde<br />
 
-                    <input type="checkbox" class="form-check-input" id="Bigbox" value="Bigbox">Bigbox<br />
-                    <input type="checkbox" class="form-check-input" id="Pigu" value="Pigu">Pigu<br />
-                    <input type="checkbox" class="form-check-input" id="Senukai" value="Senukai">Senukai<br />
-                    <input type="checkbox" class="form-check-input" id="Autoaibe" value="Autoaibe">Autoaibe<br />
-                    <input type="checkbox" class="form-check-input" id="Topocentras" value="Topocentras">Topocentras<br />
-                    <input type="checkbox" class="form-check-input" id="Ermitazas" value="Ermitazas">Ermitazas<br />
-                    <input type="checkbox" class="form-check-input" id="Skytech" value="Skytech">Skytech<br />
-                    <input type="checkbox" class="form-check-input" id="Varle" value="Varle">Varle<br />
-                    <input type="checkbox" class="form-check-input" id="Eoltas" value="Eoltas">Eoltas<br />
-                    <input type="checkbox" class="form-check-input" id="Novastar" value="Novastar">Novastar<br />
+                    <input type="checkbox" class="form-check-input" name="group" id="Bigbox" value="Bigbox">Bigbox<br />
+                    <input type="checkbox" class="form-check-input" name="group" id="Pigu" value="Pigu">Pigu<br />
+                    <input type="checkbox" class="form-check-input" name="group" id="Senukai" value="Senukai">Senukai<br />
+                    <input type="checkbox" class="form-check-input" name="group" id="Autoaibe" value="Autoaibe">Autoaibe<br />
+                    <input type="checkbox" class="form-check-input" name="group" id="Topocentras" value="Topocentras">Topocentras<br />
+                    <input type="checkbox" class="form-check-input" name="group" id="Ermitazas" value="Ermitazas">Ermitazas<br />
+                    <input type="checkbox" class="form-check-input" name="group" id="Skytech" value="Skytech">Skytech<br />
+                    <input type="checkbox" class="form-check-input" name="group" id="Varle" value="Varle">Varle<br />
+                    <input type="checkbox" class="form-check-input" name="group" id="Eoltas" value="Eoltas">Eoltas<br />
+                    <input type="checkbox" class="form-check-input" name="group" id="Novastar" value="Novastar">Novastar<br />
 
 
                 </div>
-                <button onclick=@Url.Action("Search", "Search", new { search=@Request.QueryString["search"]}, null)>Filter</Button>
+                <button type="submit">Filter</button>
             </form>
         </div>
         <div class="col-sm-8 col-md-9 col-lg-10">
@@ -94,3 +95,32 @@
 }
 
 
+@section scripts{
+    <script type="text/javascript">
+        $("#form1").submit(function (e) {
+            e.preventDefault();
+
+            var yourArray = [];
+            $("input:checkbox[name=group]:checked").each(function(){
+                yourArray.push($(this).val());
+            });
+            var key = encodeURIComponent("source");
+            var value = encodeURIComponent(yourArray)
+            var kvp = document.location.search.substr(1).split('&');
+            var i=0;
+            console.log(kvp)
+            for(; i<kvp.length; i++){
+                if (kvp[i].startsWith(key + '=')) {
+                    var pair = kvp[i].split('=');
+                    pair[1] = value;
+                    kvp[i] = pair.join('=');
+                    break;
+                }
+            }
+            if(i >= kvp.length){
+                kvp[kvp.length] = [key,value].join('=');
+            }
+            var params = kvp.join('&');
+            document.location.search = params;
+        });
+    </script>}

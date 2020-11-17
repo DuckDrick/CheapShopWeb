@@ -20,6 +20,7 @@ namespace CheapShopWeb.Controllers
             return View(Filtering.Filter(db.Products.ToList(), search, priceFrom, priceTo, group, source));
         }
 
+
         public ActionResult SearchGroup(string group)
         {
             return View(Filtering.Filter(db.Products.ToList(), null, null, null, group, null));

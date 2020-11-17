@@ -1,4 +1,5 @@
-﻿@using Microsoft.Ajax.Utilities
+﻿@using CheapShopWeb.Models
+@using Microsoft.Ajax.Utilities
 @model IEnumerable<CheapShopWeb.Models.Product>
 @{
     ViewBag.Title = "Search";
@@ -37,21 +38,29 @@
             <form class="border border-dark">
                 <div class="form-group">
                     <label for="priceFrom">Min price</label>
-                    <input step=".01" type="number" class="form-control" id="priceFrom" placeholder="Min">
+                    <input step=".01" type="number" class="form-control" name="priceFrom" placeholder="Min">
                 </div>
                 <div class="form-group">
                     <label for="priceTo">Max price</label>
-                    <input step=".01" type="number" class="form-control" id="priceTo" placeholder="Max">
+                    <input step=".01" type="number" class="form-control" name="priceTo" placeholder="Max">
                 </div>
                 <div class="form-group form-check">
-                    <input type="checkbox" class="form-check-input" id="Rde">
-                    <label class="form-check-label" for="Rde">Rde</label>
+                    <input type="checkbox" class="form-check-input" id="Rde" value="Rde">Rde<br />
+
+                    <input type="checkbox" class="form-check-input" id="Bigbox" value="Bigbox">Bigbox<br />
+                    <input type="checkbox" class="form-check-input" id="Pigu" value="Pigu">Pigu<br />
+                    <input type="checkbox" class="form-check-input" id="Senukai" value="Senukai">Senukai<br />
+                    <input type="checkbox" class="form-check-input" id="Autoaibe" value="Autoaibe">Autoaibe<br />
+                    <input type="checkbox" class="form-check-input" id="Topocentras" value="Topocentras">Topocentras<br />
+                    <input type="checkbox" class="form-check-input" id="Ermitazas" value="Ermitazas">Ermitazas<br />
+                    <input type="checkbox" class="form-check-input" id="Skytech" value="Skytech">Skytech<br />
+                    <input type="checkbox" class="form-check-input" id="Varle" value="Varle">Varle<br />
+                    <input type="checkbox" class="form-check-input" id="Eoltas" value="Eoltas">Eoltas<br />
+                    <input type="checkbox" class="form-check-input" id="Novastar" value="Novastar">Novastar<br />
+
+
                 </div>
-                <div class="form-group form-check">
-                    <input type="checkbox" class="form-check-input" id="BigBox">
-                    <label class="form-check-label" for="BigBox">BigBox</label>
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button onclick=@Url.Action("Search", "Search", new { search=@Request.QueryString["search"]}, null)>Filter</Button>
             </form>
         </div>
         <div class="col-sm-8 col-md-9 col-lg-10">

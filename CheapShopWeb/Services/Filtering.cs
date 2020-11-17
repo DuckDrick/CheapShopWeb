@@ -41,5 +41,23 @@ namespace CheapShopWeb.Services
 
             return productList;
         }
+
+        public static List<Product> GetSimilarProducts(List<Product> productList, Product prod)
+        {
+
+            //nezinau ka darau
+            List<Product> newlist= new List<Product>();
+            newlist.Add(prod);
+            string[] searchString = prod.name.Split(' ');
+            if (!string.IsNullOrEmpty(prod.name))
+            {
+                foreach (var product in productList)
+                {
+                    
+                }
+            }
+
+            return newlist;
+        }
     }
 }

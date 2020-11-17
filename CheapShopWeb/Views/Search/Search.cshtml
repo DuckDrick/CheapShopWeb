@@ -31,7 +31,7 @@
 
 </div>
 
-@if(Model.Count() > 0 && !string.IsNullOrWhiteSpace(@Request.Params["search"]))
+@if (Model.Count() > 0 && !string.IsNullOrWhiteSpace(@Request.Params["search"]))
 {
     <div class="row">
         <div class="col-sm-4 col-md-3 col-lg-2">
@@ -60,7 +60,8 @@
 
 
                 </div>
-                <button onclick=@Url.Action("Search", "Search", new { search=@Request.QueryString["search"]}, null)>Filter</Button>
+                @*<button onclick=@Url.Action("Search", "Search", new { search=@Request.QueryString["search"]}, null)>Filter</button>*@
+            <button>@RenderSection("scripts")</button>
             </form>
         </div>
         <div class="col-sm-8 col-md-9 col-lg-10">
@@ -89,8 +90,40 @@
             }
         </div>
     </div>
-}else{
-<div><p class="h4">Nothing</p></div>
+}
+else
+{
+    <div><p class="h4">Nothing</p></div>
 }
 
 
+@section scripts{
+    <script type="text/javascript">
+        $("#Search").submit(function (e) {
+            e.preventDefault();
+
+            var yourArray = [];
+            $("input:checkbox[name=group]:checked").each(function () {
+                yourArray.push($(this).val());
+            });
+            var key = encodeURIComponent("source");
+            var value = encodeURIComponent(yourArray)
+            var kvp = document.location.search.substr(1).split('&');
+            var i = 0;
+            console.log(kvp)
+            for (; i < kvp.length; i++) {
+                if (kvp[i].startsWith(key + '=')) {
+                    var pair = kvp[i].split('=');
+                    pair[1] = value;
+                    kvp[i] = pair.join('=');
+                    break;
+                }
+            }
+            if (i >= kvp.length) {
+                kvp[kvp.length] = [key, value].join('=');
+            }
+            var params = kvp.join('&');
+            document.location.search = params;
+        });
+    </script>
+}

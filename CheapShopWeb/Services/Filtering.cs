@@ -19,23 +19,27 @@ namespace CheapShopWeb.Services
             }
             if (!string.IsNullOrEmpty(min)&&!(min.Equals("")))
             {
-                productList = productList.FindAll(product => float.Parse(product.price.Replace('.',',')) >= float.Parse(min));
+                productList = productList.FindAll(product => float.Parse(product.price.Replace('.',',')) >= float.Parse(min)*100);
             }
             if (!string.IsNullOrEmpty(max)&&!(max.Equals("")))
             {
-                productList = productList.FindAll(product => float.Parse(product.price.Replace('.', ',')) <= float.Parse(max));
+                productList = productList.FindAll(product => float.Parse(product.price.Replace('.', ',')) <= float.Parse(max)*100);
             }
             if (!string.IsNullOrEmpty(groups))
             {
-
-                var method = typeof(SmallerGroups).GetMethod(groups+"Group");
-                if (!(method == null))
+                var smallergroups = groups.Split(',');
+                foreach (var sgroup in smallergroups)
                 {
-                    var smallerGroupList = (List<string>) method.Invoke(new SmallerGroups(), null);
+                    var method = typeof(SmallerGroups).GetMethod(sgroup + "Group");
+                    if (!(method == null))
+                    {
+                        var smallerGroupList = (List<string>)method.Invoke(new SmallerGroups(), null);
 
-                    productList = productList.FindAll(product =>
-                        smallerGroupList.Any(group => product.group.ToLower().Equals(group.ToLower())));
+                        productList = productList.FindAll(product =>
+                            smallerGroupList.Any(group => product.group.ToLower().Equals(group.ToLower())));
+                    }
                 }
+
             }
             if (!string.IsNullOrEmpty(sources))
             {

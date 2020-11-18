@@ -35,31 +35,47 @@
 {
     <div class="row">
         <div class="col-sm-4 col-md-3 col-lg-2">
-            <form id="form1" class="border border-dark">
+            <form id="form1" class="form1"> @*border border-dark*@
 
                 <div class="form-group">
                     <label for="priceFrom">Min price</label>
-                    <input step=".01" type="number" class="form-control" id="priceFrom" name="priceFrom" placeholder="Min">
+                    <input step=".01" type="number"onchange="(function(el){el.value=parseFloat(el.value).toFixed(2);})(this)" class="form-control" id="priceFrom" name="priceFrom" placeholder="@Request.Params["priceFrom"]">
                 </div>
                 <div class="form-group">
                     <label for="priceTo">Max price</label>
-                    <input step=".01" type="number" class="form-control" id="priceTo" name="priceTo" placeholder="Max">
+                    <input step=".01" type="number"onchange="(function(el){el.value=parseFloat(el.value).toFixed(2);})(this)" class="form-control" id="priceTo" name="priceTo" placeholder="@Request.Params["priceTo"]">
                 </div>
+                <p>Sources:</p>
+                <div class="form-group form-check" name="source">
+                    <input type="checkbox" class="form-check-input" id="Rde" name="source" value="Rde">Rde<br />
+                    <input type="checkbox" class="form-check-input" name="source" id="Bigbox" value="Bigbox">Bigbox<br />
+                    <input type="checkbox" class="form-check-input" name="source" id="Pigu" value="Pigu">Pigu<br />
+                    <input type="checkbox" class="form-check-input" name="source" id="Senukai" value="Senukai">Senukai<br />
+                    <input type="checkbox" class="form-check-input" name="source" id="Autoaibe" value="Autoaibe">Autoaibe<br />
+                    <input type="checkbox" class="form-check-input" name="source" id="Topocentras" value="Topocentras">Topocentras<br />
+                    <input type="checkbox" class="form-check-input" name="source" id="Ermitazas" value="Ermitazas">Ermitazas<br />
+                    <input type="checkbox" class="form-check-input" name="source" id="Skytech" value="Skytech">Skytech<br />
+                    <input type="checkbox" class="form-check-input" name="source" id="Varle" value="Varle">Varle<br />
+                    <input type="checkbox" class="form-check-input" name="source" id="Eoltas" value="Eoltas">Eoltas<br />
+                    <input type="checkbox" class="form-check-input" name="source" id="Novastar" value="Novastar">Novastar<br />
+                </div>
+                <p>Groups:</p>
                 <div class="form-group form-check" name="group">
-                    <input type="checkbox" class="form-check-input" id="Rde" name="group" value="Rde">Rde<br />
-
-                    <input type="checkbox" class="form-check-input" name="group" id="Bigbox" value="Bigbox">Bigbox<br />
-                    <input type="checkbox" class="form-check-input" name="group" id="Pigu" value="Pigu">Pigu<br />
-                    <input type="checkbox" class="form-check-input" name="group" id="Senukai" value="Senukai">Senukai<br />
-                    <input type="checkbox" class="form-check-input" name="group" id="Autoaibe" value="Autoaibe">Autoaibe<br />
-                    <input type="checkbox" class="form-check-input" name="group" id="Topocentras" value="Topocentras">Topocentras<br />
-                    <input type="checkbox" class="form-check-input" name="group" id="Ermitazas" value="Ermitazas">Ermitazas<br />
-                    <input type="checkbox" class="form-check-input" name="group" id="Skytech" value="Skytech">Skytech<br />
-                    <input type="checkbox" class="form-check-input" name="group" id="Varle" value="Varle">Varle<br />
-                    <input type="checkbox" class="form-check-input" name="group" id="Eoltas" value="Eoltas">Eoltas<br />
-                    <input type="checkbox" class="form-check-input" name="group" id="Novastar" value="Novastar">Novastar<br />
-
-
+                    <input type="checkbox" class="form-check-input" name="group" id="Computer" value="Computer">Computer<br />
+                    <input type="checkbox" class="form-check-input" name="group" id="Phone" value="Phone">Phone<br />
+                    <input type="checkbox" class="form-check-input" name="group" id="Garden" value="Garden">Garden<br />
+                    <input type="checkbox" class="form-check-input" name="group" id="Leisure" value="Leisure">Leisure<br />
+                    <input type="checkbox" class="form-check-input" name="group" id="Books" value="Books">Books<br />
+                    <input type="checkbox" class="form-check-input" name="group" id="Car" value="Car">Car<br />
+                    <input type="checkbox" class="form-check-input" name="group" id="Stationery" value="Stationery">Stationery<br />
+                    <input type="checkbox" class="form-check-input" name="group" id="Animals" value="Animals">Animals<br />
+                    <input type="checkbox" class="form-check-input" name="group" id="Camera" value="Camera">Camera<br />
+                    <input type="checkbox" class="form-check-input" name="group" id="Audio" value="Audio">Audio<br />
+                    <input type="checkbox" class="form-check-input" name="group" id="Beauty" value="Beauty">Beauty<br />
+                    <input type="checkbox" class="form-check-input" name="group" id="Household" value="Household">Household<br />
+                    <input type="checkbox" class="form-check-input" name="group" id="Furniture" value="Furniture">Furniture<br />
+                    <input type="checkbox" class="form-check-input" name="group" id="Clothing" value="Clothing">Clothing<br />
+                    <input type="checkbox" class="form-check-input" name="group" id="Kids" value="Kids">Kids<br />
                 </div>
                 <button type="submit">Filter</button>
             </form>
@@ -77,6 +93,7 @@
                             <div class="col-sm-12 col-md-6 border border-primary">
                                 <h2>@item.name</h2>
                                 <p>Grupė: @item.group</p>
+                                <p>Šaltinis: @item.source</p>
                             </div>
 
                             <div class="col-sm-12 col-md-3">
@@ -95,18 +112,36 @@
 }
 
  
+<style>
+    .form1{
+        padding: 5px;
+    }
+
+</style>
 @section scripts{
     <script type="text/javascript">
         var kvp = [];
+        var params = [];
         $("#form1").submit(function(e) {
             e.preventDefault();
             kvp = document.location.search.substr(1).split('&');
             var sources = [];
-            $("input:checkbox[name=group]:checked").each(function() {
+            $("input:checkbox[name=source]:checked").each(function () {
+                
                 sources.push($(this).val());
+                //$(this).prop("checked", false);
             });
+            
+            var group = [];
+            $("input:checkbox[name=group]:checked").each(function () {
+                
+                group.push($(this).val());
+                //$(this).prop("checked", false);
+            });
+            
 
             addParameter("source", sources);
+            addParameter("group", group);
 
             var fromprice = document.getElementById("priceFrom").value;
             addParameter("priceFrom", fromprice);
@@ -114,7 +149,7 @@
             var toprice = document.getElementById("priceTo").value;
             addParameter("priceTo", toprice);
           
-            var params = kvp.join('&');
+            params = kvp.join('&');
             console.log(params);
             document.location.search = params;
         });

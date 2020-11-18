@@ -39,11 +39,11 @@
 
                 <div class="form-group">
                     <label for="priceFrom">Min price</label>
-                    <input step=".01" type="number"onchange="(function(el){el.value=parseFloat(el.value).toFixed(2);})(this)" class="form-control" id="priceFrom" name="priceFrom" placeholder="@Request.Params["priceFrom"]">
+                    <input step=".01"min="0" type="number"onchange="(function(el){el.value=parseFloat(el.value).toFixed(2);})(this)" class="form-control" id="priceFrom" name="priceFrom" placeholder="@Request.Params["priceFrom"]">
                 </div>
                 <div class="form-group">
                     <label for="priceTo">Max price</label>
-                    <input step=".01" type="number"onchange="(function(el){el.value=parseFloat(el.value).toFixed(2);})(this)" class="form-control" id="priceTo" name="priceTo" placeholder="@Request.Params["priceTo"]">
+                    <input step=".01"min="0" type="number"onchange="(function(el){el.value=parseFloat(el.value).toFixed(2);})(this)" class="form-control" id="priceTo" name="priceTo" placeholder="@Request.Params["priceTo"]">
                 </div>
                 <p>Sources:</p>
                 <div class="form-group form-check" name="source">

@@ -10,8 +10,10 @@ namespace CheapShopWeb.Services
 {
     public class Filtering
     {
+
         public static List<Product> Filter(List<Product> productList, string name, string min, string max, string groups, string sources)
         {
+
 
             if (name != null)
             {
@@ -19,11 +21,11 @@ namespace CheapShopWeb.Services
             }
             if (!string.IsNullOrEmpty(min)&&!(min.Equals("")))
             {
-                productList = productList.FindAll(product => float.Parse(product.price.Replace('.',',')) >= float.Parse(min)*100);
+                productList = productList.FindAll(product => float.Parse(product.price.Replace('.',',')) >= SToFFunc(min));
             }
             if (!string.IsNullOrEmpty(max)&&!(max.Equals("")))
             {
-                productList = productList.FindAll(product => float.Parse(product.price.Replace('.', ',')) <= float.Parse(max)*100);
+                productList = productList.FindAll(product => float.Parse(product.price.Replace('.', ',')) <= SToFFunc(max));
             }
             if (!string.IsNullOrEmpty(groups))
             {
@@ -66,5 +68,11 @@ namespace CheapShopWeb.Services
 
             return newlist;
         }
+        
+        public static Func<string, float> SToFFunc = num =>  //string to float function for lambda expression // makes number string comparable
+        {
+            float n = float.Parse(num) * 100;
+            return n;
+        };
     }
 }

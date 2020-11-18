@@ -1,5 +1,7 @@
-﻿@using Microsoft.Ajax.Utilities
-@model IEnumerable<CheapShopWeb.Models.Product>
+﻿@using System.Diagnostics
+@using Microsoft.Ajax.Utilities
+@model PagedList.IPagedList<CheapShopWeb.Models.Product>
+@using PagedList.Mvc
 @{
     ViewBag.Title = "Search";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -79,7 +81,60 @@
                 }
             }
         </div>
+        <br />
+        @{
+
+
+            var search = ViewBag.search;
+            var priceFrom = ViewBag.priceFrom;
+            var priceTo = ViewBag.priceTo;
+            var group = ViewBag.group;
+            var source = ViewBag.source;
+            var parameters = new RouteValueDictionary();
+            if (search != null)
+            {
+                parameters.Add("search", search);
+            }
+            if (priceFrom != null)
+            {
+                parameters.Add("priceFrom", priceFrom);
+            }
+            if (priceTo != null)
+            {
+                parameters.Add("priceTo", priceTo);
+            }
+            if (group != null)
+            {
+                parameters.Add("group", group);
+            }
+            if (source != null)
+            {
+                parameters.Add("source", source);
+            }
+
+
+            RouteValueDictionary generateRouteValues(int page)
+            {
+                if (parameters.ContainsKey("page"))
+                {
+                    parameters["page"] = page;
+                }
+                else
+                {
+                    parameters.Add("page", page);
+                }
+               
+                return parameters;
+            }
+
+        }
+        <div class ="mx-auto">
+
+        @Html.PagedListPager(Model, page => Url.Action("Search",
+            generateRouteValues(page)))
     </div>
+    </div>
+   
 }else{
 <div><p class="h4">Nothing</p></div>
 }

@@ -16,7 +16,7 @@
                     </div>
                     <!--end of col-->
                     <div class="col">
-                        <input class="form-control form-control-lg" type="search" name="search" value="@Request.Params["search"]">
+                        <input class="form-control form-control-lg" type="search" name="search" placeholder="@Request.Params["search"]">
                     </div>
                     <!--end of col-->
                     <div class="col-auto">
@@ -39,11 +39,11 @@
 
                 <div class="form-group">
                     <label for="priceFrom">Min price</label>
-                    <input step=".01" type="number" class="form-control" name="priceFrom" placeholder="Min">
+                    <input step=".01" type="number" class="form-control" id="priceFrom" name="priceFrom" placeholder="Min">
                 </div>
                 <div class="form-group">
                     <label for="priceTo">Max price</label>
-                    <input step=".01" type="number" class="form-control" name="priceTo" placeholder="Max">
+                    <input step=".01" type="number" class="form-control" id="priceTo" name="priceTo" placeholder="Max">
                 </div>
                 <div class="form-group form-check" name="group">
                     <input type="checkbox" class="form-check-input" id="Rde" name="group" value="Rde">Rde<br />
@@ -99,11 +99,9 @@
     <script type="text/javascript">
         $("#form1").submit(function(e) {
             e.preventDefault();
-
+            //var params="";
             var yourArray = [];
-            //function() { yourArray.push($("input:number[name=priceFrom]").val()) };
 
-            //function() { yourArray.push($("input:number[name=priceTo]").val()) };
 
             $("input:checkbox[name=group]:checked").each(function() {
                 yourArray.push($(this).val());
@@ -112,7 +110,7 @@
             var value = encodeURIComponent(yourArray);
             var kvp = document.location.search.substr(1).split('&');
             var i = 0;
-            console.log(kvp)
+            console.log(kvp);
             for (; i < kvp.length; i++) {
                 if (kvp[i].startsWith(key + '=')) {
                     var pair = kvp[i].split('=');
@@ -124,7 +122,17 @@
             if (i >= kvp.length) {
                 kvp[kvp.length] = [key, value].join('=');
             }
-            var params = kvp.join('&');
+            params = kvp.join('&');
+            var fromprice = document.getElementById("priceFrom");
+            var toprice = document.getElementById("priceTo");
+            /*if (isNumeric(fromprice.valueAsString)) {
+                params.concat("&priceFrom=");
+                params.concat(fromprice.valueAsString);
+            }
+            if (isNumeric(toprice.valueAsString)) {
+                params.concat("&priceTo=",toprice.valueAsString);
+            }*/
+            
             document.location.search = params;
         });
     </script>}

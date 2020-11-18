@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using CheapShopWeb.Models;
@@ -36,7 +37,7 @@ namespace CheapShopWeb.Services
                         smallerGroupList.Any(group => product.group.ToLower().Equals(group.ToLower())));
                 }
             }
-            if (sources != null)
+            if (!string.IsNullOrEmpty(sources))
             {
                 productList = productList.FindAll(product => sources.Split(',').Any(source => product.source.ToLower().Equals(source.ToLower())));
             }

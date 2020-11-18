@@ -97,42 +97,44 @@
  
 @section scripts{
     <script type="text/javascript">
+        var kvp = [];
         $("#form1").submit(function(e) {
             e.preventDefault();
-            //var params="";
-            var yourArray = [];
-
-
+            kvp = document.location.search.substr(1).split('&');
+            var sources = [];
             $("input:checkbox[name=group]:checked").each(function() {
-                yourArray.push($(this).val());
+                sources.push($(this).val());
             });
-            var key = encodeURIComponent("source");
-            var value = encodeURIComponent(yourArray);
-            var kvp = document.location.search.substr(1).split('&');
-            var i = 0;
-            console.log(kvp);
-            for (; i < kvp.length; i++) {
-                if (kvp[i].startsWith(key + '=')) {
-                    var pair = kvp[i].split('=');
-                    pair[1] = value;
-                    kvp[i] = pair.join('=');
-                    break;
-                }
-            }
-            if (i >= kvp.length) {
-                kvp[kvp.length] = [key, value].join('=');
-            }
-            params = kvp.join('&');
-            var fromprice = document.getElementById("priceFrom");
-            var toprice = document.getElementById("priceTo");
-            /*if (isNumeric(fromprice.valueAsString)) {
-                params.concat("&priceFrom=");
-                params.concat(fromprice.valueAsString);
-            }
-            if (isNumeric(toprice.valueAsString)) {
-                params.concat("&priceTo=",toprice.valueAsString);
-            }*/
-            
+
+            addParameter("source", sources);
+
+            var fromprice = document.getElementById("priceFrom").value;
+            addParameter("priceFrom", fromprice);
+
+            var toprice = document.getElementById("priceTo").value;
+            addParameter("priceTo", toprice);
+          
+            var params = kvp.join('&');
+            console.log(params);
             document.location.search = params;
         });
+
+        function addParameter(k, v) {
+            if (v.length > 0) {
+                var key = encodeURIComponent(k);
+                var value = encodeURIComponent(v);
+                var i = 0;
+                for (; i < kvp.length; i++) {
+                    if (kvp[i].startsWith(key + '=')) {
+                        var pair = kvp[i].split('=');
+                        pair[1] = value;
+                        kvp[i] = pair.join('=');
+                        break;
+                    }
+                }
+                if (i >= kvp.length) {
+                    kvp[kvp.length] = [key, value].join('=');
+                }
+            }
+        }
     </script>}

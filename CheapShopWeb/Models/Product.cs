@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -18,6 +19,6 @@ namespace CheapShopWeb.Models
         public string photo_link { get; set; }
         public string product_link { get; set; }
         public string group { get; set; }
-     
+
     }
 }

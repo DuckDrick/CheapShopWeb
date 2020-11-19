@@ -9,7 +9,7 @@ using System.Web;
 namespace CheapShopWeb.Models
 {
     [Table("product", Schema = "public")]
-    public class Product : IEnumerable
+    public class Product
     {
         [Key]
         public string id { get; set; }
@@ -20,9 +20,5 @@ namespace CheapShopWeb.Models
         public string product_link { get; set; }
         public string group { get; set; }
 
-        public IEnumerator GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

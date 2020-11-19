@@ -15,7 +15,7 @@
 
 :red_square:Anonymous methods.
 
-:red_square:Lambda expressions.
+:orange_square:Lambda expressions.  72 eil Filtering.cs
 
 :red_square:concurrent programming (threading or async/await (for your own written classes); common resource usage between threads).
 

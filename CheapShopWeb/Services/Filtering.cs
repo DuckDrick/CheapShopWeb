@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Web;
 using CheapShopWeb.Models;
 using Comparison_shopping_engine;
@@ -51,21 +52,17 @@ namespace CheapShopWeb.Services
             return productList;
         }
 
-        public static List<Product> GetSimilarProducts(List<Product> productList, Product prod)
+        public static List<Product> GetSimilarProducts(Product prod)
         {
 
             //nezinau ka darau
             List<Product> newlist= new List<Product>();
             newlist.Add(prod);
             string[] searchString = prod.name.Split(' ');
-            if (!string.IsNullOrEmpty(prod.name))
+            for(int i=0; i<50; i++)
             {
-                foreach (var product in productList)
-                {
-                    
-                }
+                newlist.Add(new Product(i.ToString(), null, null, null, null, null));
             }
-
             return newlist;
         }
         

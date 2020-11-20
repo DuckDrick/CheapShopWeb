@@ -20,5 +20,19 @@ namespace CheapShopWeb.Models
         public string product_link { get; set; }
         public string group { get; set; }
 
+        public Product(string name, string source, string price, string photo_link, string product_link, string group)
+        {
+            this.name = name;
+            this.source = source;
+            this.price = price;
+            this.photo_link = photo_link;
+            this.product_link = product_link;
+            this.group = group;
+        }
+
+        public Product()
+        {
+        }
+
     }
 }

@@ -52,16 +52,16 @@ namespace CheapShopWeb.Services
             return productList;
         }
 
-        public static List<Product> GetSimilarProducts(Product prod)
+        public static List<Product> GetSimilarProducts(List<Product> productList, Product prod, string searchString)
         {
 
             //nezinau ka darau
+            productList = productList.FindAll(product => searchString.ToLower().Split(' ').All(query => product.name.ToLower().Contains(query)));
             List<Product> newlist= new List<Product>();
             newlist.Add(prod);
-            string[] searchString = prod.name.Split(' ');
-            for(int i=0; i<50; i++)
+            foreach (var product in productList)
             {
-                newlist.Add(new Product(i.ToString(), null, null, null, null, null));
+                newlist.Add(product);
             }
             return newlist;
         }

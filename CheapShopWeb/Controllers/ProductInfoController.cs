@@ -14,10 +14,10 @@ namespace CheapShopWeb.Controllers
     {
         private ProductDbContext db = new ProductDbContext();
         // GET: ProductInfo
-        public ActionResult ProductInfo(String name, String link, String photo, String price, String source, String group)
+        public ActionResult ProductInfo(String name, String link, String photo, String price, String source, String group, String searchString)
         {
             
-            return View(Filtering.GetSimilarProducts(new Product(name, source, price, photo, link, group)));
+            return View(Filtering.GetSimilarProducts(db.Products.ToList(), new Product(name, source, price, photo, link, group), searchString));
         }
     }
 }

@@ -19,5 +19,10 @@ namespace CheapShopWeb.Controllers
             
             return View(Filtering.GetSimilarProducts(db.Products.ToList(), new Product(name, source, price, photo, link, group), searchString));
         }
+        public ActionResult ProductInfoGroup(String name, String link, String photo, String price, String source, String group, string itemsGroup)
+        {
+
+            return View(Filtering.GetSimilarProductsGroup(db.Products.ToList(), new Product(name, source, price, photo, link, group), itemsGroup));
+        }
     }
 }

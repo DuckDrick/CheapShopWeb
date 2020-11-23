@@ -24,47 +24,51 @@
         <div class="clearfix"></div>
     </div>
 </div>
-<div class="tableFixHead">
-    <table style="width: 100%">
-        <colgroup>
-            <col span="1" style="width: 70%;">
-            <col span="1" style="width: 10%;">
-            <col span="1" style="width: 10%;">
-            <col span="1" style="width: 10%;">
-        </colgroup>
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Source</th>
-            <th>Link </th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach (var product in Model)
-        {
-
-            if (!product.name.Equals(Model[0].name) && !(product.price.Equals(Model[0].price)))
+@if(Model.Count>2)
+{
+<p>Similar products:</p>
+    <div class="tableFixHead">
+        <table style="width: 100%">
+            <colgroup>
+                <col span="1" style="width: 70%;">
+                <col span="1" style="width: 10%;">
+                <col span="1" style="width: 10%;">
+                <col span="1" style="width: 10%;">
+            </colgroup>
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Source</th>
+                <th>Link </th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var product in Model)
             {
 
-                <tr>
-                    <td>
-                        <p>
-                            <span>@product.name</span>
-                            <img src="@product.photo_link"/>
-                        </p>
-                    </td>
-                    <td>@product.price</td>
-                    <td>@product.source</td>
-                    <td><a href=@product.product_link class="button">Link</a></td>
-                </tr>
+                if (!product.name.Equals(Model[0].name) && !(product.price.Equals(Model[0].price)))
+                {
+
+                    <tr>
+                        <td>
+                            <p>
+                                <span>@product.name</span>
+                                <img src="@product.photo_link"/>
+                            </p>
+                        </td>
+                        <td>@product.price</td>
+                        <td>@product.source</td>
+                        <td><a href=@product.product_link class="button">Link</a></td>
+                    </tr>
+                }
+
+
             }
-
-
-        }
-        </tbody>
-    </table>
-</div>
+            </tbody>
+        </table>
+    </div>
+}
 <style>
     .tableFixHead {
         overflow-y: auto;

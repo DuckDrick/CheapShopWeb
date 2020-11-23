@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Web;
 using CheapShopWeb.Models;
@@ -56,37 +57,49 @@ namespace CheapShopWeb.Services
         public static List<Product> GetSimilarProducts(List<Product> productList, Product prod, string searchString)
         {
 
-            //nezinau ka darau
             productList = productList.FindAll(product => searchString.ToLower().Split(' ').All(query => product.name.ToLower().Contains(query)));
             List<Product> newlist= new List<Product>();
-            newlist.Add(prod);
             foreach (var product in productList)
             {
-                if (LevenshteinDistance.Compute(product.name, prod.name) <= 4*prod.name.Split(' ').Length) //or 3*//
+                if (LevenshteinDistance.Compute(product.name, prod.name) <= 3*prod.name.Split(' ').Length) //or 4*//
                 {
                     newlist.Add(product);
                 }
             }
+
+            newlist.Sort((x, y) => String.Compare(x.price, y.price, StringComparison.Ordinal));
+            newlist.Insert(0, prod);
             return newlist;
         }
-        
-        public static Func<string, float> SToFFunc = num =>  //string to float function for lambda expression // makes number string comparable
+        public static List<Product> GetSimilarProductsGroup(List<Product> productList, Product prod, string itemsGroup)
         {
-            float n = float.Parse(num) * 100;
-            return n;
-        };
-        private class NearMatchComparer : IEqualityComparer<string>
-        {
-            public bool Equals(string x, string y)
-            {
-                return string.Compare(x, y) < 2;
-            }
 
-            public int GetHashCode(string obj)
+            var method = typeof(SmallerGroups).GetMethod(itemsGroup + "Group");
+            if (!(method == null))
             {
-                return obj.GetHashCode();
+                var smallerGroupList = (List<string>)method.Invoke(new SmallerGroups(), null); 
+                productList = productList.FindAll(product =>
+                        smallerGroupList.Any(group => product.group.ToLower().Equals(group.ToLower())));
+            } 
+            List<Product> newlist = new List<Product>();
+            foreach (var product in productList)
+            {
+                if (LevenshteinDistance.Compute(product.name, prod.name) <= 3 * prod.name.Split(' ').Length) //or 4*//
+                {
+                    newlist.Add(product);
+                }
             }
+            newlist.Sort((x, y) => String.Compare(x.price, y.price, StringComparison.Ordinal));
+            newlist.Insert(0, prod);
+            return newlist;
         }
+
+        public static Func<string, float> SToFFunc =
+            num => //string to float function for lambda expression // makes number string comparable
+            {
+                float n = float.Parse(num) * 100;
+                return n;
+            };
     }
     static class LevenshteinDistance
     {

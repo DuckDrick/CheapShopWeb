@@ -187,6 +187,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProductInfoController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="DataContext\ProductDbContext.cs" />
@@ -218,6 +219,8 @@
     <Compile Include="Values\ScrapedSites.cs" />
     <Compile Include="Values\SmallerGroups.cs" />
     <Compile Include="Values\Values.cs" />
+    <Compile Include="SmallerGroups.cs" />
+
   </ItemGroup>
   <ItemGroup>
     <Content Include="connections.config" />
@@ -227,7 +230,22 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\animals.png" />
+    <Content Include="Content\Images\audio.jpg" />
+    <Content Include="Content\Images\books.jpg" />
+    <Content Include="Content\Images\camera.jpg" />
+    <Content Include="Content\Images\car.jpg" />
+    <Content Include="Content\Images\clothing.jpg" />
+    <Content Include="Content\Images\computer.jfif" />
+    <Content Include="Content\Images\furniture.jpg" />
+    <Content Include="Content\Images\garden.jpg" />
+    <Content Include="Content\Images\household.jpg" />
     <Content Include="Content\Images\jumbotron.jpg" />
+    <Content Include="Content\Images\kids.jpg" />
+    <Content Include="Content\Images\leisure.jpg" />
+    <Content Include="Content\Images\makeup.jfif" />
+    <Content Include="Content\Images\phone.jpg" />
+    <Content Include="Content\Images\stationery.jfif" />
     <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -368,6 +386,9 @@
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\Product\Product.cshtml" />
     <Content Include="Views\Search\Search.cshtml" />
+    <Content Include="Views\Search\SearchGroup.cshtml" />
+    <Content Include="Views\ProductInfo\ProductInfo.cshtml" />
+    <Content Include="Views\ProductInfo\ProductInfoGroup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

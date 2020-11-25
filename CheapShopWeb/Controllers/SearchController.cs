@@ -47,10 +47,17 @@ namespace CheapShopWeb.Controllers
       
         }
 
+
         [HttpPost]
         public void Scrape(string query)
         {
             scraperRepository.queryList.Add(query);
+        }
+
+        public ActionResult SearchGroup(string group)
+        {
+            return View(Filtering.Filter(db.Products.ToList(), null, null, null, group, null));
+
         }
     }
 }

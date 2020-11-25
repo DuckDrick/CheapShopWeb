@@ -19,7 +19,8 @@
                                 <img class="img-fluid mx-auto d-block" src=@item.photo_link alt="" />
                             </div>
                             <div class="col-sm-12 col-md-6 border border-primary">
-                                <a href=@Url.Action( "ProductInfo", "ProductInfo", new {product = item}, null)>
+                                <a  href=@Url.Action( "ProductInfoGroup", "ProductInfo", new {name = @item.name, link =@item.product_link, photo = @item.photo_link, price= @item.price, source=@item.source,
+                                             group=@item.group, itemsgroup = @Request.Params["group"]}, null)>
                                     <h2>@item.name</h2>
                                 </a>
                                 <p>Grupė: @item.group</p>

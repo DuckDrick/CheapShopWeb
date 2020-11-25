@@ -347,6 +347,7 @@
     <Content Include="Views\Search\Search.cshtml" />
     <Content Include="Views\Search\SearchGroup.cshtml" />
     <Content Include="Views\ProductInfo\ProductInfo.cshtml" />
+    <Content Include="Views\ProductInfo\ProductInfoGroup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

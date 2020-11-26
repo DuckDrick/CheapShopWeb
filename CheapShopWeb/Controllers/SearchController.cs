@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using CheapShopWeb.DataContext;
 using CheapShopWeb.Scrapers;
@@ -9,13 +10,11 @@ namespace CheapShopWeb.Controllers
 {
     public class SearchController : Controller
     {
-
-        private readonly ProductDbContext productDbContext;
-
+        private readonly Lazy<ProductDbContext> productDbContext;
         private readonly ScraperService scraperRepository;
 
 
-        public SearchController(ScraperService scraperRepository, ProductDbContext productDbContext)
+        public SearchController(ScraperService scraperRepository, Lazy<ProductDbContext> productDbContext)
         {
             this.scraperRepository = scraperRepository;
             this.productDbContext = productDbContext;
@@ -30,7 +29,7 @@ namespace CheapShopWeb.Controllers
             ViewBag.group = group;
             ViewBag.source = source;
 
-            var filtered = Filtering.Filter(productDbContext.Products.ToList(), search, priceFrom, priceTo, group, source);
+            var filtered = Filtering.Filter(productDbContext.Value.Products.ToList(), search, priceFrom, priceTo, group, source);
             var pageSize = 20;
             var pageNumber = (page ?? 1);
             return View(filtered.ToPagedList(pageNumber, pageSize));
@@ -46,7 +45,7 @@ namespace CheapShopWeb.Controllers
 
         public ActionResult SearchGroup(string group)
         {
-            return View(Filtering.Filter(productDbContext.Products.ToList(), null, null, null, group, null));
+            return View(Filtering.Filter(productDbContext.Value.Products.ToList(), null, null, null, group, null));
 
         }
     }

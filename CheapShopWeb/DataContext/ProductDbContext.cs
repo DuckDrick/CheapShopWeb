@@ -13,6 +13,5 @@ namespace CheapShopWeb.DataContext
         public ProductDbContext() : base(nameOrConnectionString: "connection"){}
         public virtual DbSet<Product> Products { get; set; }
 
-        
     }
 }

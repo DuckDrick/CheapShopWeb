@@ -9,7 +9,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
+
+
+
+
 <div>
+    <button onClick="scrape('@Request.Params["search"]')">Scrape</button>
     <div class="row justify-content-center">
         <div class="col-12 col-md-10 col-lg-8">
             <form>
@@ -34,7 +40,7 @@
 
 </div>
 
-@if(Model.Count() > 0 && !string.IsNullOrWhiteSpace(@Request.Params["search"]))
+@if (Model.Count() > 0 && !string.IsNullOrWhiteSpace(@Request.Params["search"]))
 {
     <div class="row">
         <div class="col-sm-4 col-md-3 col-lg-2">
@@ -154,21 +160,33 @@
                 {
                     parameters.Add("page", page);
                 }
-               
+
                 return parameters;
             }
 
         }
-        <div class ="mx-auto">
+        <div class="mx-auto">
 
-        @Html.PagedListPager(Model, page => Url.Action("Search",
-            generateRouteValues(page)))
+            @Html.PagedListPager(Model, page => Url.Action("Search",
+                generateRouteValues(page)))
+        </div>
     </div>
-    </div>
-   
-}else{
-<div><p class="h4">Nothing</p></div>
+
+
 }
+else
+{
+    <div><p class="h4">Nothing</p></div>
+}
+
+<script type="text/javascript">
+    function scrape(query) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/Search/Scrape");
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify({"query": query}));
+    }
+</script>
 
  
 <style>
@@ -231,3 +249,4 @@
             }
         }
     </script>}
+

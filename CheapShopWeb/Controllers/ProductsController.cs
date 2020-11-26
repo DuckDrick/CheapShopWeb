@@ -14,12 +14,12 @@ namespace CheapShopWeb.Controllers
 {
     public class ProductsController : Controller
     {
-        private ProductDbContext db = new ProductDbContext();
+        private readonly ProductDbContext _db = new ProductDbContext();
 
         // GET: Products
         public ActionResult Index(string name, string min, string max, string group, string source )
         {
-            return View(Filtering.Filter(db.Products.ToList(), name, min, max, group, source));
+            return View(Filtering.Filter(_db.Products.ToList(), name, min, max, group, source));
         }
 
         // GET: Products/Details/5
@@ -29,7 +29,7 @@ namespace CheapShopWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = db.Products.Find(id);
+            Product product = _db.Products.Find(id);
             if (product == null)
             {
                 return HttpNotFound();
@@ -52,8 +52,8 @@ namespace CheapShopWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Products.Add(product);
-                db.SaveChanges();
+                _db.Products.Add(product);
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -67,7 +67,7 @@ namespace CheapShopWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = db.Products.Find(id);
+            Product product = _db.Products.Find(id);
             if (product == null)
             {
                 return HttpNotFound();
@@ -84,8 +84,8 @@ namespace CheapShopWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(product).State = EntityState.Modified;
-                db.SaveChanges();
+                _db.Entry(product).State = EntityState.Modified;
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(product);
@@ -98,7 +98,7 @@ namespace CheapShopWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = db.Products.Find(id);
+            Product product = _db.Products.Find(id);
             if (product == null)
             {
                 return HttpNotFound();
@@ -111,9 +111,9 @@ namespace CheapShopWeb.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            Product product = db.Products.Find(id);
-            db.Products.Remove(product);
-            db.SaveChanges();
+            Product product = _db.Products.Find(id);
+            _db.Products.Remove(product);
+            _db.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -121,7 +121,7 @@ namespace CheapShopWeb.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
         }

@@ -197,7 +197,6 @@
     <Compile Include="Models\ProductAndSearchString.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\IScraperRepository.cs" />
     <Compile Include="Scrapers\ChromeDrivers.cs" />
     <Compile Include="Scrapers\CustomList.cs" />
     <Compile Include="Scrapers\Product.cs" />
@@ -220,7 +219,6 @@
     <Compile Include="Values\SmallerGroups.cs" />
     <Compile Include="Values\Values.cs" />
     <Compile Include="SmallerGroups.cs" />
-
   </ItemGroup>
   <ItemGroup>
     <Content Include="connections.config" />

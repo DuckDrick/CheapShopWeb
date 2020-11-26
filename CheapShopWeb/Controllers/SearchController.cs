@@ -1,18 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
 using CheapShopWeb.DataContext;
-using CheapShopWeb.Models;
-using CheapShopWeb.Repository;
 using CheapShopWeb.Scrapers;
 using CheapShopWeb.Services;
-using Microsoft.SqlServer.Server;
 using PagedList;
 
 namespace CheapShopWeb.Controllers
@@ -56,7 +46,7 @@ namespace CheapShopWeb.Controllers
 
         public ActionResult SearchGroup(string group)
         {
-            return View(Filtering.Filter(db.Products.ToList(), null, null, null, group, null));
+            return View(Filtering.Filter(productDbContext.Products.ToList(), null, null, null, group, null));
 
         }
     }

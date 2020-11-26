@@ -1,7 +1,4 @@
-using System.Data.Entity;
 using System.Web.Mvc;
-using CheapShopWeb.DataContext;
-using CheapShopWeb.Repository;
 using CheapShopWeb.Scrapers;
 using Unity;
 using Unity.Mvc5;

@@ -3,15 +3,15 @@
     public enum ScrapedSites
     {
         rde,
-        // bigbox,
-        // pigu,
-        // novastar,
-        // topocentras,
-        // skytech,
-        // senukai,
-        // autoaibe,
-        // eoltas,
-        // ermitazas,
-        // varle
+        bigbox,
+        pigu,
+        novastar,
+        topocentras,
+        skytech,
+        senukai,
+        autoaibe,
+        eoltas,
+        ermitazas,
+        varle
     }
 }

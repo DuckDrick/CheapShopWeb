@@ -216,7 +216,6 @@
     <Compile Include="Services\Filtering.cs" />
     <Compile Include="Values\MainGroups.cs" />
     <Compile Include="Values\ScrapedSites.cs" />
-    <Compile Include="Values\SmallerGroups.cs" />
     <Compile Include="Values\Values.cs" />
     <Compile Include="SmallerGroups.cs" />
   </ItemGroup>

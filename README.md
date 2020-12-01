@@ -5,7 +5,7 @@
 
 :red_square:Lazy initialization.
 
-:red_square:Generics (in delegates, events and methods)
+:yellow_square:Generics (in delegates, events and methods) ?custom list
 
 :yellow_square:Delegates. Yra, bet nežinau ar tinkamai panaudoti
 

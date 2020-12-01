@@ -15,7 +15,7 @@
 
 :yellow_square:Anonymous methods. lyg ir yra
 
-:orange_square:Lambda expressions.  72 eil Filtering.cs
+:green_square:Lambda expressions.  72 eil Filtering.cs, abstract scrapper class
 
 :green_square:concurrent programming (threading or async/await (for your own written classes); common resource usage between threads). threadai yra, dejimas i bendra lista yra tai cj check
 

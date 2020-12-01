@@ -13,7 +13,7 @@
 
 :yellow_square:Exceptions and dealing with them in a meaningfull way. exceptionai yra, dealing in a meaningfull way priklauso kuo laikosi "meaningfull"
 
-:yellow_square:Anonymous methods. lyg ir yra
+:green_square:Anonymous methods. lyg ir yra,16 filtering
 
 :green_square:Lambda expressions.  72 eil Filtering.cs, abstract scrapper class
 

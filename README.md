@@ -5,7 +5,7 @@
 
 :red_square:Lazy initialization.
 
-:yellow_square:Generics (in delegates, events and methods) ?custom list
+:orange_square:Generics (in delegates, events and methods) ?custom list 16eil filtering
 
 :green_square:Delegates. Yra, bet nežinau ar tinkamai panaudoti 27,35 eil filtering
 

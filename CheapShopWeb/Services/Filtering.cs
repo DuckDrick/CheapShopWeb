@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-using System.Web;
 using CheapShopWeb.Models;
 using Comparison_shopping_engine;
 
@@ -13,7 +8,12 @@ namespace CheapShopWeb.Services
 {
     public class Filtering
     {
-        public delegate bool CheckPrice<T>(T price, T minmax);
+        public delegate bool Compare<T1, T2>(T1 item1, T2 item2);
+
+        private static readonly Compare<Product, string> PriceAboveOrEqual = (item, price) => SToFFunc(item.price) >= SToFFunc(price);
+        private static readonly Compare<Product, string> PriceBelowOrEqual = (item, price) => SToFFunc(item.price) <= SToFFunc(price);
+        private static readonly Compare<Product, string>
+            StringComparator = (item, str) => item.group.ToLower().Equals(str.ToLower()); 
         public static List<Product> Filter(List<Product> productList, string name, string min, string max, string groups, string sources)
         {
 
@@ -24,19 +24,11 @@ namespace CheapShopWeb.Services
             }
             if (!string.IsNullOrEmpty(min))
             {
-                CheckPrice<float> checkPrice = delegate(float price, float minmax)
-                {
-                    return price >= minmax;
-                };
-                productList = productList.FindAll(product => checkPrice(SToFFunc(product.price),SToFFunc(min)));
+                productList = productList.FindAll(product => PriceAboveOrEqual(product, min));
             }
             if (!string.IsNullOrEmpty(max))
             {
-                CheckPrice<float> checkPrice = delegate (float price, float minmax)
-                {
-                    return price <= minmax;
-                };
-                productList = productList.FindAll(product => checkPrice(SToFFunc(product.price), SToFFunc(max)));
+                productList = productList.FindAll(product => PriceBelowOrEqual(product, max));
             }
             if (!string.IsNullOrEmpty(groups))
             {
@@ -44,29 +36,62 @@ namespace CheapShopWeb.Services
                 foreach (var sGroup in smallerGroups)
                 {
                     var method = typeof(SmallerGroups).GetMethod(sGroup + "Group");
-                    if (!(method == null))
-                    {
-                        var smallerGroupList = (List<string>) method.Invoke(new SmallerGroups(), null);
+                    if (method == null) continue;
+                    var smallerGroupList = (List<string>) method.Invoke(new SmallerGroups(), null);
 
-                        productList = productList.FindAll(product =>
-                            smallerGroupList.Any(group => product.group.ToLower().Equals(group.ToLower())));
-                    }
+                    productList = productList.FindAll(product =>
+                        smallerGroupList.Any(group => StringComparator(product, group)));
                 }
-
             }
             if (!string.IsNullOrEmpty(sources))
             {
-                productList = productList.FindAll(product => sources.Split(',').Any(source => product.source.ToLower().Equals(source.ToLower())));
+                productList = productList.FindAll(product => 
+                    sources.Split(',').Any(source => StringComparator(product, source)));
             }
 
             return productList;
         }
 
+
+        public static Tuple<List<int>, List<int>> CountAmounts(List<Product> items)
+        {
+            var siteCounts = new List<int>();
+            var groupCounts = new List<int>();
+            foreach (ScrapedSites site in Enum.GetValues(typeof(ScrapedSites)))
+            {
+                siteCounts.Add(CountHowMany(site, items));
+            }
+            foreach (MainGroups group in Enum.GetValues(typeof(MainGroups)))
+            {
+                groupCounts.Add(CountHowMany(group, items));
+            }
+
+            return new Tuple<List<int>, List<int>>(siteCounts, groupCounts);
+        }
+
+        public static int CountHowMany<T>(T value, List<Product> items)
+        {
+            if (value.GetType() == typeof(MainGroups))
+                return items.Count(product => CheckIfInGroup(value.ToString(), product.group));
+
+            return items.Count(product => product.source.ToLower().Contains(value.ToString()));
+        }
+
+        private static bool CheckIfInGroup(string group, string productGroup)
+        {
+            var method = typeof(SmallerGroups).GetMethod(group + "Group");
+                if (method == null) return false;
+                var smallerGroupList = (List<string>)method.Invoke(new SmallerGroups(), null);
+
+                return smallerGroupList.Any(g => g.Equals(productGroup));
+        }
+
+
         public static List<Product> GetSimilarProducts(List<Product> productList, Product prod, string searchString)
         {
 
             productList = productList.FindAll(product => searchString.ToLower().Split(' ').All(query => product.name.ToLower().Contains(query)));
-            List<Product> newlist= new List<Product>();
+            var newlist= new List<Product>();
             foreach (var product in productList)
             {
                 if (LevenshteinDistance.Compute(product.name, prod.name) <= 3*prod.name.Split(' ').Length) //or 4*//
@@ -89,17 +114,17 @@ namespace CheapShopWeb.Services
                 productList = productList.FindAll(product =>
                         smallerGroupList.Any(group => product.group.ToLower().Equals(group.ToLower())));
             } 
-            List<Product> newlist = new List<Product>();
+            var newList = new List<Product>();
             foreach (var product in productList)
             {
                 if (LevenshteinDistance.Compute(product.name, prod.name) <= 3 * prod.name.Split(' ').Length) //or 4*//
                 {
-                    newlist.Add(product);
+                    newList.Add(product);
                 }
             }
-            newlist.Sort((x, y) => String.Compare(x.price, y.price, StringComparison.Ordinal));
-            newlist.Insert(0, prod);
-            return newlist;
+            newList.Sort((x, y) => string.Compare(x.price, y.price, StringComparison.Ordinal));
+            newList.Insert(0, prod);
+            return newList;
         }
 
         public static Func<string, float> SToFFunc =
@@ -116,9 +141,9 @@ namespace CheapShopWeb.Services
         /// </summary>
         public static int Compute(string s, string t)
         {
-            int n = s.Length;
-            int m = t.Length;
-            int[,] d = new int[n + 1, m + 1];
+            var n = s.Length;
+            var m = t.Length;
+            var d = new int[n + 1, m + 1];
 
             if (n == 0)
             {
@@ -130,18 +155,18 @@ namespace CheapShopWeb.Services
                 return n;
             }
 
-            for (int i = 0; i <= n; d[i, 0] = i++)
+            for (var i = 0; i <= n; d[i, 0] = i++)
             {
             }
 
-            for (int j = 0; j <= m; d[0, j] = j++)
+            for (var j = 0; j <= m; d[0, j] = j++)
             {
             }
-            for (int i = 1; i <= n; i++)
+            for (var i = 1; i <= n; i++)
             {
-                for (int j = 1; j <= m; j++)
+                for (var j = 1; j <= m; j++)
                 {
-                    int cost = (t[j - 1] == s[i - 1]) ? 0 : 1;
+                    var cost = (t[j - 1] == s[i - 1]) ? 0 : 1;
                     d[i, j] = Math.Min(
                         Math.Min(d[i - 1, j] + 1, d[i, j - 1] + 1),
                         d[i - 1, j - 1] + cost);

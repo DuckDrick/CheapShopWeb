@@ -8,11 +8,11 @@ namespace CheapShopWeb.Services
 {
     public class Filtering
     {
-        public delegate bool Compare<T1, T2>(T1 item1, T2 item2);
+        public delegate bool Compare<T>(Product item1, T item2);
 
-        private static readonly Compare<Product, string> PriceAboveOrEqual = (item, price) => SToFFunc(item.price) >= SToFFunc(price);
-        private static readonly Compare<Product, string> PriceBelowOrEqual = (item, price) => SToFFunc(item.price) <= SToFFunc(price);
-        private static readonly Compare<Product, string>
+        private static readonly Compare<float> PriceAboveOrEqual = (item, price) => SToFFunc(item.price) >= price;
+        private static readonly Compare<float> PriceBelowOrEqual = (item, price) => SToFFunc(item.price) <= price;
+        private static readonly Compare<string>
             StringComparator = (item, str) => item.group.ToLower().Equals(str.ToLower()); 
         public static List<Product> Filter(List<Product> productList, string name, string min, string max, string groups, string sources)
         {
@@ -24,11 +24,11 @@ namespace CheapShopWeb.Services
             }
             if (!string.IsNullOrEmpty(min))
             {
-                productList = productList.FindAll(product => PriceAboveOrEqual(product, min));
+                productList = productList.FindAll(product => PriceAboveOrEqual(product, SToFFunc(min)));
             }
             if (!string.IsNullOrEmpty(max))
             {
-                productList = productList.FindAll(product => PriceBelowOrEqual(product, max));
+                productList = productList.FindAll(product => PriceBelowOrEqual(product, SToFFunc(max)));
             }
             if (!string.IsNullOrEmpty(groups))
             {

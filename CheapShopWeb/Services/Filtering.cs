@@ -13,7 +13,7 @@ namespace CheapShopWeb.Services
 {
     public class Filtering
     {
-
+        public delegate bool CheckPrice(float price, float minmax);
         public static List<Product> Filter(List<Product> productList, string name, string min, string max, string groups, string sources)
         {
 
@@ -24,21 +24,29 @@ namespace CheapShopWeb.Services
             }
             if (!string.IsNullOrEmpty(min))
             {
-                productList = productList.FindAll(product => SToFFunc(product.price) >= SToFFunc(min));
+                CheckPrice checkPrice = delegate(float price, float minmax)
+                {
+                    return price >= minmax;
+                };
+                productList = productList.FindAll(product => checkPrice(SToFFunc(product.price),SToFFunc(min)));
             }
             if (!string.IsNullOrEmpty(max))
             {
-                productList = productList.FindAll(product => SToFFunc(product.price) <= SToFFunc(max));
+                CheckPrice checkPrice = delegate (float price, float minmax)
+                {
+                    return price <= minmax;
+                };
+                productList = productList.FindAll(product => checkPrice(SToFFunc(product.price), SToFFunc(max)));
             }
             if (!string.IsNullOrEmpty(groups))
             {
-                var smallergroups = groups.Split(',');
-                foreach (var sgroup in smallergroups)
+                var smallerGroups = groups.Split(',');
+                foreach (var sGroup in smallerGroups)
                 {
-                    var method = typeof(SmallerGroups).GetMethod(sgroup + "Group");
+                    var method = typeof(SmallerGroups).GetMethod(sGroup + "Group");
                     if (!(method == null))
                     {
-                        var smallerGroupList = (List<string>)method.Invoke(new SmallerGroups(), null);
+                        var smallerGroupList = (List<string>) method.Invoke(new SmallerGroups(), null);
 
                         productList = productList.FindAll(product =>
                             smallerGroupList.Any(group => product.group.ToLower().Equals(group.ToLower())));
@@ -97,7 +105,7 @@ namespace CheapShopWeb.Services
         public static Func<string, float> SToFFunc =
             num => //string to float function for lambda expression // makes number string comparable
             {
-                float n = float.Parse(num) * 100;
+                var n = float.Parse(num.Replace('.',','));
                 return n;
             };
     }
@@ -112,7 +120,6 @@ namespace CheapShopWeb.Services
             int m = t.Length;
             int[,] d = new int[n + 1, m + 1];
 
-            // Step 1
             if (n == 0)
             {
                 return m;
@@ -123,7 +130,6 @@ namespace CheapShopWeb.Services
                 return n;
             }
 
-            // Step 2
             for (int i = 0; i <= n; d[i, 0] = i++)
             {
             }
@@ -131,23 +137,16 @@ namespace CheapShopWeb.Services
             for (int j = 0; j <= m; d[0, j] = j++)
             {
             }
-
-            // Step 3
             for (int i = 1; i <= n; i++)
             {
-                //Step 4
                 for (int j = 1; j <= m; j++)
                 {
-                    // Step 5
                     int cost = (t[j - 1] == s[i - 1]) ? 0 : 1;
-
-                    // Step 6
                     d[i, j] = Math.Min(
                         Math.Min(d[i - 1, j] + 1, d[i, j - 1] + 1),
                         d[i - 1, j - 1] + cost);
                 }
             }
-            // Step 7
             return d[n, m];
         }
     }

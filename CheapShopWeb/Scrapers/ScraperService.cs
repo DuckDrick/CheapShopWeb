@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using CheapShopWeb.Scrapers.Selenium;
@@ -37,18 +38,34 @@ namespace CheapShopWeb.Scrapers
 
         public void CreateScrapers()
         {
-            scrapers.Clear();
+            KillThreads();
             var sources = Enum.GetNames(typeof(ScrapedSites)).ToArray();
             foreach (var source in sources)
             {
-                var className = source.First().ToString().ToUpper() + source.Substring(1) + "Scraper";
-                var scraper = Type.GetType("CheapShopWeb.Selenium." + className);
-                var instance = (AbstractSeleniumScraper) Activator.CreateInstance(scraper);
-                var thread = new Thread(instance.ScrapeWithSelenium);
-                scrapers.Add(
-                    new KeyValuePair<ScrapedSites, Thread>((ScrapedSites) Enum.Parse(typeof(ScrapedSites), source),
-                        thread));
+                try
+                {
+                    var className = source.First().ToString().ToUpper() + source.Substring(1) + "Scraper";
+                    var scraper = Type.GetType("CheapShopWeb.Selenium." + className);
+                    var instance = (AbstractSeleniumScraper) Activator.CreateInstance(scraper);
+                    var thread = new Thread(instance.ScrapeWithSelenium);
+                    scrapers.Add(
+                        new KeyValuePair<ScrapedSites, Thread>((ScrapedSites) Enum.Parse(typeof(ScrapedSites), source),
+                            thread));
+                }
+                catch
+                {
+                    Trace.WriteLine("SCRAPER NOT FOUND " + source);
+                }
             }
+        }
+
+        private void KillThreads()
+        {
+            foreach (var scraper in scrapers)
+            {
+                scraper.Value.Abort();
+            }
+            scrapers.Clear();
         }
 
         private List<ChromeDrivers> _scraperDrivers;

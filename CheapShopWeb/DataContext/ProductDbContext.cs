@@ -10,7 +10,7 @@ namespace CheapShopWeb.DataContext
 {
     public class ProductDbContext : DbContext
     {
-        public ProductDbContext() : base(nameOrConnectionString: "connection"){}
+        public ProductDbContext() : base(nameOrConnectionString: "database"){}
         public virtual DbSet<Product> Products { get; set; }
 
     }

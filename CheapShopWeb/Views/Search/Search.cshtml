@@ -9,13 +9,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-
-
-
-
 <div>
-    <button onClick="scrape('@Request.Params["search"]')">Scrape</button>
+    <button onClick="scrape('@Request.Params["search"]', '@Request.Params["source"]')">Scrape</button>
     <div class="row justify-content-center">
         <div class="col-12 col-md-10 col-lg-8">
             <form>
@@ -56,35 +51,35 @@
                 </div>
                 <p>Sources:</p>
                 <div class="form-group form-check" name="source">
-                    <input type="checkbox" class="form-check-input" id="Rde" name="source" value="Rde">Rde<br />
-                    <input type="checkbox" class="form-check-input" name="source" id="Bigbox" value="Bigbox">Bigbox<br />
-                    <input type="checkbox" class="form-check-input" name="source" id="Pigu" value="Pigu">Pigu<br />
-                    <input type="checkbox" class="form-check-input" name="source" id="Senukai" value="Senukai">Senukai<br />
-                    <input type="checkbox" class="form-check-input" name="source" id="Autoaibe" value="Autoaibe">Autoaibe<br />
-                    <input type="checkbox" class="form-check-input" name="source" id="Topocentras" value="Topocentras">Topocentras<br />
-                    <input type="checkbox" class="form-check-input" name="source" id="Ermitazas" value="Ermitazas">Ermitazas<br />
-                    <input type="checkbox" class="form-check-input" name="source" id="Skytech" value="Skytech">Skytech<br />
-                    <input type="checkbox" class="form-check-input" name="source" id="Varle" value="Varle">Varle<br />
-                    <input type="checkbox" class="form-check-input" name="source" id="Eoltas" value="Eoltas">Eoltas<br />
-                    <input type="checkbox" class="form-check-input" name="source" id="Novastar" value="Novastar">Novastar<br />
+                    <input type="checkbox" class="form-check-input" id="Rde" name="source" value="Rde">Rde (@ViewBag.siteCounts[0])<br />
+                    <input type="checkbox" class="form-check-input" name="source" id="Bigbox" value="Bigbo x">Bigbox (@ViewBag.siteCounts[1])<br />
+                    <input type="checkbox" class="form-check-input" name="source" id="Pigu" value="Pigu">Pigu (@ViewBag.siteCounts[2])<br />
+                    <input type="checkbox" class="form-check-input" name="source" id="Senukai" value="Senukai">Senukai (@ViewBag.siteCounts[6])<br />
+                    <input type="checkbox" class="form-check-input" name="source" id="Autoaibe" value="Autoaibe">Autoaibe (@ViewBag.siteCounts[7])<br />
+                    <input type="checkbox" class="form-check-input" name="source" id="Topocentras" value="Topocentras">Topocentras (@ViewBag.siteCounts[4])<br />
+                    <input type="checkbox" class="form-check-input" name="source" id="Ermitazas" value="Ermitazas">Ermitazas (@ViewBag.siteCounts[9])<br />
+                    <input type="checkbox" class="form-check-input" name="source" id="Skytech" value="Skytech">Skytech (@ViewBag.siteCounts[5])<br />
+                    <input type="checkbox" class="form-check-input" name="source" id="Varle" value="Varle">Varle (@ViewBag.siteCounts[10])<br />
+                    <input type="checkbox" class="form-check-input" name="source" id="Eoltas" value="Eoltas">Eoltas (@ViewBag.siteCounts[8])<br />
+                    <input type="checkbox" class="form-check-input" name="source" id="Novastar" value="Novastar">Novastar (@ViewBag.siteCounts[3])<br />
                 </div>
                 <p>Groups:</p>
                 <div class="form-group form-check" name="group">
-                    <input type="checkbox" class="form-check-input" name="group" id="Computer" value="Computer">Computer<br />
-                    <input type="checkbox" class="form-check-input" name="group" id="Phone" value="Phone">Phone<br />
-                    <input type="checkbox" class="form-check-input" name="group" id="Garden" value="Garden">Garden<br />
-                    <input type="checkbox" class="form-check-input" name="group" id="Leisure" value="Leisure">Leisure<br />
-                    <input type="checkbox" class="form-check-input" name="group" id="Books" value="Books">Books<br />
-                    <input type="checkbox" class="form-check-input" name="group" id="Car" value="Car">Car<br />
-                    <input type="checkbox" class="form-check-input" name="group" id="Stationery" value="Stationery">Stationery<br />
-                    <input type="checkbox" class="form-check-input" name="group" id="Animals" value="Animals">Animals<br />
-                    <input type="checkbox" class="form-check-input" name="group" id="Camera" value="Camera">Camera<br />
-                    <input type="checkbox" class="form-check-input" name="group" id="Audio" value="Audio">Audio<br />
-                    <input type="checkbox" class="form-check-input" name="group" id="Beauty" value="Beauty">Beauty<br />
-                    <input type="checkbox" class="form-check-input" name="group" id="Household" value="Household">Household<br />
-                    <input type="checkbox" class="form-check-input" name="group" id="Furniture" value="Furniture">Furniture<br />
-                    <input type="checkbox" class="form-check-input" name="group" id="Clothing" value="Clothing">Clothing<br />
-                    <input type="checkbox" class="form-check-input" name="group" id="Kids" value="Kids">Kids<br />
+                    <input type="checkbox" class="form-check-input" name="group" id="Computer" value="Computer">Computer (@ViewBag.groupCounts[11])<br />
+                    <input type="checkbox" class="form-check-input" name="group" id="Phone" value="Phone">Phone (@ViewBag.groupCounts[14])<br />
+                    <input type="checkbox" class="form-check-input" name="group" id="Garden" value="Garden">Garden (@ViewBag.groupCounts[13])<br />
+                    <input type="checkbox" class="form-check-input" name="group" id="Leisure" value="Leisure">Leisure (@ViewBag.groupCounts[12])<br />
+                    <input type="checkbox" class="form-check-input" name="group" id="Books" value="Books">Books (@ViewBag.groupCounts[10])<br />
+                    <input type="checkbox" class="form-check-input" name="group" id="Car" value="Car">Car (@ViewBag.groupCounts[2])<br />
+                    <input type="checkbox" class="form-check-input" name="group" id="Stationery" value="Stationery">Stationery (@ViewBag.groupCounts[9])<br />
+                    <input type="checkbox" class="form-check-input" name="group" id="Animals" value="Animals">Animals (@ViewBag.groupCounts[6])<br />
+                    <input type="checkbox" class="form-check-input" name="group" id="Camera" value="Camera">Camera (@ViewBag.groupCounts[8])<br />
+                    <input type="checkbox" class="form-check-input" name="group" id="Audio" value="Audio">Audio (@ViewBag.groupCounts[5])<br />
+                    <input type="checkbox" class="form-check-input" name="group" id="Beauty" value="Beauty">Beauty (@ViewBag.groupCounts[7])<br />
+                    <input type="checkbox" class="form-check-input" name="group" id="Household" value="Household">Household (@ViewBag.groupCounts[4])<br />
+                    <input type="checkbox" class="form-check-input" name="group" id="Furniture" value="Furniture">Furniture (@ViewBag.groupCounts[3])<br />
+                    <input type="checkbox" class="form-check-input" name="group" id="Clothing" value="Clothing">Clothing (@ViewBag.groupCounts[1])<br />
+                    <input type="checkbox" class="form-check-input" name="group" id="Kids" value="Kids">Kids (@ViewBag.groupCounts[0])<br />
                 </div>
                 <button type="submit">Filter</button>
             </form>
@@ -180,11 +175,13 @@ else
 }
 
 <script type="text/javascript">
-    function scrape(query) {
+    function scrape(query, source) {
+        var msg = JSON.stringify({ "query": query, "source": source });
+        console.log(msg);
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "/Search/Scrape");
         xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.send(JSON.stringify({"query": query}));
+        xhr.send(msg);
     }
 </script>
 

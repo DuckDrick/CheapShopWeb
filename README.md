@@ -3,7 +3,7 @@
 
 <h3>Requirements:</h3>
 
-:red_square:Lazy initialization.
+:yellow_square:Lazy initialization.
 
 :orange_square:Generics (in delegates, events and methods) ?custom list 16eil filtering
 

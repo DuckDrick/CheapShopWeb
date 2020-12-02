@@ -19,6 +19,6 @@
 
 :green_square:concurrent programming (threading or async/await (for your own written classes); common resource usage between threads). threadai yra, dejimas i bendra lista yra tai cj check
 
-:yellow_square:Config file usage (both - app and user). app yra
+:green_square:Config file usage (both - app and user).
 
 :green_square:Dependency Injection. unity sita stuvarko tai yra :)))

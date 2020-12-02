@@ -13,7 +13,7 @@ namespace CheapShopWeb.Services
 {
     public class Filtering
     {
-        public delegate bool CheckPrice(float price, float minmax);
+        public delegate bool CheckPrice<T>(T price, T minmax);
         public static List<Product> Filter(List<Product> productList, string name, string min, string max, string groups, string sources)
         {
 
@@ -24,7 +24,7 @@ namespace CheapShopWeb.Services
             }
             if (!string.IsNullOrEmpty(min))
             {
-                CheckPrice checkPrice = delegate(float price, float minmax)
+                CheckPrice<float> checkPrice = delegate(float price, float minmax)
                 {
                     return price >= minmax;
                 };
@@ -32,7 +32,7 @@ namespace CheapShopWeb.Services
             }
             if (!string.IsNullOrEmpty(max))
             {
-                CheckPrice checkPrice = delegate (float price, float minmax)
+                CheckPrice<float> checkPrice = delegate (float price, float minmax)
                 {
                     return price <= minmax;
                 };

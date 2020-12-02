@@ -7,7 +7,7 @@
 
 :yellow_square:Generics (in delegates, events and methods) ?custom list
 
-:yellow_square:Delegates. Yra, bet nežinau ar tinkamai panaudoti
+:green_square:Delegates. Yra, bet nežinau ar tinkamai panaudoti 27,35 eil filtering
 
 :yellow_square:Events and their usage: standard and custom. Custom eventas yra, standart nėra
 

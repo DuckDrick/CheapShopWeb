@@ -138,9 +138,24 @@ namespace CheapShopWeb.Scrapers.Selenium
                                     );
                             }
                         }
-                        catch (NoSuchElementException)
+                        catch (NoSuchElementException e)
                         {
-                            return;
+                            try
+                            {
+                                var path = "C:/Log/";
+                                var fileName = DateTime.Now.Day.ToString() + DateTime.Now.Month.ToString() +
+                                               DateTime.Now.Year.ToString() + DateTime.Now.Second +
+                                               DateTime.Now.Millisecond + "WebDriverException_Logs.txt";
+                                System.IO.StreamWriter file = new System.IO.StreamWriter(path + fileName, true);
+                                file.WriteLine(DateTime.Now + ": " + e +
+                                               " // NO SUCH ELEMENT EXCEPTION -- CHECK SCRAPED PAGE -- " + _scrape);
+                                file.Close();
+                                return;
+                            }
+                            catch
+                            {
+                                Trace.WriteLine(e.ToString());
+                            }
                         }
 
                         var amount = int.Parse(ConfigurationManager.AppSettings["ScraperAmount"] ?? "3");
@@ -171,11 +186,39 @@ namespace CheapShopWeb.Scrapers.Selenium
                 }
                 catch (WebDriverException e)
                 {
-                    Trace.WriteLine(e.ToString());
+                    try
+                    {
+                        Trace.WriteLine(e.ToString());
+                        var path = "C:/Log/";
+                        var fileName = DateTime.Now.Day.ToString() + DateTime.Now.Month.ToString() +
+                                       DateTime.Now.Year.ToString() + DateTime.Now.Second + DateTime.Now.Millisecond +
+                                       "WebDriverException_Logs.txt";
+                        System.IO.StreamWriter file = new System.IO.StreamWriter(path + fileName, true);
+                        file.WriteLine(DateTime.Now.ToString() + ": " + e.ToString() +
+                                       "// WebDriverException -- CHECK SCRAPED PAGE -- " + _scrape);
+                        file.Close();
+                    }
+                    catch
+                    {
+                        Trace.WriteLine(e.ToString());
+                    }
                 }
                 catch (Exception e)
                 {
-                    Trace.WriteLine(e.ToString());
+                    try
+                    {
+                        
+                        var path = "C:/Log/";
+                        var fileName = DateTime.Now.Day.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Year.ToString() + DateTime.Now.Second + DateTime.Now.Millisecond + "WebDriverException_Logs.txt";
+                        System.IO.StreamWriter file = new System.IO.StreamWriter(path + fileName, true);
+                        file.WriteLine(DateTime.Now.ToString() + ": " + e.ToString());
+                        file.Close();
+                    }
+                    catch
+                    {
+                        Trace.WriteLine(e.ToString());
+                    }
+
                 }
             }
             catch (ThreadAbortException)

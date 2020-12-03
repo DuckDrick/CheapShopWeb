@@ -13,7 +13,9 @@ namespace CheapShopWeb.Services
         private static readonly Compare<float> PriceAboveOrEqual = (item, price) => SToFFunc(item.price) >= price;
         private static readonly Compare<float> PriceBelowOrEqual = (item, price) => SToFFunc(item.price) <= price;
         private static readonly Compare<string>
-            StringComparator = (item, str) => item.group.ToLower().Equals(str.ToLower()); 
+            StringComparatorGroup = (item, str) => item.group.ToLower().Equals(str.ToLower());
+        private static readonly Compare<string>
+            StringComparatorSource = (item, str) => item.source.ToLower().Equals(str.ToLower());
         public static List<Product> Filter(List<Product> productList, string name, string min, string max, string groups, string sources)
         {
 
@@ -40,13 +42,13 @@ namespace CheapShopWeb.Services
                     var smallerGroupList = (List<string>) method.Invoke(new SmallerGroups(), null);
 
                     productList = productList.FindAll(product =>
-                        smallerGroupList.Any(group => StringComparator(product, group)));
+                        smallerGroupList.Any(group => StringComparatorGroup(product, group)));
                 }
             }
             if (!string.IsNullOrEmpty(sources))
             {
                 productList = productList.FindAll(product => 
-                    sources.Split(',').Any(source => StringComparator(product, source)));
+                    sources.Split(',').Any(source => StringComparatorSource(product, source)));
             }
 
             return productList;

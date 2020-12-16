@@ -41,31 +41,11 @@
         @{
 
 
-            var search = ViewBag.search;
-            var priceFrom = ViewBag.priceFrom;
-            var priceTo = ViewBag.priceTo;
-            var group = ViewBag.group;
-            var source = ViewBag.source;
+            var group = Request.Params["group"];
             var parameters = new RouteValueDictionary();
-            if (search != null)
-            {
-                parameters.Add("search", search);
-            }
-            if (priceFrom != null)
-            {
-                parameters.Add("priceFrom", priceFrom);
-            }
-            if (priceTo != null)
-            {
-                parameters.Add("priceTo", priceTo);
-            }
             if (group != null)
             {
                 parameters.Add("group", group);
-            }
-            if (source != null)
-            {
-                parameters.Add("source", source);
             }
 
 

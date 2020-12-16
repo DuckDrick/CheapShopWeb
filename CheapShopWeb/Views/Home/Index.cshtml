@@ -39,215 +39,223 @@
     </div>
 
 <div class="row">
-    <div class="col-lg-3 col-md-6">
+<div class="col-lg-3 col-md-6 input">
         
-        <div class="card">
-            <a href=@Url.Action( "SearchGroup", "Search", new { group = "Computer"}, null)>
-                <img class="card-img-top img-fluid" src="~/Content/Images/computer.jfif" alt="Card image cap">
+    <div class="card h-100 color">
+        <a href=@Url.Action( "SearchGroup", "Search", new { group = "Computer"}, null)>
+            <img class="card-img-top img-fluid" src="~/Content/Images/computer.jfif" alt="Card image cap">
+        </a>
+        <div class="card-block">
+            <a style="color: black; text-decoration: none;" href=@Url.Action( "SearchGroup", "Search", new { group = "Computer"}, null)>
+                <h4 class="card-title">Computers</h4>
             </a>
-            <div class="card-block">
-                <a href=@Url.Action( "SearchGroup", "Search", new { group = "Computer"}, null)>
-                    <h4 class="card-title">Computers</h4>
-                </a>
-                <p class="card-text">Computers, laptops, games, accessories for computers</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-            </div>
+            <p class="card-text">Computers, laptops, games, accessories for computers</p>
+            <p class="card-text align-bottom"><small class="text-muted">Last updated 3 mins ago</small></p>
         </div>
     </div>
-    <div class="col-lg-3 col-md-6">
-        <div class="card">
-            <a href=@Url.Action( "SearchGroup", "Search", new { group = "Phone"}, null)>
+</div>
+<div class="col-lg-3 col-md-6 input">
+    <div class="card h-100 color">
+        <a href=@Url.Action( "SearchGroup", "Search", new { group = "Phone"}, null)>
             <img class="card-img-top img-fluid" src="~/Content/Images/phone.jpg" alt="Card image cap">
+        </a>
+        <div class="card-block">
+            <a style="color: black; text-decoration: none;" href=@Url.Action("SearchGroup", "Search", new {group = "Phone"}, null)>
+                <h4 class="card-title">Phones</h4>
             </a>
-                <div class="card-block">
-                    <a href=@Url.Action("SearchGroup", "Search", new {group = "Phone"}, null)>
-                        <h4 class="card-title">Phones</h4>
-                    </a>
-                    <p class="card-text">Phones and phone accessories</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                </div>
+            <p class="card-text">Phones and phone accessories, tablets</p>
+            <p class="card-text align-bottom"><small class="text-muted">Last updated 3 mins ago</small></p>
         </div>
     </div>
-    <div class="col-lg-3 col-md-6">
-        <div class="card">
-            <a href=@Url.Action( "SearchGroup", "Search", new { group = "Camera"}, null)>
+</div>
+<div class="col-lg-3 col-md-6 input">
+    <div class="card h-100 color">
+        <a href=@Url.Action( "SearchGroup", "Search", new { group = "Camera"}, null)>
             <img class="card-img-top img-fluid" src="~/Content/Images/camera.jpg" alt="Card image cap">
-            </a>
-            <div class="card-block">
-                <a href=@Url.Action( "SearchGroup", "Search", new { group = "Camera"}, null)>
+        </a>
+        <div class="card-block">
+            <a style="color: black; text-decoration: none;" href=@Url.Action( "SearchGroup", "Search", new { group = "Camera"}, null)>
                 <h4 class="card-title">Camera, Video</h4>
-                </a>
-                    <p class="card-text">Photo cameras, lenses, video cameras, accessories</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-            </div>
+            </a>
+            <p class="card-text">Photo cameras, lenses, video cameras, accessories</p>
+            <p class="card-text align-bottom"><small class="text-muted">Last updated 3 mins ago</small></p>
         </div>
     </div>
-    <div class="col-lg-3 col-md-6">
-        <div class="card">
-            <a href=@Url.Action( "SearchGroup", "Search", new { group = "Furniture"}, null)>
+</div>
+<div class="col-lg-3 col-md-6 input">
+    <div class="card h-100 color">
+        <a href=@Url.Action( "SearchGroup", "Search", new { group = "Furniture"}, null)>
             <img class="card-img-top img-fluid" src="~/Content/Images/furniture.jpg" alt="Card image cap">
-            </a>
-            <div class="card-block">
-                <a href=@Url.Action( "SearchGroup", "Search", new { group = "Furniture"}, null)>
+        </a>
+        <div class="card-block">
+            <a style="color: black; text-decoration: none;" href=@Url.Action( "SearchGroup", "Search", new { group = "Furniture"}, null)>
                 <h4 class="card-title">Furniture</h4>
-                </a>
-                    <p class="card-text">Some text</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-            </div>
+            </a>
+            <p class="card-text">Some text</p>
+            <p class="card-text align-bottom"><small class="text-muted">Last updated 3 mins ago</small></p>
         </div>
     </div>
-    <div class="col-lg-3 col-md-6">
-        <div class="card">
-            <a href=@Url.Action( "SearchGroup", "Search", new { group = "Audio"}, null)>
+</div>
+<div class="col-lg-3 col-md-6 input">
+    <div class="card h-100 color">
+        <a href=@Url.Action( "SearchGroup", "Search", new { group = "Audio"}, null)>
             <img class="card-img-top img-fluid" src="~/Content/Images/audio.jpg" alt="Card image cap">
+        </a>
+        <div class="card-block">
+            <a style="color: black; text-decoration: none;" href=@Url.Action( "SearchGroup", "Search", new { group = "Audio"}, null)>
+                <h4 class="card-title">Audio</h4>
             </a>
-                <div class="card-block">
-                    <a href=@Url.Action( "SearchGroup", "Search", new { group = "Audio"}, null)>
-                    <h4 class="card-title">Audio</h4>
-                    </a>
-                        <p class="card-text">Some text</p>
-                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                </div>
+            <p class="card-text">Some text</p>
+            <p class="card-text align-bottom"><small class="text-muted">Last updated 3 mins ago</small></p>
         </div>
     </div>
-    <div class="col-lg-3 col-md-6">
-        <div class="card">
-            <a href=@Url.Action( "SearchGroup", "Search", new { group = "Clothing"}, null)>
+</div>
+<div class="col-lg-3 col-md-6 input">
+    <div class="card h-100 color">
+        <a href=@Url.Action( "SearchGroup", "Search", new { group = "Clothing"}, null)>
             <img class="card-img-top img-fluid" src="~/Content/Images/clothing.jpg" alt="Card image cap">
-            </a>
-            <div class="card-block">
-                <a href=@Url.Action( "SearchGroup", "Search", new { group = "Clothing"}, null)>
+        </a>
+        <div class="card-block">
+            <a style="color: black; text-decoration: none;" href=@Url.Action( "SearchGroup", "Search", new { group = "Clothing"}, null)>
                 <h4 class="card-title">Clothing</h4>
-                </a>
-                    <p class="card-text">Some text</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-            </div>
+            </a>
+            <p class="card-text">Some text</p>
+            <p class="card-text align-bottom"><small class="text-muted">Last updated 3 mins ago</small></p>
         </div>
     </div>
-    <div class="col-lg-3 col-md-6">
-        <div class="card">
-            <a href=@Url.Action( "SearchGroup", "Search", new { group = "Car"}, null)>
+</div>
+<div class="col-lg-3 col-md-6 input">
+    <div class="card h-100 color">
+        <a href=@Url.Action( "SearchGroup", "Search", new { group = "Car"}, null)>
             <img class="card-img-top img-fluid" src="~/Content/Images/car.jpg" alt="Card image cap">
-            </a>
-            <div class="card-block">
-                <a href=@Url.Action( "SearchGroup", "Search", new { group = "Car"}, null)>
+        </a>
+        <div class="card-block">
+            <a style="color: black; text-decoration: none;" href=@Url.Action( "SearchGroup", "Search", new { group = "Car"}, null)>
                 <h4 class="card-title">Car parts</h4>
-                </a>
-                    <p class="card-text">Some text</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-            </div>
+            </a>
+            <p class="card-text">Some text</p>
+            <p class="card-text align-bottom"><small class="text-muted">Last updated 3 mins ago</small></p>
         </div>
     </div>
-    <div class="col-lg-3 col-md-6">
-        <div class="card">
-            <a href=@Url.Action( "SearchGroup", "Search", new { group = "Household"}, null)>
+</div>
+<div class="col-lg-3 col-md-6 input">
+    <div class="card h-100 color">
+        <a href=@Url.Action( "SearchGroup", "Search", new { group = "Household"}, null)>
             <img class="card-img-top img-fluid" src="~/Content/Images/household.jpg" alt="Card image cap">
-            </a>
-            <div class="card-block">
-                <a href=@Url.Action( "SearchGroup", "Search", new { group = "Household"}, null)>
+        </a>
+        <div class="card-block">
+            <a style="color: black; text-decoration: none;" href=@Url.Action( "SearchGroup", "Search", new { group = "Household"}, null)>
                 <h4 class="card-title">Household supplies</h4>
-                </a>
-                    <p class="card-text">Some text</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-            </div>
+            </a>
+            <p class="card-text">Some text</p>
+            <p class="card-text align-bottom"><small class="text-muted">Last updated 3 mins ago</small></p>
         </div>
     </div>
-    <div class="col-lg-3 col-md-6">
-        <div class="card">
-            <a href=@Url.Action( "SearchGroup", "Search", new { group = "Garden"}, null)>
+</div>
+<div class="col-lg-3 col-md-6 input">
+    <div class="card h-100 color">
+        <a href=@Url.Action( "SearchGroup", "Search", new { group = "Garden"}, null)>
             <img class="card-img-top img-fluid" src="~/Content/Images/garden.jpg" alt="Card image cap">
-            </a>
-            <div class="card-block">
-                <a href=@Url.Action( "SearchGroup", "Search", new { group = "Garden"}, null)>
+        </a>
+        <div class="card-block">
+            <a style="color: black; text-decoration: none;" href=@Url.Action( "SearchGroup", "Search", new { group = "Garden"}, null)>
                 <h4 class="card-title">Garden supplies</h4>
-                </a>
-                    <p class="card-text">Some text</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-</div>
+            </a>
+            <p class="card-text">Some text</p>
+            <p class="card-text align-bottom"><small class="text-muted">Last updated 3 mins ago</small></p>
         </div>
     </div>
-    <div class="col-lg-3 col-md-6">
-        <div class="card">
-            <a href=@Url.Action( "SearchGroup", "Search", new { group = "Kids"}, null)>
+</div>
+<div class="col-lg-3 col-md-6 input">
+    <div class="card h-100 color">
+        <a href=@Url.Action( "SearchGroup", "Search", new { group = "Kids"}, null)>
             <img class="card-img-top img-fluid" src="~/Content/Images/kids.jpg" alt="Card image cap">
-            </a>
-            <div class="card-block">
-                <a href=@Url.Action( "SearchGroup", "Search", new { group = "Kids"}, null)>
+        </a>
+        <div class="card-block">
+            <a style="color: black; text-decoration: none;" href=@Url.Action( "SearchGroup", "Search", new { group = "Kids"}, null)>
                 <h4 class="card-title">Children's goods</h4>
-                </a>
-                    <p class="card-text">Toys, clothes</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-6">
-        <div class="card">
-            <a href=@Url.Action( "SearchGroup", "Search", new { group = "Animals"}, null)>
-            <img class="card-img-top img-fluid" src="~/Content/Images/animals.png" alt="Card image cap">
             </a>
-            <div class="card-block">
-                <a href=@Url.Action( "SearchGroup", "Search", new { group = "Animals"}, null)>
-                <h4 class="card-title">Animal goods</h4>
-                </a>
-                    <p class="card-text">Some text</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-6">
-        <div class="card">
-            <a href=@Url.Action( "SearchGroup", "Search", new { group = "Beauty"}, null)>
-            <img class="card-img-top img-fluid" src="~/Content/Images/makeup.jfif" alt="Card image cap">
-            </a>
-            <div class="card-block">
-                <a href=@Url.Action( "SearchGroup", "Search", new { group = "Beauty"}, null)>
-                <h4 class="card-title">Makeup and Beauty</h4>
-                </a>
-                    <p class="card-text">Some text</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-6">
-        <div class="card">
-            <a href=@Url.Action( "SearchGroup", "Search", new { group = "Stationery"}, null)>
-            <img class="card-img-top img-fluid" src="~/Content/Images/stationery.jfif" alt="Card image cap">
-            </a>
-            <div class="card-block">
-                <a href=@Url.Action( "SearchGroup", "Search", new { group = "Stationery"}, null)>
-                <h4 class="card-title">Stationery supplies</h4>
-                </a>
-                    <p class="card-text">Some text</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-6">
-        <div class="card">
-            <a href=@Url.Action( "SearchGroup", "Search", new { group = "Books"}, null)>
-            <img class="card-img-top img-fluid" src="~/Content/Images/books.jpg" alt="Card image cap">
-            </a>
-            <div class="card-block">
-                <a href=@Url.Action( "SearchGroup", "Search", new { group = "Books"}, null)>
-                <h4 class="card-title">Books</h4>
-                </a>
-                    <p class="card-text">Some text</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-6">
-        <div class="card">
-            <a href=@Url.Action( "SearchGroup", "Search", new { group = "Leisure"}, null)>
-            <img class="card-img-top img-fluid" src="~/Content/Images/leisure.jpg" alt="Card image cap">
-            </a>
-            <div class="card-block">
-                <a href=@Url.Action( "SearchGroup", "Search", new { group = "Leisure"}, null)>
-                    <h4 class="card-title">Leisure</h4>
-                </a>
-                    <p class="card-text">Some text</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-            </div>
+            <p class="card-text">Toys, clothes</p>
+            <p class="card-text align-bottom"><small class="text-muted">Last updated 3 mins ago</small></p>
         </div>
     </div>
 </div>
+<div class="col-lg-3 col-md-6 input">
+    <div class="card h-100 color">
+        <a href=@Url.Action( "SearchGroup", "Search", new { group = "Animals"}, null)>
+            <img class="card-img-top img-fluid" src="~/Content/Images/animals.png" alt="Card image cap">
+        </a>
+        <div class="card-block">
+            <a style="color: black; text-decoration: none;" href=@Url.Action( "SearchGroup", "Search", new { group = "Animals"}, null)>
+                <h4 class="card-title">Animal goods</h4>
+            </astyle="color:>
+            <p class="card-text">Some text</p>
+            <p class="card-text align-bottom"><small class="text-muted">Last updated 3 mins ago</small></p>
+        </div>
+    </div>
+</div>
+<div class="col-lg-3 col-md-6 input">
+    <div class="card h-100 color">
+        <a href=@Url.Action( "SearchGroup", "Search", new { group = "Beauty"}, null)>
+            <img class="card-img-top img-fluid" src="~/Content/Images/makeup.jfif" alt="Card image cap">
+        </a>
+        <div class="card-block">
+            <a style="color: black; text-decoration: none;" href=@Url.Action( "SearchGroup", "Search", new { group = "Beauty"}, null)>
+                <h4 class="card-title">Makeup and Beauty</h4>
+            </a>
+            <p class="card-text">Some text</p>
+            <p class="card-text align-bottom"><small class="text-muted">Last updated 3 mins ago</small></p>
+        </div>
+    </div>
+</div>
+<div class="col-lg-3 col-md-6 input">
+    <div class="card h-100 color">
+        <a href=@Url.Action( "SearchGroup", "Search", new { group = "Stationery"}, null)>
+            <img class="card-img-top img-fluid" src="~/Content/Images/stationery.jfif" alt="Card image cap">
+        </a>
+        <div class="card-block">
+            <a style="color: black; text-decoration: none;" href=@Url.Action( "SearchGroup", "Search", new { group = "Stationery"}, null)>
+                <h4 class="card-title">Stationery supplies</h4>
+            </a>
+            <p class="card-text">Some text</p>
+            <p class="card-text align-bottom"><small class="text-muted">Last updated 3 mins ago</small></p>
+        </div>
+    </div>
+</div>
+<div class="col-lg-3 col-md-6 input">
+    <div class="card h-100 color">
+        <a href=@Url.Action( "SearchGroup", "Search", new { group = "Books"}, null)>
+            <img class="card-img-top img-fluid" src="~/Content/Images/books.jpg" alt="Card image cap">
+        </a>
+        <div class="card-block">
+            <a style="color: black; text-decoration: none;" href=@Url.Action( "SearchGroup", "Search", new { group = "Books"}, null)>
+                <h4 class="card-title">Books</h4>
+            </a>
+            <p class="card-text">Some text</p>
+            <p class="card-text align-bottom"><small class="text-muted">Last updated 3 mins ago</small></p>
+        </div>
+    </div>
+</div>
+<div class="col-lg-3 col-md-6 input">
+    <div class="card h-100 color">
+        <a href=@Url.Action( "SearchGroup", "Search", new { group = "Leisure"}, null)>
+            <img class="card-img-top img-fluid" src="~/Content/Images/leisure.jpg" alt="Card image cap">
+        </a>
+        <div class="card-block">
+            <a style="color: black; text-decoration: none;" href=@Url.Action( "SearchGroup", "Search", new { group = "Leisure"}, null)>
+                <h4 class="card-title">Leisure</h4>
+            </a>
+            <p class="card-text">Some text</p>
+            <p class="card-text position-relative border-bottom-0"><small class="text-muted">Last updated 3 mins ago</small></p>
+        </div>
+    </div>
+</div>
+</div>
+<style>
+    .input {
+        margin: 20px 0;
+    }
+    .color{
+        background-color: ghostwhite  
+    }
+</style>

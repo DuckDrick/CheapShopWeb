@@ -1,7 +1,7 @@
 ﻿@using System.Diagnostics
 @using CheapShopWeb.Models
 @using Microsoft.Ajax.Utilities
-@model PagedList.IPagedList<CheapShopWeb.Models.Product>  
+@model PagedList.IPagedList<CheapShopWeb.Models.Product>
 @using PagedList.Mvc
 
 @{
@@ -10,15 +10,19 @@
 }
 
 <div>
-    <button onClick="scrape('@Request.Params["search"]', '@Request.Params["source"]')">Scrape</button>
     <div class="row justify-content-center">
         <div class="col-12 col-md-10 col-lg-8">
             <form>
                 <div class="card-body row no-gutters align-items-center">
                     <div class="col-auto">
-                        <i class="h4 text-body"></i>
+                        <button onclick="alertboxFunction()" style="border: 0; background: transparent">?</button>
+
+                        @*<button onclick="alertboxFunction()">?</button>*@
                     </div>
-                    <!--end of col-->
+                    <div class="col-auto">
+                        <button class="btn btn-lg btn-success" onClick="scrape('@Request.Params["search"]', '@Request.Params["source"]')">Scrape</button>
+                    </div>
+                     <!--end of col-->
                     <div class="col">
                         <input class="form-control form-control-lg" type="search" name="search" placeholder="@Request.Params["search"]">
                     </div>
@@ -34,20 +38,22 @@
     </div>
 
 </div>
-
 @if (Model.Count() > 0 && !string.IsNullOrWhiteSpace(@Request.Params["search"]))
 {
-    <div class="row">
-        <div class="col-sm-4 col-md-3 col-lg-2">
-            <form id="form1" class="form1"> @*border border-dark*@
+<div class="row">
+    <div class="col-sm-4 col-md-3 col-lg-2">
+        <button type="button" class="btn btn-lg btn-success" data-toggle="collapse" id="collapsebutton" data-target="#demo">Filters</button>
+        <div id="demo" class="collapse">
+            <form id="form1" class="form1">
+                @*border border-dark*@
 
                 <div class="form-group">
                     <label for="priceFrom">Min price</label>
-                    <input step=".01"min="0" type="number"onchange="(function(el){el.value=parseFloat(el.value).toFixed(2);})(this)" class="form-control" id="priceFrom" name="priceFrom" placeholder="@Request.Params["priceFrom"]">
+                    <input step=".01" min="0" type="number" onchange="(function(el) { el.value = parseFloat(el.value).toFixed(2); })(this)" class="form-control" id="priceFrom" name="priceFrom" placeholder="@Request.Params["priceFrom"]">
                 </div>
                 <div class="form-group">
                     <label for="priceTo">Max price</label>
-                    <input step=".01"min="0" type="number"onchange="(function(el){el.value=parseFloat(el.value).toFixed(2);})(this)" class="form-control" id="priceTo" name="priceTo" placeholder="@Request.Params["priceTo"]">
+                    <input step=".01" min="0" type="number" onchange="(function(el) { el.value = parseFloat(el.value).toFixed(2); })(this)" class="form-control" id="priceTo" name="priceTo" placeholder="@Request.Params["priceTo"]">
                 </div>
                 <p>Sources:</p>
                 <div class="form-group form-check" name="source">
@@ -81,91 +87,91 @@
                     <input type="checkbox" class="form-check-input" name="group" id="Clothing" value="Clothing">Clothing (@ViewBag.groupCounts[1])<br />
                     <input type="checkbox" class="form-check-input" name="group" id="Kids" value="Kids">Kids (@ViewBag.groupCounts[0])<br />
                 </div>
-                <button type="submit">Filter</button>
+                <button type="submit" class="btn btn-lg btn-success">Filter</button>
             </form>
         </div>
-        <div class="col-sm-8 col-md-9 col-lg-10">
-            @if (Model != null)
-            {
-                foreach (var item in Model)
-                {
-                    <div class="container-fluid border border-dark mb-4">
-                        <div class="row">
-                            <div class="col-sm-12 col-md-3">
-                                <img class="img-fluid mx-auto d-block" src=@item.photo_link alt="" />
-                            </div>
-                            <div class="col-sm-12 col-md-6 border border-primary">
-                                <a href=@Url.Action( "ProductInfo", "ProductInfo", new {name = @item.name, link =@item.product_link, photo = @item.photo_link, price= @item.price, source=@item.source,
-                                        group=@item.group, searchString = @Request.Params["search"]}, null)>
-                                    <h2>@item.name</h2>
-                                </a>
-                                <p>Grupė: @item.group</p>
-                                <p>Šaltinis: @item.source</p>
-                            </div>
-
-                            <div class="col-sm-12 col-md-3">
-                                <h2>@item.price</h2>
-                                <a href=@item.product_link class="btn btn-primary">Link</a>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
-                }
-            }
-        </div>
-        <br />
-        @{
-
-
-            var search = ViewBag.search;
-            var priceFrom = ViewBag.priceFrom;
-            var priceTo = ViewBag.priceTo;
-            var group = ViewBag.group;
-            var source = ViewBag.source;
-            var parameters = new RouteValueDictionary();
-            if (search != null)
-            {
-                parameters.Add("search", search);
-            }
-            if (priceFrom != null)
-            {
-                parameters.Add("priceFrom", priceFrom);
-            }
-            if (priceTo != null)
-            {
-                parameters.Add("priceTo", priceTo);
-            }
-            if (group != null)
-            {
-                parameters.Add("group", group);
-            }
-            if (source != null)
-            {
-                parameters.Add("source", source);
-            }
-
-
-            RouteValueDictionary generateRouteValues(int page)
-            {
-                if (parameters.ContainsKey("page"))
-                {
-                    parameters["page"] = page;
-                }
-                else
-                {
-                    parameters.Add("page", page);
-                }
-
-                return parameters;
-            }
-
-        }
-        <div class="mx-auto">
-
-            @Html.PagedListPager(Model, page => Url.Action("Search",
-                generateRouteValues(page)))
-        </div>
     </div>
+    <div class="col-sm-8 col-md-9 col-lg-10">
+        @if (Model != null)
+        {
+            foreach (var item in Model)
+            {
+                <div class="container-fluid border border-dark mb-4">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-3">
+                            <img class="img-fluid mx-auto d-block" src=@item.photo_link alt="" />
+                        </div>
+                        <div class="col-sm-12 col-md-6 border border-primary">
+                            <a href=@Url.Action("ProductInfo", "ProductInfo", new {name = @item.name, link = @item.product_link, photo = @item.photo_link, price = @item.price, source = @item.source, group = @item.group, searchString = @Request.Params["search"]}, null)>
+                                <h2>@item.name</h2>
+                            </a>
+                            <p>Grupė: @item.group</p>
+                            <p>Šaltinis: @item.source</p>
+                        </div>
+
+                        <div class="col-sm-12 col-md-3">
+                            <h2>@item.price</h2>
+                            <a href=@item.product_link class="btn btn-primary">Link</a>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+    <br />
+    @{
+
+
+        var search = ViewBag.search;
+        var priceFrom = ViewBag.priceFrom;
+        var priceTo = ViewBag.priceTo;
+        var group = ViewBag.group;
+        var source = ViewBag.source;
+        var parameters = new RouteValueDictionary();
+        if (search != null)
+        {
+            parameters.Add("search", search);
+        }
+        if (priceFrom != null)
+        {
+            parameters.Add("priceFrom", priceFrom);
+        }
+        if (priceTo != null)
+        {
+            parameters.Add("priceTo", priceTo);
+        }
+        if (group != null)
+        {
+            parameters.Add("group", group);
+        }
+        if (source != null)
+        {
+            parameters.Add("source", source);
+        }
+
+
+        RouteValueDictionary generateRouteValues(int page)
+        {
+            if (parameters.ContainsKey("page"))
+            {
+                parameters["page"] = page;
+            }
+            else
+            {
+                parameters.Add("page", page);
+            }
+
+            return parameters;
+        }
+
+    }
+    <div class="mx-auto">
+
+        @Html.PagedListPager(Model, page => Url.Action("Search",
+            generateRouteValues(page)))
+    </div>
+</div>
 
 
 }
@@ -185,34 +191,71 @@ else
     }
 </script>
 
- 
+
 <style>
-    .form1{
+    .form1 {
         padding: 5px;
     }
-
 </style>
+
+
+
 @section scripts{
+    <script>
+
+    </script>
+    <script>
+        function alertboxFunction() {
+            alert("If You dont find what you are looking for, just press 'Scrape' and we will add items into our database as soon as possible.😄\n" );
+        }
+    </script>
+    <script>
+    document.onload = function () {
+        var all_inputs = document.getElementsByTagName("input");
+        document.onload = function () {
+            for (var i = 0; i < all_inputs.length; i++) {
+                if (all_inputs[i].getAttribute("type") === "checkbox") {
+                    var checkbox = all_inputs[i];
+
+                    // Change the state (checked/unchecked) if the state is saved in localStorage
+                    var value = localStorage.getItem(checkbox.getAttribute("id"));
+                    if (value != null) {
+                        if (value == true)
+                            checkbox.checked = true;
+                        else if (value == false)
+                            checkbox.checked = false;
+                    }
+
+                    // Then put onchange listeners to notify when checkbox state changes in order to save the state in the localStorage
+                    checkbox.addEventListener('change',
+                        function () {
+                            localStorage.setItem(checkbox.getAttribute("id"),  checkbox.checked);
+                        });
+                }
+            }
+        }
+    }</script>
+
     <script type="text/javascript">
         var kvp = [];
         var params = [];
-        $("#form1").submit(function(e) {
+        $("#form1").submit(function (e) {
             e.preventDefault();
             kvp = document.location.search.substr(1).split('&');
             var sources = [];
             $("input:checkbox[name=source]:checked").each(function () {
-                
+
                 sources.push($(this).val());
                 //$(this).prop("checked", false);
             });
-            
+
             var group = [];
             $("input:checkbox[name=group]:checked").each(function () {
-                
+
                 group.push($(this).val());
                 //$(this).prop("checked", false);
             });
-            
+
 
             addParameter("source", sources);
             addParameter("group", group);
@@ -222,7 +265,7 @@ else
 
             var toprice = document.getElementById("priceTo").value;
             addParameter("priceTo", toprice);
-          
+
             params = kvp.join('&');
             document.location.search = params;
         });
@@ -245,5 +288,6 @@ else
                 }
             }
         }
-    </script>}
+    </script>
+}
 

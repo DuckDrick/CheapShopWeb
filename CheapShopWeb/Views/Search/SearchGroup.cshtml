@@ -1,4 +1,5 @@
-﻿@model IEnumerable<CheapShopWeb.Models.Product>
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<CheapShopWeb.Models.Product>
 @{
     ViewBag.Title = "SearchGroup";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -13,29 +14,80 @@
                 foreach (var item in Model)
                 {
                     <p>
-                    <div class="container-fluid border border-dark mb-4">
-                        <div class="row">
-                            <div class="col-sm-12 col-md-3">
-                                <img class="img-fluid mx-auto d-block" src=@item.photo_link alt="" />
-                            </div>
-                            <div class="col-sm-12 col-md-6 border border-primary">
-                                <a  href=@Url.Action( "ProductInfoGroup", "ProductInfo", new {name = @item.name, link =@item.product_link, photo = @item.photo_link, price= @item.price, source=@item.source,
-                                             group=@item.group, itemsgroup = @Request.Params["group"]}, null)>
-                                    <h2>@item.name</h2>
-                                </a>
-                                <p>Grupė: @item.group</p>
-                            </div>
+                        <div class="container-fluid border border-dark mb-4">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-3">
+                                    <img class="img-fluid mx-auto d-block" src=@item.photo_link alt="" />
+                                </div>
+                                <div class="col-sm-12 col-md-6 border border-primary">
+                                    <a  href=@Url.Action( "ProductInfoGroup", "ProductInfo", new {name = @item.name, link =@item.product_link, photo = @item.photo_link, price= @item.price, source=@item.source,
+                                                 group=@item.group, itemsgroup = @Request.Params["group"]}, null)>
+                                        <h2>@item.name</h2>
+                                    </a>
+                                    <p>Grupė: @item.group</p>
+                                </div>
 
-                            <div class="col-sm-12 col-md-3">
-                                <h2>@item.price</h2>
-                                <a href=@item.product_link class="btn btn-primary">Link</a>
+                                <div class="col-sm-12 col-md-3">
+                                    <h2>@item.price</h2>
+                                    <a href=@item.product_link class="btn btn-primary">Link</a>
+                                </div>
+                                <div class="clearfix"></div>
                             </div>
-                            <div class="clearfix"></div>
-                        </div>
                         </div>
                     </p>
                 }
             }
+        </div>
+        @{
+
+
+            var search = ViewBag.search;
+            var priceFrom = ViewBag.priceFrom;
+            var priceTo = ViewBag.priceTo;
+            var group = ViewBag.group;
+            var source = ViewBag.source;
+            var parameters = new RouteValueDictionary();
+            if (search != null)
+            {
+                parameters.Add("search", search);
+            }
+            if (priceFrom != null)
+            {
+                parameters.Add("priceFrom", priceFrom);
+            }
+            if (priceTo != null)
+            {
+                parameters.Add("priceTo", priceTo);
+            }
+            if (group != null)
+            {
+                parameters.Add("group", group);
+            }
+            if (source != null)
+            {
+                parameters.Add("source", source);
+            }
+
+
+            RouteValueDictionary generateRouteValues(int page)
+            {
+                if (parameters.ContainsKey("page"))
+                {
+                    parameters["page"] = page;
+                }
+                else
+                {
+                    parameters.Add("page", page);
+                }
+
+                return parameters;
+            }
+
+        }
+        <div class="mx-auto">
+
+            @Html.PagedListPager(Model, page => Url.Action("SearchGroup",
+                generateRouteValues(page)))
         </div>
     </div>
 }

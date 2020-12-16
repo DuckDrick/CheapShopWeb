@@ -15,7 +15,7 @@
             <form>
                 <div class="card-body row no-gutters align-items-center">
                     <div class="col-auto">
-                        <button onclick="alertboxFunction()" style="border: 0; background: transparent">?</button>
+                        <button type="button" onclick="alertboxFunction()" style="border: 0; background: transparent">?</button>
 
                         @*<button onclick="alertboxFunction()">?</button>*@
                     </div>
@@ -42,7 +42,7 @@
 {
 <div class="row">
     <div class="col-sm-4 col-md-3 col-lg-2">
-        <button type="button" class="btn btn-lg btn-success" data-toggle="collapse" id="collapsebutton" data-target="#demo">Filters</button>
+        <button type="button" class="btn btn-lg btn-success" data-toggle="collapse" id="collapsebutton" data-target="#demo" onclick="loadchecks()">Filters</button>
         <div id="demo" class="collapse">
             <form id="form1" class="form1">
                 @*border border-dark*@
@@ -88,6 +88,9 @@
                     <input type="checkbox" class="form-check-input" name="group" id="Kids" value="Kids">Kids (@ViewBag.groupCounts[0])<br />
                 </div>
                 <button type="submit" class="btn btn-lg btn-success">Filter</button>
+                <p> </p>
+                <input type="button" value="Clear Filter" class="btn btn-lg btn-success" onclick="location.href='@Url.Action("Search", "Search",new {search = @Request.Params["search"]})'" />
+                <p> </p>
             </form>
         </div>
     </div>
@@ -202,55 +205,81 @@ else
 
 @section scripts{
     <script>
+        function loadchecks() {
+            var queryString = window.location.search;
 
-    </script>
-    <script>
-        function alertboxFunction() {
-            alert("If You dont find what you are looking for, just press 'Scrape' and we will add items into our database as soon as possible.😄\n" );
-        }
-    </script>
-    <script>
-    document.onload = function () {
-        var all_inputs = document.getElementsByTagName("input");
-        document.onload = function () {
-            for (var i = 0; i < all_inputs.length; i++) {
-                if (all_inputs[i].getAttribute("type") === "checkbox") {
-                    var checkbox = all_inputs[i];
+            var urlParams = new URLSearchParams(queryString);
 
-                    // Change the state (checked/unchecked) if the state is saved in localStorage
-                    var value = localStorage.getItem(checkbox.getAttribute("id"));
-                    if (value != null) {
-                        if (value == true)
-                            checkbox.checked = true;
-                        else if (value == false)
-                            checkbox.checked = false;
+            var page_source = urlParams.get('source');
+            var params = page_source.split(',');
+            var checkboxes = document.getElementsByTagName('input');
+            for (var param in params) {
+                for (var i = 0; i < checkboxes.length; i++) {
+                    if ((checkboxes[i].type == 'checkbox') && (checkboxes[i].value == params[param])) {
+                        document.getElementById(checkboxes[i].value).checked = true;
                     }
-
-                    // Then put onchange listeners to notify when checkbox state changes in order to save the state in the localStorage
-                    checkbox.addEventListener('change',
-                        function () {
-                            localStorage.setItem(checkbox.getAttribute("id"),  checkbox.checked);
-                        });
+                }
+            }
+            var page_group = urlParams.get('group');
+            var params = page_group.split(',');
+            var checkboxes = document.getElementsByTagName('input');
+            for (var param in params) {
+                for (var i = 0; i < checkboxes.length; i++) {
+                    if ((checkboxes[i].type == 'checkbox') && (checkboxes[i].value == params[param])) {
+                        document.getElementById(checkboxes[i].value).checked = true;
+                    }
                 }
             }
         }
-    }</script>
+    </script>
+    <script>
+        function alertboxFunction() {
+            alert("If You dont find what you are looking for, just press 'Scrape' and we will add items into our database as soon as possible.😄\n");
+        }
+    </script>
+    <script>
+        document.onload = function() {
+            var all_inputs = document.getElementsByTagName("input");
+            document.onload = function() {
+                for (var i = 0; i < all_inputs.length; i++) {
+                    if (all_inputs[i].getAttribute("type") === "checkbox") {
+                        var checkbox = all_inputs[i];
+
+                        // Change the state (checked/unchecked) if the state is saved in localStorage
+                        var value = localStorage.getItem(checkbox.getAttribute("id"));
+                        if (value != null) {
+                            if (value == true)
+                                checkbox.checked = true;
+                            else if (value == false)
+                                checkbox.checked = false;
+                        }
+
+                        // Then put onchange listeners to notify when checkbox state changes in order to save the state in the localStorage
+                        checkbox.addEventListener('change',
+                            function() {
+                                localStorage.setItem(checkbox.getAttribute("id"), checkbox.checked);
+                            });
+                    }
+                }
+            }
+        }
+    </script>
 
     <script type="text/javascript">
         var kvp = [];
         var params = [];
-        $("#form1").submit(function (e) {
+        $("#form1").submit(function(e) {
             e.preventDefault();
             kvp = document.location.search.substr(1).split('&');
             var sources = [];
-            $("input:checkbox[name=source]:checked").each(function () {
+            $("input:checkbox[name=source]:checked").each(function() {
 
                 sources.push($(this).val());
                 //$(this).prop("checked", false);
             });
 
             var group = [];
-            $("input:checkbox[name=group]:checked").each(function () {
+            $("input:checkbox[name=group]:checked").each(function() {
 
                 group.push($(this).val());
                 //$(this).prop("checked", false);

@@ -11,11 +11,11 @@ namespace CheapShopWeb.Controllers
 {
     public class SearchController : Controller
     {
-        private readonly Lazy<ProductDbContext> _productDbContext;
+        private readonly Lazy<MyDbContext> _productDbContext;
         private readonly Lazy<ScraperService> _scraperService;
 
 
-        public SearchController(Lazy<ScraperService> scraperService, Lazy<ProductDbContext> productDbContext)
+        public SearchController(Lazy<ScraperService> scraperService, Lazy<MyDbContext> productDbContext)
         {
             this._scraperService = scraperService;
             this._productDbContext = productDbContext;

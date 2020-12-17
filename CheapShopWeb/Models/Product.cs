@@ -9,7 +9,6 @@ using System.Web;
 
 namespace CheapShopWeb.Models
 {
-    [Table("product", Schema = "public")]
     public class Product
     {
         [Key]
@@ -21,6 +20,7 @@ namespace CheapShopWeb.Models
         public string photo_link { get; set; }
         public string product_link { get; set; }
         public string group { get; set; }
+        public DateTime updated { get; set; }
 
 
         public Product(string name, string source, string price, string photo_link, string product_link, string group)
@@ -31,11 +31,16 @@ namespace CheapShopWeb.Models
             this.photo_link = photo_link;
             this.product_link = product_link;
             this.group = group;
+            this.updated = DateTime.Now;
         }
 
         public Product()
         {
+            this.Users = new HashSet<User>();
         }
+
+        
+        public virtual ICollection<User> Users { get; set; }
 
     }
 }

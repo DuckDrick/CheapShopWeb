@@ -47,9 +47,13 @@ namespace CheapShopWeb.Controllers
             _scraperService.Value.queryList.Add(query);
         }
 
-        public ActionResult SearchGroup(string group)
+        public ActionResult SearchGroup(string group, int? page)
         {
-            return View(Filtering.Filter(_productDbContext.Value.Products.ToList(), null, null, null, group, null));
+            var filtered = Filtering.Filter(_productDbContext.Value.Products.ToList(), null, null, null, group, null);
+            var pageSize = int.Parse(ConfigurationManager.AppSettings["PageSize"] ?? "3");
+            var counts = Filtering.CountAmounts(filtered);
+            var pageNumber = (page ?? 1);
+            return View(filtered.ToPagedList(pageNumber, pageSize));
 
         }
     }

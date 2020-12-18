@@ -224,6 +224,7 @@
     <Compile Include="Scrapers\Selenium\SkytechScraper.cs" />
     <Compile Include="Scrapers\Selenium\TopocentrasScraper.cs" />
     <Compile Include="Scrapers\Selenium\VarleScraper.cs" />
+    <Compile Include="Services\ApiService.cs" />
     <Compile Include="Services\Filtering.cs" />
     <Compile Include="Values\MainGroups.cs" />
     <Compile Include="Values\ScrapedSites.cs" />

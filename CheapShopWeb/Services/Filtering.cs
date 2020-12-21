@@ -101,12 +101,19 @@ namespace CheapShopWeb.Services
                     newlist.Add(product);
                 }
             }
-
             newlist.Sort((x, y) => String.Compare(x.price, y.price, StringComparison.Ordinal));
-            newlist.Insert(0, prod);
+            foreach (var product in newlist)
+            {
+                if (prod.name.Equals(product.name) && prod.price.Equals(product.price) &&
+                    prod.source.Equals(product.source))
+                {
+                    newlist.Insert(0,product);
+                    break;
+                }
+            }
             return newlist;
         }
-        public static List<Product> GetSimilarProductsGroup(List<Product> productList, Product prod, string itemsGroup)
+        public static List<Product> GetSimilarProductsGroup(List<Product> productList, string name, string source, string price, string itemsGroup)
         {
 
             var method = typeof(SmallerGroups).GetMethod(itemsGroup + "Group");
@@ -119,13 +126,21 @@ namespace CheapShopWeb.Services
             var newList = new List<Product>();
             foreach (var product in productList)
             {
-                if (LevenshteinDistance.Compute(product.name, prod.name) <= 3 * prod.name.Split(' ').Length) //or 4*//
+                if (LevenshteinDistance.Compute(product.name, name) <= 3 * name.Split(' ').Length) //or 4*//
                 {
                     newList.Add(product);
                 }
             }
             newList.Sort((x, y) => string.Compare(x.price, y.price, StringComparison.Ordinal));
-            newList.Insert(0, prod);
+            foreach (var product in newList)
+            {
+                if (product.name.Equals(name) && product.source.Equals(source) && product.price.Equals(price))
+                {
+                    newList.Insert(0,product);
+                    break;
+
+                }
+            }
             return newList;
         }
 

@@ -47,28 +47,33 @@ namespace CheapShopWeb.Services
 
         public static async Task<List<Product>> GetProductsForViewGroup(string group)
         {
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri(_baseUrl);
-                client.DefaultRequestHeaders.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                HttpResponseMessage res = await client.GetAsync("Default/MainGroup?maingroup=" + group);
-
-                if (res.IsSuccessStatusCode)
-                {
-                    var EmpResponse = res.Content.ReadAsStringAsync().Result;
-                    filtered = JsonConvert.DeserializeObject<List<Models.Product>>(EmpResponse);
-                    return filtered;
-                }
-
-                return (filtered);
-            }
-            
+            var s="Default/MainGroup?maingroup=" + group;
+            return (await ClientResponse(s));
         }
 
         public static async Task<List<Product>> GetProductsForViewAll(string search, string priceFrom, string priceTo,
             string group, string source)
+        {
+            var s="Default/Search" + BUrl("", search, priceFrom, priceTo, group, source);
+
+                return (await ClientResponse(s));
+        }
+
+        public static async Task<List<Product>> GetSimilarProducts(string name, string price,
+            string source, string group, string searchString)
+        {
+            var s="Default/SimilarProducts?name=" + name+ "&price=" + price + "&source=" + source + "&group=" + group+  "&searchString="+searchString;
+            return (await ClientResponse(s));
+            
+        }
+        public static async Task<List<Product>> GetSimilarGroup(string name, string link, string photo, string price, string source, string itemsGroup)
+        {
+
+            var s ="Default/GroupItems?gname=" + name + "&gprice=" + price + "&gsource=" + source + "&gitemsGroup=" + itemsGroup;
+            return (await ClientResponse(s));
+        }
+
+        public static async Task<List<Product>> ClientResponse(string uri)
         {
             using (var client = new HttpClient())
             {
@@ -76,7 +81,7 @@ namespace CheapShopWeb.Services
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                HttpResponseMessage res = await client.GetAsync("Default/Search" + BUrl("", search, priceFrom, priceTo, group, source));
+                HttpResponseMessage res = await client.GetAsync(uri);
 
                 if (res.IsSuccessStatusCode)
                 {

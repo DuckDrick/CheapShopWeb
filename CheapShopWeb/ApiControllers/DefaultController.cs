@@ -16,7 +16,7 @@ namespace CheapShopWeb.ApiControllers
     public class DefaultController : ApiController
     {
 
-        private Lazy<ProductDbContext> _productDbContext;
+        private readonly Lazy<ProductDbContext> _productDbContext = new Lazy<ProductDbContext>();
         // GET: api/Default/MainGroup?maingroup={group}
 
         //example https://localhost:44360/api/Default/MainGroup?maingroup=Kids
@@ -24,7 +24,6 @@ namespace CheapShopWeb.ApiControllers
         [HttpGet]
         public List<Product> MainGroup(string maingroup)
         {
-            _productDbContext = new Lazy<ProductDbContext>();
             var filtered = Filtering.Filter(_productDbContext.Value.Products.ToList(), null, null, null, maingroup, null);
             return filtered;
             
@@ -36,11 +35,27 @@ namespace CheapShopWeb.ApiControllers
         [HttpGet]
         public List<Product> Search(string search, string priceFrom=null,  string priceTo=null,string group=null, string source=null)
         {
-            _productDbContext = new Lazy<ProductDbContext>();
             var filtered = Filtering.Filter(_productDbContext.Value.Products.ToList(), search, priceFrom, priceTo, group, source);
             return filtered;
             
         }
+
+        [HttpGet]
+        public List<Product> SimilarProducts(string name , string price , string source, string group , string searchString)
+        {
+            var filtered = Filtering.GetSimilarProducts(_productDbContext.Value.Products.ToList(), new Product(name, source, price, null, null, group), searchString);
+            return filtered;
+
+        }
+
+        [HttpGet]
+        public List<Product> GroupItems(string gname=null, string gprice = null, string gsource = null, string gitemsGroup = null)
+        {
+            var filtered = Filtering.GetSimilarProductsGroup(_productDbContext.Value.Products.ToList(), gname, gsource, gprice, gitemsGroup);
+            return filtered;
+       
+        }
+
         // GET: api/Default/5
         //public string Get(int id)
         //{

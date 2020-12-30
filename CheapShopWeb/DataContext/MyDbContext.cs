@@ -5,13 +5,18 @@ using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace CheapShopWeb.DataContext
 {
-    public class ProductDbContext : DbContext
+    public class MyDbContext : IdentityDbContext<User>
     {
-        public ProductDbContext() : base(nameOrConnectionString: "database"){}
+        public MyDbContext() : base(nameOrConnectionString: "database"){}
         public virtual DbSet<Product> Products { get; set; }
 
+        public static MyDbContext Create()
+        {
+            return new MyDbContext();
+        }
     }
 }

@@ -14,7 +14,7 @@ namespace CheapShopWeb.Controllers
 {
     public class ProductsController : Controller
     {
-        private readonly ProductDbContext _db = new ProductDbContext();
+        private readonly MyDbContext _db = new MyDbContext();
 
         // GET: Products
         public ActionResult Index(string name, string min, string max, string group, string source )

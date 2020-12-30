@@ -8,14 +8,14 @@ namespace CheapShopWeb.Models
 {
     public class ProductAndSearchString //norint i view grazinti keleta dalyku reikia tureti klase ir grazinti kaip vieneta, todel paieska ir filtravimas vykdomas sitoje klaseje
     {
-        private ProductDbContext _db;
+        private MyDbContext _db;
         public List<Product> list { get; set; }
         public String searchString { get; set; }
         public ProductAndSearchString()
         {
             this.list = new List<Product>();
             this.searchString = " ";
-            this._db = new ProductDbContext();
+            this._db = new MyDbContext();
         }
         public List<Product> Search(String search)
         {

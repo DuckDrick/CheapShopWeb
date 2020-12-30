@@ -12,11 +12,11 @@ namespace CheapShopWeb.Controllers
 {
     public class ProductInfoController : Controller
     {
-        private ProductDbContext db;
+        private MyDbContext db;
 
-        public ProductInfoController(ProductDbContext productDbContext)
+        public ProductInfoController(MyDbContext myDbContext)
         {
-            this.db = productDbContext;
+            this.db = myDbContext;
         }
         // GET: ProductInfo
         public ActionResult ProductInfo(String name, String link, String photo, String price, String source, String group, String searchString)

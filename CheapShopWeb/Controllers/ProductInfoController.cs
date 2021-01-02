@@ -14,7 +14,12 @@ namespace CheapShopWeb.Controllers
     public class ProductInfoController : Controller
     {
         private static List<Product> filtered = new List<Product>();
+        private MyDbContext db;
 
+        public ProductInfoController(MyDbContext myDbContext)
+        {
+            this.db = myDbContext;
+        }
         // GET: ProductInfo
         public async Task<ActionResult> ProductInfo(string name, string link, string photo, string price, string source, string group, string searchString)
         {

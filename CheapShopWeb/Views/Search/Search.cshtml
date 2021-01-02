@@ -22,7 +22,7 @@
                     <div class="col-auto">
                         <button class="btn btn-lg btn-success" onClick="scrape('@Request.Params["search"]', '@Request.Params["source"]')">Scrape</button>
                     </div>
-                     <!--end of col-->
+                    <!--end of col-->
                     <div class="col">
                         <input class="form-control form-control-lg" type="search" name="search" placeholder="@Request.Params["search"]">
                     </div>
@@ -93,88 +93,100 @@
                 <p> </p>
             </form>
         </div>
-    </div>
-    <div class="col-sm-8 col-md-9 col-lg-10">
-        @if (Model != null)
-        {
-            foreach (var item in Model)
+        <div class="col-sm-8 col-md-9 col-lg-10">
+            @if (Model != null)
             {
-                <div class="container-fluid border border-dark mb-4" style="margin-top:10px">
-                    <div class="row">
-                        <div class="col-sm-12 col-md-3">
-                            <img class="img-fluid mx-auto d-block" src=@item.photo_link alt="" />
-                        </div>
-                        <div class="col-sm-12 col-md-6 border border-primary">
-                            <a href=@Url.Action("ProductInfo", "ProductInfo", new {name = @item.name, link = @item.product_link, photo = @item.photo_link, price = @item.price, source = @item.source, group = @item.group, searchString = @Request.Params["search"]}, null)>
-                                <h2>@item.name</h2>
-                            </a>
-                            <p>Grupė: @item.group</p>
-                            <p>Šaltinis: @item.source</p>
-                        </div>
+                foreach (var item in Model)
+                {
+                    <div class="container-fluid border border-dark mb-4" style="margin-top:10px">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-3">
+                                <img class="img-fluid mx-auto d-block" src=@item.photo_link alt="" />
+                            </div>
+                            <div class="col-sm-12 col-md-6 border border-primary">
+                                <a href=@Url.Action("ProductInfo", "ProductInfo", new {name = @item.name, link = @item.product_link, photo = @item.photo_link, price = @item.price, source = @item.source, group = @item.group, searchString = @Request.Params["search"]}, null)>
+                                    <h2>@item.name</h2>
+                                </a>
+                                <p>Grupė: @item.group</p>
+                                <p>Šaltinis: @item.source</p>
+                            </div>
 
-                        <div class="col-sm-12 col-md-3">
-                            <h2>@item.price</h2>
-                            <a href=@item.product_link class="btn btn-primary">Link</a>
+                            <div class="col-sm-12 col-md-3">
+                                <h2>@item.price</h2>
+                                <a href=@item.product_link class="btn btn-primary">Link</a>
+                                @if (Request.IsAuthenticated)
+                                {
+                                    @Html.AntiForgeryToken()
+                                        
+                                    <div class="form-group">
+                                        <button 
+                                            class="btn fa fa-heart like"
+                                            onclick="$(this).toggleClass('fa fa-heart-o'); $(this).toggleClass('fa fa-heart'); like(@item.id)">
+                                        </button>
+                                    </div>
+                                        
+                                    
+                                }
+                            </div>
+                            <div class="clearfix"></div>
                         </div>
-                        <div class="clearfix"></div>
                     </div>
-                </div>
+                }
             }
-        }
-    </div>
-    <br />
-    @{
+        </div>
+        <br />
+        @{
 
 
-        var search = ViewBag.search;
-        var priceFrom = ViewBag.priceFrom;
-        var priceTo = ViewBag.priceTo;
-        var group = ViewBag.group;
-        var source = ViewBag.source;
-        var parameters = new RouteValueDictionary();
-        if (search != null)
-        {
-            parameters.Add("search", search);
-        }
-        if (priceFrom != null)
-        {
-            parameters.Add("priceFrom", priceFrom);
-        }
-        if (priceTo != null)
-        {
-            parameters.Add("priceTo", priceTo);
-        }
-        if (group != null)
-        {
-            parameters.Add("group", group);
-        }
-        if (source != null)
-        {
-            parameters.Add("source", source);
-        }
-
-
-        RouteValueDictionary generateRouteValues(int page)
-        {
-            if (parameters.ContainsKey("page"))
+            var search = ViewBag.search;
+            var priceFrom = ViewBag.priceFrom;
+            var priceTo = ViewBag.priceTo;
+            var group = ViewBag.group;
+            var source = ViewBag.source;
+            var parameters = new RouteValueDictionary();
+            if (search != null)
             {
-                parameters["page"] = page;
+                parameters.Add("search", search);
             }
-            else
+            if (priceFrom != null)
             {
-                parameters.Add("page", page);
+                parameters.Add("priceFrom", priceFrom);
+            }
+            if (priceTo != null)
+            {
+                parameters.Add("priceTo", priceTo);
+            }
+            if (group != null)
+            {
+                parameters.Add("group", group);
+            }
+            if (source != null)
+            {
+                parameters.Add("source", source);
             }
 
-            return parameters;
+
+            RouteValueDictionary generateRouteValues(int page)
+            {
+                if (parameters.ContainsKey("page"))
+                {
+                    parameters["page"] = page;
+                }
+                else
+                {
+                    parameters.Add("page", page);
+                }
+
+                return parameters;
+            }
+
         }
+        <div class="mx-auto">
 
-    }
-    <div class="mx-auto">
-
-        @Html.PagedListPager(Model, page => Url.Action("Search",
-            generateRouteValues(page)))
+            @Html.PagedListPager(Model, page => Url.Action("Search",
+                generateRouteValues(page)))
+        </div>
     </div>
-</div>
 
 
 }
@@ -193,7 +205,16 @@ else
         xhr.send(msg);
     }
 </script>
-
+<script type="text/javascript">
+    function like(id) {
+        var msg = JSON.stringify({ "id": id });
+        console.log(msg);
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/User/Like");
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(msg);
+    }
+</script>
 
 <style>
     .form1 {
@@ -209,86 +230,38 @@ else
         padding: 10px;
     }
 </style>
-
-
-
 @section scripts{
-    <script>
-        function loadchecks() {
-            var queryString = window.location.search;
-
-            var urlParams = new URLSearchParams(queryString);
-
-            var page_source = urlParams.get('source');
-            var params = page_source.split(',');
-            var checkboxes = document.getElementsByTagName('input');
-            for (var param in params) {
-                for (var i = 0; i < checkboxes.length; i++) {
-                    if ((checkboxes[i].type == 'checkbox') && (checkboxes[i].value == params[param])) {
-                        document.getElementById(checkboxes[i].value).checked = true;
-                    }
-                }
-            }
-            var page_group = urlParams.get('group');
-            var params = page_group.split(',');
-            var checkboxes = document.getElementsByTagName('input');
-            for (var param in params) {
-                for (var i = 0; i < checkboxes.length; i++) {
-                    if ((checkboxes[i].type == 'checkbox') && (checkboxes[i].value == params[param])) {
-                        document.getElementById(checkboxes[i].value).checked = true;
-                    }
-                }
-            }
-        }
-    </script>
-    <script>
-        function alertboxFunction() {
-            alert("If You dont find what you are looking for, just press 'Scrape' and we will add items into our database as soon as possible.😄\n");
-        }
-    </script>
-    <script>
-        document.onload = function() {
-            var all_inputs = document.getElementsByTagName("input");
-            document.onload = function() {
-                for (var i = 0; i < all_inputs.length; i++) {
-                    if (all_inputs[i].getAttribute("type") === "checkbox") {
-                        var checkbox = all_inputs[i];
-
-                        // Change the state (checked/unchecked) if the state is saved in localStorage
-                        var value = localStorage.getItem(checkbox.getAttribute("id"));
-                        if (value != null) {
-                            if (value == true)
-                                checkbox.checked = true;
-                            else if (value == false)
-                                checkbox.checked = false;
-                        }
-
-                        // Then put onchange listeners to notify when checkbox state changes in order to save the state in the localStorage
-                        checkbox.addEventListener('change',
-                            function() {
-                                localStorage.setItem(checkbox.getAttribute("id"), checkbox.checked);
-                            });
-                    }
-                }
-            }
-        }
-    </script>
-
+    @*     <script type="text/javascript"> *@
+    @*         function sendLike(id) { *@
+    @*             return function() { *@
+    @*                 var data = { id: id }; *@
+    @*                 @Html.AntiForgeryToken() *@
+    @*                 fetch("/User/Like", *@
+    @*                     { *@
+    @*                         method: "POST", *@
+    @*                         body: JSON.stringify(data) *@
+    @*                     }).then(res => { *@
+    @*                     console.log("Request complete! response:", res); *@
+    @*                 }); *@
+    @*             } *@
+    @*         } *@
+    @*     </script> *@
     <script type="text/javascript">
+
         var kvp = [];
         var params = [];
-        $("#form1").submit(function(e) {
+        $("#form1").submit(function (e) {
             e.preventDefault();
             kvp = document.location.search.substr(1).split('&');
             var sources = [];
-            $("input:checkbox[name=source]:checked").each(function() {
+            $("input:checkbox[name=source]:checked").each(function () {
 
                 sources.push($(this).val());
                 //$(this).prop("checked", false);
             });
 
             var group = [];
-            $("input:checkbox[name=group]:checked").each(function() {
+            $("input:checkbox[name=group]:checked").each(function () {
 
                 group.push($(this).val());
                 //$(this).prop("checked", false);

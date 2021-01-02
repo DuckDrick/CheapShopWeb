@@ -17,7 +17,7 @@ namespace CheapShopWeb.Scrapers.Selenium
     internal abstract class AbstractSeleniumScraper
     {
         private string _scrape;
-        private readonly ProductDbContext _db = new ProductDbContext();
+        private readonly MyDbContext _db = new MyDbContext();
 
         private List<ChromeDriver> _productDrivers;
         private ChromeDriver _mainDriver;

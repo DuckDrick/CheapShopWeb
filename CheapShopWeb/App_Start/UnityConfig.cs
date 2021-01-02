@@ -1,24 +1,26 @@
+using System;
 using System.Web.Mvc;
+using CheapShopWeb.Controllers;
 using CheapShopWeb.Scrapers;
 using Unity;
+using Unity.Injection;
 using Unity.Mvc5;
 
 namespace CheapShopWeb
 {
+    /// <summary>
+    /// Specifies the Unity configuration for the main container.
+    /// </summary>
     public static class UnityConfig
     {
+        public static UnityContainer Container = new UnityContainer();
         public static void RegisterComponents()
         {
-			var container = new UnityContainer();
+            Container.RegisterSingleton<ScraperService>();
 
-            container.RegisterSingleton<ScraperService>();
-         
-            // register all your components with the container here
-            // it is NOT necessary to register your controllers
-            
-            // e.g. container.RegisterType<ITestService, TestService>();
-            
-            DependencyResolver.SetResolver(new UnityDependencyResolver(container));
+            Container.RegisterType<AccountController>(new InjectionConstructor());
+
+            DependencyResolver.SetResolver(new UnityDependencyResolver(Container));
         }
     }
 }

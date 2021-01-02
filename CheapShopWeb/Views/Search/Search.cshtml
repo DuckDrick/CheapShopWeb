@@ -40,59 +40,58 @@
 </div>
 @if (Model.Count() > 0 && !string.IsNullOrWhiteSpace(@Request.Params["search"]))
 {
-    <div class="row">
-        <div class="col-sm-4 col-md-3 col-lg-2">
-            <button type="button" class="btn btn-lg btn-success" data-toggle="collapse" id="collapsebutton" data-target="#demo" onclick="loadchecks()">Filters</button>
-            <div id="demo" class="collapse">
-                <form id="form1" class="form1">
-                    @*border border-dark*@
+<div class="row">
+    <div class="col-sm-4 col-md-3 col-lg-2">
+        <button type="button" class="btn btn-lg btn-success" data-toggle="collapse" id="collapsebutton" data-target="#demo" onclick="loadchecks()">Filters</button>
+        <div id="demo" class="collapse">
+            <form id="form1" class="form1">
+                @*border border-dark*@
 
-                    <div class="form-group">
-                        <label for="priceFrom">Min price</label>
-                        <input step=".01" min="0" type="number" onchange="(function(el) { el.value = parseFloat(el.value).toFixed(2); })(this)" class="form-control" id="priceFrom" name="priceFrom" placeholder="@Request.Params["priceFrom"]">
-                    </div>
-                    <div class="form-group">
-                        <label for="priceTo">Max price</label>
-                        <input step=".01" min="0" type="number" onchange="(function(el) { el.value = parseFloat(el.value).toFixed(2); })(this)" class="form-control" id="priceTo" name="priceTo" placeholder="@Request.Params["priceTo"]">
-                    </div>
-                    <p>Sources:</p>
-                    <div class="form-group form-check" name="source">
-                        <input type="checkbox" class="form-check-input" id="Rde" name="source" value="Rde">Rde (@ViewBag.siteCounts[0])<br />
-                        <input type="checkbox" class="form-check-input" name="source" id="Bigbox" value="Bigbox">Bigbox (@ViewBag.siteCounts[1])<br />
-                        <input type="checkbox" class="form-check-input" name="source" id="Pigu" value="Pigu">Pigu (@ViewBag.siteCounts[2])<br />
-                        <input type="checkbox" class="form-check-input" name="source" id="Senukai" value="Senukai">Senukai (@ViewBag.siteCounts[6])<br />
-                        <input type="checkbox" class="form-check-input" name="source" id="Autoaibe" value="Autoaibe">Autoaibe (@ViewBag.siteCounts[7])<br />
-                        <input type="checkbox" class="form-check-input" name="source" id="Topocentras" value="Topocentras">Topocentras (@ViewBag.siteCounts[4])<br />
-                        <input type="checkbox" class="form-check-input" name="source" id="Ermitazas" value="Ermitazas">Ermitazas (@ViewBag.siteCounts[9])<br />
-                        <input type="checkbox" class="form-check-input" name="source" id="Skytech" value="Skytech">Skytech (@ViewBag.siteCounts[5])<br />
-                        <input type="checkbox" class="form-check-input" name="source" id="Varle" value="Varle">Varle (@ViewBag.siteCounts[10])<br />
-                        <input type="checkbox" class="form-check-input" name="source" id="Eoltas" value="Eoltas">Eoltas (@ViewBag.siteCounts[8])<br />
-                        <input type="checkbox" class="form-check-input" name="source" id="Novastar" value="Novastar">Novastar (@ViewBag.siteCounts[3])<br />
-                    </div>
-                    <p>Groups:</p>
-                    <div class="form-group form-check" name="group">
-                        <input type="checkbox" class="form-check-input" name="group" id="Computer" value="Computer">Computer (@ViewBag.groupCounts[11])<br />
-                        <input type="checkbox" class="form-check-input" name="group" id="Phone" value="Phone">Phone (@ViewBag.groupCounts[14])<br />
-                        <input type="checkbox" class="form-check-input" name="group" id="Garden" value="Garden">Garden (@ViewBag.groupCounts[13])<br />
-                        <input type="checkbox" class="form-check-input" name="group" id="Leisure" value="Leisure">Leisure (@ViewBag.groupCounts[12])<br />
-                        <input type="checkbox" class="form-check-input" name="group" id="Books" value="Books">Books (@ViewBag.groupCounts[10])<br />
-                        <input type="checkbox" class="form-check-input" name="group" id="Car" value="Car">Car (@ViewBag.groupCounts[2])<br />
-                        <input type="checkbox" class="form-check-input" name="group" id="Stationery" value="Stationery">Stationery (@ViewBag.groupCounts[9])<br />
-                        <input type="checkbox" class="form-check-input" name="group" id="Animals" value="Animals">Animals (@ViewBag.groupCounts[6])<br />
-                        <input type="checkbox" class="form-check-input" name="group" id="Camera" value="Camera">Camera (@ViewBag.groupCounts[8])<br />
-                        <input type="checkbox" class="form-check-input" name="group" id="Audio" value="Audio">Audio (@ViewBag.groupCounts[5])<br />
-                        <input type="checkbox" class="form-check-input" name="group" id="Beauty" value="Beauty">Beauty (@ViewBag.groupCounts[7])<br />
-                        <input type="checkbox" class="form-check-input" name="group" id="Household" value="Household">Household (@ViewBag.groupCounts[4])<br />
-                        <input type="checkbox" class="form-check-input" name="group" id="Furniture" value="Furniture">Furniture (@ViewBag.groupCounts[3])<br />
-                        <input type="checkbox" class="form-check-input" name="group" id="Clothing" value="Clothing">Clothing (@ViewBag.groupCounts[1])<br />
-                        <input type="checkbox" class="form-check-input" name="group" id="Kids" value="Kids">Kids (@ViewBag.groupCounts[0])<br />
-                    </div>
-                    <button type="submit" class="btn btn-lg btn-success">Filter</button>
-                    <p> </p>
-                    <input type="button" value="Clear Filter" class="btn btn-lg btn-success" onclick="location.href='@Url.Action("Search", "Search",new {search = @Request.Params["search"]})'" />
-                    <p> </p>
-                </form>
-            </div>
+                <div class="form-group">
+                    <label for="priceFrom">Min price</label>
+                    <input step=".01" min="0" type="number" onchange="(function(el) { el.value = parseFloat(el.value).toFixed(2); })(this)" class="form-control" id="priceFrom" name="priceFrom" placeholder="@Request.Params["priceFrom"]">
+                </div>
+                <div class="form-group">
+                    <label for="priceTo">Max price</label>
+                    <input step=".01" min="0" type="number" onchange="(function(el) { el.value = parseFloat(el.value).toFixed(2); })(this)" class="form-control" id="priceTo" name="priceTo" placeholder="@Request.Params["priceTo"]">
+                </div>
+                <p>Sources:</p>
+                <div class="form-group form-check" name="source">
+                    <input type="checkbox" class="form-check-input" id="Rde" name="source" value="Rde"> <label for="Rde">Rde (@ViewBag.siteCounts[0])</label><br />
+                    <input type="checkbox" class="form-check-input" name="source" id="Bigbox" value="Bigbox">  <label for="Bigbox">Bigbox (@ViewBag.siteCounts[1])</label><br />
+                    <input type="checkbox" class="form-check-input" name="source" id="Pigu" value="Pigu"><label for="Pigu">Pigu (@ViewBag.siteCounts[2])</label><br />
+                    <input type="checkbox" class="form-check-input" name="source" id="Senukai" value="Senukai"><label for="Senukai">Senukai (@ViewBag.siteCounts[6])</label><br />
+                    <input type="checkbox" class="form-check-input" name="source" id="Autoaibe" value="Autoaibe"><label for="Autoaibe">Autoaibe (@ViewBag.siteCounts[7])</label><br />
+                    <input type="checkbox" class="form-check-input" name="source" id="Topocentras" value="Topocentras"><label for="Topocentras">Topocentras (@ViewBag.siteCounts[4])</label><br />
+                    <input type="checkbox" class="form-check-input" name="source" id="Ermitazas" value="Ermitazas"><label for="Ermitazas">Ermitazas (@ViewBag.siteCounts[9])</label><br />
+                    <input type="checkbox" class="form-check-input" name="source" id="Skytech" value="Skytech"><label for="Skytech">Skytech (@ViewBag.siteCounts[5])</label><br />
+                    <input type="checkbox" class="form-check-input" name="source" id="Varle" value="Varle"><label for="Varle">Varle (@ViewBag.siteCounts[10])</label><br />
+                    <input type="checkbox" class="form-check-input" name="source" id="Eoltas" value="Eoltas"><label for="Eoltas">Eoltas (@ViewBag.siteCounts[8])</label><br />
+                    <input type="checkbox" class="form-check-input" name="source" id="Novastar" value="Novastar"><label for="Novastar">Novastar (@ViewBag.siteCounts[3])</label><br />
+                </div>
+                <p>Groups:</p>
+                <div class="form-group form-check" name="group">
+                    <input type="checkbox" class="form-check-input" name="group" id="Computer" value="Computer"><label for="Computer">Computer (@ViewBag.groupCounts[11])</label> <br />
+                    <input type="checkbox" class="form-check-input" name="group" id="Phone" value="Phone"><label for="Phone">Phone (@ViewBag.groupCounts[14])</label><br />
+                    <input type="checkbox" class="form-check-input" name="group" id="Garden" value="Garden"><label for="Garden">Garden (@ViewBag.groupCounts[13])</label><br />
+                    <input type="checkbox" class="form-check-input" name="group" id="Leisure" value="Leisure"><label for="Leisure">Leisure (@ViewBag.groupCounts[12])</label><br />
+                    <input type="checkbox" class="form-check-input" name="group" id="Books" value="Books"><label for="Books">Books (@ViewBag.groupCounts[10])</label><br />
+                    <input type="checkbox" class="form-check-input" name="group" id="Car" value="Car"><label for="Car">Car (@ViewBag.groupCounts[2])</label><br />
+                    <input type="checkbox" class="form-check-input" name="group" id="Stationery" value="Stationery"><label for="Stationery">Stationery (@ViewBag.groupCounts[9])</label><br />
+                    <input type="checkbox" class="form-check-input" name="group" id="Animals" value="Animals"><label for="Animals">Animals (@ViewBag.groupCounts[6])</label><br />
+                    <input type="checkbox" class="form-check-input" name="group" id="Camera" value="Camera"><label for="Camera">Camera (@ViewBag.groupCounts[8])</label><br />
+                    <input type="checkbox" class="form-check-input" name="group" id="Audio" value="Audio"><label for="Audio">Audio (@ViewBag.groupCounts[5])</label><br />
+                    <input type="checkbox" class="form-check-input" name="group" id="Beauty" value="Beauty"><label for="Beauty">Beauty (@ViewBag.groupCounts[7])</label><br />
+                    <input type="checkbox" class="form-check-input" name="group" id="Household" value="Household"><label for="Household">Household (@ViewBag.groupCounts[4])</label><br />
+                    <input type="checkbox" class="form-check-input" name="group" id="Furniture" value="Furniture"><label for="Furniture">Furniture (@ViewBag.groupCounts[3])</label><br />
+                    <input type="checkbox" class="form-check-input" name="group" id="Clothing" value="Clothing"><label for="Clothing">Clothing (@ViewBag.groupCounts[1])</label><br />
+                    <input type="checkbox" class="form-check-input" name="group" id="Kids" value="Kids"><label for="Kids">Kids (@ViewBag.groupCounts[0])</label><br />
+                </div>
+                <button type="submit" class="btn btn-lg btn-success">Filter</button>
+                <p> </p>
+                <input type="button" value="Clear Filter" class="btn btn-lg btn-success" onclick="location.href='@Url.Action("Search", "Search",new {search = @Request.Params["search"]})'" />
+                <p> </p>
+            </form>
         </div>
         <div class="col-sm-8 col-md-9 col-lg-10">
             @if (Model != null)
@@ -220,6 +219,15 @@ else
 <style>
     .form1 {
         padding: 5px;
+    }
+    input[type=checkbox]
+    {
+        /* Double-sized Checkboxes */
+        -ms-transform: scale(2); /* IE */
+        -moz-transform: scale(2); /* FF */
+        -webkit-transform: scale(2); /* Safari and Chrome */
+        -o-transform: scale(2); /* Opera */
+        padding: 10px;
     }
 </style>
 @section scripts{

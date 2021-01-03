@@ -16,7 +16,7 @@ namespace CheapShopWeb.ApiControllers
     public class DefaultController : ApiController
     {
 
-        private readonly Lazy<ProductDbContext> _productDbContext = new Lazy<ProductDbContext>();
+        private readonly Lazy<MyDbContext> _productDbContext = new Lazy<MyDbContext>();
         // GET: api/Default/MainGroup?maingroup={group}
 
         //example https://localhost:44360/api/Default/MainGroup?maingroup=Kids

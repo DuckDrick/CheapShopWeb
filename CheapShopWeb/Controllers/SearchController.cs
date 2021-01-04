@@ -20,7 +20,6 @@ namespace CheapShopWeb.Controllers
 {
     public class SearchController : Controller
     {
-        private readonly Lazy<MyDbContext> _productDbContext;
         private readonly Lazy<ScraperService> _scraperService;
         private List<Product> _filtered = new List<Product>();
 

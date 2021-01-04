@@ -80,10 +80,9 @@ namespace CheapShopWeb.Services
                 client.BaseAddress = new Uri(_baseUrl);
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage res= await client.GetAsync(uri);
 
-                HttpResponseMessage res = await client.GetAsync(uri);
-
-                if (res.IsSuccessStatusCode)
+                        if (res.IsSuccessStatusCode)
                 {
                     var results = res.Content.ReadAsStringAsync().Result;
                     filtered = JsonConvert.DeserializeObject<List<Models.Product>>(results);

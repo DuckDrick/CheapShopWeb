@@ -39,7 +39,6 @@ namespace CheapShopWeb.Models
             this.Users = new HashSet<User>();
         }
 
-        
         public virtual ICollection<User> Users { get; set; }
 
     }

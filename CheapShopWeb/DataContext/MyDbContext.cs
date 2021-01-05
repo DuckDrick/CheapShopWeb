@@ -11,7 +11,7 @@ namespace CheapShopWeb.DataContext
 {
     public class MyDbContext : IdentityDbContext<User>
     {
-        public MyDbContext() : base(nameOrConnectionString: "database"){}
+        public MyDbContext() : base(nameOrConnectionString: "database") {Configuration.ProxyCreationEnabled = false; }
         public virtual DbSet<Product> Products { get; set; }
 
         public static MyDbContext Create()

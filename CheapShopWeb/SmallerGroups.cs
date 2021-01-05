@@ -8,7 +8,7 @@ namespace Comparison_shopping_engine
         public bool Check(string productgroup, List<string> smallergroup)
         {
             foreach (var group in smallergroup)
-                if (productgroup.Contains(@group))
+                if (productgroup.Contains(group))
                     return true;
 
             return false;

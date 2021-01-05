@@ -16,15 +16,15 @@ namespace CheapShopWeb.ApiControllers
     public class DefaultController : ApiController
     {
 
-        private readonly Lazy<MyDbContext> _productDbContext = new Lazy<MyDbContext>();
-        // GET: api/Default/MainGroup?maingroup={group}
+        private readonly MyDbContext _productDbContext = new MyDbContext();
+    // GET: api/Default/MainGroup?maingroup={group}
 
-        //example https://localhost:44360/api/Default/MainGroup?maingroup=Kids
+    //example https://localhost:44360/api/Default/MainGroup?maingroup=Kids
 
-        [HttpGet]
+    [HttpGet]
         public List<Product> MainGroup(string maingroup)
         {
-            var filtered = Filtering.Filter(_productDbContext.Value.Products.ToList(), null, null, null, maingroup, null);
+            var filtered = Filtering.Filter(_productDbContext.Products.ToList(), null, null, null, maingroup, null);
             return filtered;
             
         }
@@ -35,7 +35,7 @@ namespace CheapShopWeb.ApiControllers
         [HttpGet]
         public List<Product> Search(string search, string priceFrom=null,  string priceTo=null,string group=null, string source=null)
         {
-            var filtered = Filtering.Filter(_productDbContext.Value.Products.ToList(), search, priceFrom, priceTo, group, source);
+            var filtered = Filtering.Filter(_productDbContext.Products.ToList(), search, priceFrom, priceTo, group, source); //_productDbContext.Value.Products.ToList()
             return filtered;
             
         }
@@ -43,7 +43,7 @@ namespace CheapShopWeb.ApiControllers
         [HttpGet]
         public List<Product> SimilarProducts(string name , string price , string source, string group , string searchString)
         {
-            var filtered = Filtering.GetSimilarProducts(_productDbContext.Value.Products.ToList(), new Product(name, source, price, null, null, group), searchString);
+            var filtered = Filtering.GetSimilarProducts(_productDbContext.Products.ToList(), new Product(name, source, price, null, null, group), searchString);
             return filtered;
 
         }
@@ -51,7 +51,7 @@ namespace CheapShopWeb.ApiControllers
         [HttpGet]
         public List<Product> GroupItems(string gname=null, string gprice = null, string gsource = null, string gitemsGroup = null)
         {
-            var filtered = Filtering.GetSimilarProductsGroup(_productDbContext.Value.Products.ToList(), gname, gsource, gprice, gitemsGroup);
+            var filtered = Filtering.GetSimilarProductsGroup(_productDbContext.Products.ToList(), gname, gsource, gprice, gitemsGroup);
             return filtered;
        
         }

@@ -82,14 +82,14 @@ namespace CheapShopWeb.Services
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 HttpResponseMessage res= await client.GetAsync(uri);
 
-                        if (res.IsSuccessStatusCode)
+                if (res.IsSuccessStatusCode)
                 {
                     var results = res.Content.ReadAsStringAsync().Result;
                     filtered = JsonConvert.DeserializeObject<List<Models.Product>>(results);
                     return filtered;
                 }
 
-                return (filtered);
+                return filtered;
             }
         }
     }

@@ -285,7 +285,6 @@
     <Compile Include="Scrapers\Selenium\SkytechScraper.cs" />
     <Compile Include="Scrapers\Selenium\TopocentrasScraper.cs" />
     <Compile Include="Scrapers\Selenium\VarleScraper.cs" />
-    <Compile Include="Secret.cs" />
     <Compile Include="Services\ApiService.cs" />
     <Compile Include="Services\DBService.cs" />
     <Compile Include="Services\Filtering.cs" />

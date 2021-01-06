@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.Http;
 using CheapShopWeb;
@@ -14,49 +17,39 @@ namespace CheapShopWeb.Services
 {
     public class DBService
     {
-
-        public static List<Product> GetAll(string search)
+        public static List<Product> GetAll(string search, int page)
         {
+            // ConfigurationManager.ConnectionStrings["ABCD"].ConnectionString;
             var list = new List<Product>();
-            using (var con = new NpgsqlConnection(Secret.ConnectionString))
+            using (var con = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["database"].ConnectionString))
             {
                 con.Open();
-                NpgsqlCommand command;
-                command = new NpgsqlCommand("SELECT * FROM Products", con);
-                NpgsqlDataReader dr = command.ExecuteReader();
-                while (dr.Read())
+                var dataAdapter = new NpgsqlDataAdapter("SELECT * FROM dbo.\"Products\"", con);
+                var dataSet = new DataSet();
+                dataAdapter.Fill(dataSet, "dbo.\"Products\"");
+                var dataTable = dataSet.Tables["dbo.\"Products\""];
+
+                foreach (DataRow row in dataTable.Rows)
                 {
-                    list.Add(new Product(dr[0].ToString(), dr[1].ToString(), dr[2].ToString(), dr[3].ToString(), dr[4].ToString(), dr[5].ToString()));
+                    var item = row.ItemArray;
+                    list.Add(new Product(item[1].ToString(), item[2].ToString(), item[3].ToString(), item[4].ToString(), item[5].ToString(), item[6].ToString()));
                 }
-                if (!search.IsNullOrWhiteSpace())
-                {
-                    var items=new List<Product>();
-                    foreach (var product in list)
-                    {
-                        foreach (var s in search.Split( ' '))
-                        {
-                            if (product.name.ToLower().Contains(s.ToLower()))
-                            {
-                                items.Add(product);
-                                break;
-                            }
-                        }
-                    }
-                    return items.ToList();
-                }
+                
+                if (search.IsNullOrWhiteSpace()) return list.Take(10).ToList();
+                var items= list.Where(product => search.Split(' ').Any(s => product.name.ToLower().Contains(s.ToLower()))).ToList();
+                return items.Skip((page - 1) * 15).Take(15).ToList();
             }
-            return list;
         }
 
         public static List<Product> GetSearch(string search)
         {
             var list = new List<Product>();
-            using (var con = new NpgsqlConnection(Secret.ConnectionString))
+            using (var con = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["database"].ConnectionString))
             {
                 con.Open();
-                NpgsqlCommand command = new NpgsqlCommand("Select * from Products where name LIKE @loc_name", con);
+                var command = new NpgsqlCommand("Select * from dbo.\"Products\" where name LIKE @loc_name", con);
                 command.Parameters.AddWithValue("@loc_name", "%" + search + "%");
-                NpgsqlDataReader dr = command.ExecuteReader();
+                var dr = command.ExecuteReader();
                 while (dr.Read())
                 {
                     list.Add(new Product(dr[0].ToString(), dr[1].ToString(), dr[2].ToString(), dr[3].ToString(), dr[4].ToString(), dr[5].ToString()));
@@ -65,71 +58,81 @@ namespace CheapShopWeb.Services
             return list;
         }
 
-        public static void Update(string name, string source, string productLink, string price, string group,
-            string photoLink, string bname, 
-            string bsource, string bproductLink, string 
-                bprice, 
-            string bgroup, 
-            string bphotoLink)
+        private static string Check(string origCol, string newColumn, string colName)
         {
-            List<String> updatestring=new List<string>();
-            List<String> updatecolumnsList = new List<string>();
-            if (!name.Equals(bname) && !name.IsNullOrWhiteSpace())
+            if (!newColumn.IsNullOrWhiteSpace() && !origCol.Equals(newColumn))
             {
-                updatestring.Add(name);
-                updatecolumnsList.Add("name");
-            }
-            if (!bsource.Equals(source) && !source.IsNullOrWhiteSpace())
-            {
-                updatestring.Add(source);
-                updatecolumnsList.Add("source");
-            }
-            if (!productLink.Equals(bproductLink) && !productLink.IsNullOrWhiteSpace())
-            {
-                updatestring.Add(productLink);
-                updatecolumnsList.Add("product_link");
-            }
-            if (!price.Equals(bprice) && !price.IsNullOrWhiteSpace())
-            {
-                updatestring.Add(price.Replace(",","."));
-                updatecolumnsList.Add("price");
-            }
-            if (!group.Equals(bgroup) && !group.IsNullOrWhiteSpace())
-            {
-                updatestring.Add(group);
-                updatecolumnsList.Add("group");
-            }
-            if (!photoLink.Equals(bphotoLink) && !photoLink.IsNullOrWhiteSpace())
-            {
-                updatestring.Add(photoLink);
-                updatecolumnsList.Add("photo_link");
+                return "\"" + colName + "\"=@" + colName + ",";
             }
 
-            using (var con = new NpgsqlConnection(Secret.ConnectionString))
+            return "";
+        }
+
+        private static bool ShouldUpdate(string orgCol, string newCol)
+        {
+            return !newCol.IsNullOrWhiteSpace() && !orgCol.Equals(newCol);
+        }
+        public static void Update(Product product, string nname, string nsource, string nproductLink, string nprice, string ngroup,
+            string nphotoLink)
+        {
+            var updateQuery = "";
+            updateQuery += Check(product.name, nname, "name");
+            updateQuery += Check(product.source, nsource, "source");
+            updateQuery += Check(product.product_link, nproductLink, "product_link");
+            updateQuery += Check(product.price, nprice, "price");
+            updateQuery += Check(product.group, ngroup, "group");
+            updateQuery += Check(product.photo_link, nphotoLink, "photo_link");
+            if(updateQuery.Length > 0)
             {
-                con.Open();
-                string sql = "UPDATE Products SET ";
-                for (int i = 0; i < updatestring.Count; i++)
+                using (var con = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["database"].ConnectionString))
                 {
-                    sql = sql + updatecolumnsList[i] + " = '" + updatestring[i] + "',";
+                    con.Open();
+                    updateQuery = updateQuery.TrimEnd(',', ' ');
+                    //
+                    var sql = new NpgsqlCommand(
+                        "UPDATE dbo.\"Products\" SET " + updateQuery + " where name='" + product.name + "' and source='" + product.source + "';", con);
+                    sql.Parameters.AddWithValue("@name", nname);
+                    sql.Parameters.AddWithValue("@source", nsource);
+                    sql.Parameters.AddWithValue("@product_link", nproductLink);
+                    sql.Parameters.AddWithValue("@price", nprice);
+                    sql.Parameters.AddWithValue("@group", ngroup);
+                    sql.Parameters.AddWithValue("@photo_link", nphotoLink);
+
+                    var dataAdapter = new NpgsqlDataAdapter("select * FROM dbo.\"Products\"", con)
+                    {
+                        UpdateCommand = sql
+                    };
+
+                    var dataSet = new DataSet();
+                    dataAdapter.AcceptChangesDuringUpdate = true;
+                    dataAdapter.Fill(dataSet, "dbo.\"Products\"");
+                    Debug.WriteLine(sql.CommandText);
+                    var dataTable = dataSet.Tables["dbo.\"Products\""];
+                    //dataTable.Rows.Find(row => row[1].ToString().Equals(product.name));
+                    foreach (DataRow dataRow in dataTable.Rows)
+                    {
+                        if (!dataRow[1].ToString().Equals(product.name)) continue;
+                        if (ShouldUpdate(product.name, nname)) dataRow[1] = nname;
+                        if (ShouldUpdate(product.source, nsource)) dataRow[2] = nname;
+                        if (ShouldUpdate(product.product_link, nproductLink)) dataRow[5] = nname;
+                        if (ShouldUpdate(product.price, nprice)) dataRow[3] = nname;
+                        if (ShouldUpdate(product.@group, ngroup)) dataRow[6] = nname;
+                        if (ShouldUpdate(product.photo_link, nphotoLink)) dataRow[4] = nname;
+                        break;
+                    }
+                    dataAdapter.Update(dataTable);
+                  
+                    dataAdapter.Dispose();
                 }
-
-                sql = sql.Substring(0,sql.Length - 1);
-                sql = sql + " WHERE name ='"+bname +"' AND source ='"+bsource+"' ;";
-                var command = new NpgsqlCommand(sql, con);
-                command.ExecuteNonQueryAsync();
             }
-
-
-            return;
         }
 
         public static void Delete(string link)
         {
-            using (var con = new NpgsqlConnection(Secret.ConnectionString))
+            using (var con = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["database"].ConnectionString))
             {
                 con.Open();
-                var command = new NpgsqlCommand("DELETE FROM Products WHERE product_link = '"+link+"';",con);
+                var command = new NpgsqlCommand("DELETE FROM dbo.\"Products\" WHERE product_link = '" + link+"';",con);
                 //command.Parameters.AddWithValue("@loc_name", "\'" + link + "\'");
                 command.ExecuteNonQuery();
             }
@@ -137,10 +140,10 @@ namespace CheapShopWeb.Services
 
         public static void Add(string name, string source, string link, string price, string group, string photoLink)
         {
-            using (var con = new NpgsqlConnection(Secret.ConnectionString))
+            using (var con = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["database"].ConnectionString))
             {
                 con.Open();
-                var command = new NpgsqlCommand("INSERT INTO Products VALUES('" + name +"','"+source+"','"+price.Replace(',','.')+"','"+photoLink+"','"+link+"','"+group+ "');", con);
+                var command = new NpgsqlCommand("INSERT INTO dbo.\"Products\" VALUES(default, '" + name +"','"+source+"','"+price.Replace(',','.')+"','"+photoLink+"','"+link+"','"+group+ "');", con);
                 //command.Parameters.AddWithValue("@loc_name", "\'" + link + "\'");
                 command.ExecuteNonQuery();
             }

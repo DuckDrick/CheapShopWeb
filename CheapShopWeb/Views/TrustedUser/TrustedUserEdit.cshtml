@@ -8,12 +8,13 @@
 <h2>TrustedUserEdit</h2>
 @using (Html.BeginForm("Edited", "TrustedUser", new
 {
-    bname = @Model.name,
-    bsource = Model.source,
-    bproduct_link = Model.product_link,
-    bprice = Model.price,
-    bgroup = Model.group,
-    bphoto_link = Model.photo_link
+    id = @Model.id,
+    name = @Model.name,
+    source = Model.source,
+    product_link = Model.product_link,
+    price = Model.price,
+    group = Model.group,
+    photo_link = Model.photo_link
 }))
 {
     @Html.ValidationSummary(true)
@@ -22,31 +23,31 @@
             <h2>Source : @Model.name</h2>
         </div>
         <div>
-            <input type="text" id="name" , name="name" value="" />
+            <input type="text" id="nname" , name="nname" value="" />
         </div>
         <div>
-            <h2>Source : @Model.source</h2>
+            <h2>Name : @Model.source</h2>
         </div>
         <div>
-            <input type="text" id="source" , name="source" value="" />
+            <input type="text" id="nsource" , name="nsource" value="" />
         </div>
         <div>
             <h2>Link : @Model.product_link</h2>
         </div>
         <div>
-            <input type="text" id="product_link" , name="product_link" value="" />
+            <input type="text" id="nproduct_link" , name="nproduct_link" value="" />
         </div>
         <div>
             <h2>Price : @Model.price</h2>
         </div>
         <div>
-            <input type="text" id="price" , name="price" value="" />
+            <input type="text" id="nprice" , name="nprice" value="" />
         </div>
         <div>
             <h2>Group : @Model.group</h2>
         </div>
         <div>
-            <input type="text" id="group" , name="group" value="" />
+            <input type="text" id="ngroup" , name="ngroup" value="" />
         </div>
         <div>
             <h2>Photo :</h2>
@@ -55,7 +56,7 @@
             <img class="img-fluid mx-auto d-block" src=@Model.photo_link alt="" />
         </div>
         <div>
-            <input type="text" id="photo_link" , name="photo_link" value="" />
+            <input type="text" id="nphoto_link" , name="nphoto_link" value="" />
         </div>
     </div>
     <div class="col-auto">

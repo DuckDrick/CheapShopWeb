@@ -9,12 +9,13 @@ using CheapShopWeb.Services;
 
 namespace CheapShopWeb.Controllers
 {
+    [Authorize(Roles = UserRoles.ADMIN)]
     public class TrustedUserController : Controller
     {
-        public ActionResult TrustedUser(string search)
+        public ActionResult TrustedUser(string search, int? page)
         {
 
-            return View(DBService.GetAll(search));
+            return View(DBService.GetAll(search, page??1));
         }
 
         public ActionResult TrustedUserEdit(string name, string link, string photo, string price, string source, string group)
@@ -22,26 +23,25 @@ namespace CheapShopWeb.Controllers
             return View(new Product(name,source,price, photo, link, group));
         }
 
-        public ViewResult Edited(string name, string source, string product_link, string price, 
-            string group, string photo_link, string bname, string bsource, 
-            string bproduct_link, string bprice, 
-            string bgroup, string bphoto_link)
+        public ViewResult Edited(Product product, string nname, string nsource, 
+            string nproduct_link, string nprice, 
+            string ngroup, string nphoto_link)
         {
-            DBService.Update(name, source, product_link, price, group, photo_link, bname, bsource, bproduct_link,
-                bprice, bgroup, bphoto_link);
-            return View("TrustedUser",DBService.GetAll(""));
+            DBService.Update(product, nname, nsource, nproduct_link,
+                nprice, ngroup, nphoto_link);
+            return View("TrustedUser",DBService.GetAll("", 1));
         }
 
         public ActionResult TrustedUserDelete(string link)
         {
             DBService.Delete(link);
-            return View("TrustedUser", DBService.GetAll(""));
+            return View("TrustedUser", DBService.GetAll("", 1));
         }
 
         public ActionResult TrustedUserAdd(string name, string source, string link, string price, string group, string photo_link)
         {
             DBService.Add(name, source, link, price, group, photo_link);
-            return View("TrustedUser", DBService.GetAll(""));
+            return View("TrustedUser", DBService.GetAll("", 1));
         }
     }
 }

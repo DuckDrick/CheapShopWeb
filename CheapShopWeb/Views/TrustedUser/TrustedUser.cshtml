@@ -1,0 +1,80 @@
+﻿@using CheapShopWeb.Models
+@model List<CheapShopWeb.Models.Product>
+@{
+    ViewBag.Title = "TrustedUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>TrustedUser</h2>
+@using (Html.BeginForm("TrustedUser", "TrustedUser"))
+{
+    <div>
+        <input class="form-control form-control-lg" type="search" name="search" placeholder="@Request.Params["search"]">
+    </div>
+    <div><input type="submit" value="Search"></div>
+}
+@using (Html.BeginForm("TrustedUserAdd", "TrustedUser"))
+{
+    <div class="col">
+        <div>
+            <input class="form-control form-control-lg" type="search" name="name" placeholder="Name">
+        </div>
+        <div>
+            <input class="form-control form-control-lg" type="search" name="price" placeholder="Price">
+        </div>
+        <div>
+            <input class="form-control form-control-lg" type="search" name="source" placeholder="Source">
+        </div>
+        <div>
+            <input class="form-control form-control-lg" type="search" name="link" placeholder="Link">
+        </div>
+        <div>
+            <input class="form-control form-control-lg" type="search" name="photo_link" placeholder="Photo_link">
+        </div>
+        <div>
+            <input class="form-control form-control-lg" type="search" name="group" placeholder="Group">
+        </div>
+        <div><input type="submit" value="Add"></div>
+    </div>
+}
+    @foreach (var item in Model)
+    {
+        <div class="container-fluid border border-dark mb-4" style="margin-top:10px">
+            <div class="row">
+                <div class="col-sm-12 col-md-6 border border-primary">
+                    <h2>@item.name</h2>
+                    <div>Grupė: @item.group</div>
+                    <div>Šaltinis: @item.source</div>
+                </div>
+
+                <div class="col-sm-12 col-md-6 border border-primary">
+                    <h2>@item.price</h2>
+                    <a href=@item.product_link class="btn btn-primary">Link</a>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="left">
+                    <input type="button" value="Update" onclick="window.location.href= '@Url.Action("TrustedUserEdit", "TrustedUser",new {name = @item.name, link = @item.product_link, photo = @item.photo_link, price = @item.price, source = @item.source, group = @item.group,},null)'" />
+                </div>
+                <div class="right">
+                    <input type="button" value="Delete" onclick="window.location.href= '@Url.Action("TrustedUserDelete", "TrustedUser",new {link = @item.product_link},null)'" />
+                </div>
+            </div>
+        </div>
+    }
+    <style>
+        .left {
+            width: 200px;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .right {
+            width: auto;
+            overflow: hidden;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>

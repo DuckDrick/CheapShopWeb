@@ -1,7 +1,7 @@
 ﻿@using System.Diagnostics
 @using CheapShopWeb.Models
 @using Microsoft.Ajax.Utilities
-@model PagedList.IPagedList<CheapShopWeb.Models.Product>
+@model PagedList.IPagedList<CheapShopWeb.Models.ProductResponse>
 @using PagedList.Mvc
 
 @{
@@ -38,7 +38,7 @@
     </div>
 
 </div>
-@if (Model..Count()> 0 && !string.IsNullOrWhiteSpace(@Request.Params["search"]))
+@if (Model.Any() && !string.IsNullOrWhiteSpace(@Request.Params["search"]))
 {
 <div class="row">
     <div class="col-sm-4 col-md-3 col-lg-2">
@@ -210,7 +210,7 @@ else
         var msg = JSON.stringify({ "id": id });
         console.log(msg);
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "/User/Like");
+        xhr.open("POST", "/Account/Like");
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send(msg);
     }

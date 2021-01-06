@@ -14,18 +14,18 @@ namespace CheapShopWeb
     {
         public AppRoleManager(IRoleStore<IdentityRole, string> store) : base(store)
         {
-            if (!this.RoleExists(UserRoles.NORMAL))
-            {
-                this.Create(new IdentityRole(UserRoles.NORMAL));
-            }
-            if (!this.RoleExists(UserRoles.TRUSTED))
-            {
-                this.Create(new IdentityRole(UserRoles.TRUSTED));
-            }
-            if (!this.RoleExists(UserRoles.ADMIN))
-            {
-                this.Create(new IdentityRole(UserRoles.ADMIN));
-            }
+            // if (!this.RoleExists(UserRoles.NORMAL))
+            // {
+            //     this.Create(new IdentityRole(UserRoles.NORMAL));
+            // }
+            // if (!this.RoleExists(UserRoles.TRUSTED))
+            // {
+            //     this.Create(new IdentityRole(UserRoles.TRUSTED));
+            // }
+            // if (!this.RoleExists(UserRoles.ADMIN))
+            // {
+            //     this.Create(new IdentityRole(UserRoles.ADMIN));
+            // }
         }
 
         public static AppRoleManager Create(IdentityFactoryOptions<AppRoleManager> options,

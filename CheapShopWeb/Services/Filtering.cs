@@ -55,7 +55,7 @@ namespace CheapShopWeb.Services
         }
 
 
-        public static Tuple<List<int>, List<int>> CountAmounts(List<Product> items)
+        public static Tuple<List<int>, List<int>> CountAmounts(List<ProductResponse> items)
         {
             var siteCounts = new List<int>();
             var groupCounts = new List<int>();
@@ -71,7 +71,7 @@ namespace CheapShopWeb.Services
             return new Tuple<List<int>, List<int>>(siteCounts, groupCounts);
         }
 
-        public static int CountHowMany<T>(T value, List<Product> items)
+        public static int CountHowMany<T>(T value, List<ProductResponse> items)
         {
             if (value.GetType() == typeof(MainGroups))
                 return items.Count(product => CheckIfInGroup(value.ToString(), product.group));

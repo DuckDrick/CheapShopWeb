@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Runtime.CompilerServices;
+using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Web;
 using CheapShopWeb.DataContext;
@@ -17,7 +18,7 @@ namespace CheapShopWeb.Services
     {
         //private readonly Lazy<ProductDbContext> _productDbContext;
         private static readonly string _baseUrl = "https://localhost:44360/api/";
-        private static List<Models.Product> filtered = new List<Product>();
+        private static List<ProductResponse> filtered = new List<ProductResponse>();
         public static string BUrl(string url, string search, string priceFrom, string priceTo, string group, string source)
         {
             if (!search.IsNullOrWhiteSpace())
@@ -45,40 +46,39 @@ namespace CheapShopWeb.Services
             return url;
         }
 
-        public static async Task<List<Product>> GetProductsForViewGroup(string group)
+        public static async Task<List<ProductResponse>> GetProductsForViewGroup(string group)
         {
             var s="Default/MainGroup?maingroup=" + group;
             return (await ClientResponse(s));
         }
 
-        public static async Task<List<Product>> GetProductsForViewAll(string search, string priceFrom, string priceTo,
-            string group, string source)
+        public static async Task<List<ProductResponse>> GetProductsForViewAll(string search, string priceFrom, string priceTo,
+            string group, string source, IPrincipal user)
         {
             var s="Default/Search" + BUrl("", search, priceFrom, priceTo, group, source);
 
-                return (await ClientResponse(s));
+                return (await ClientResponse(s, user));
         }
 
-        public static async Task<List<Product>> GetSimilarProducts(string name, string price,
+        public static async Task<List<ProductResponse>> GetSimilarProducts(string name, string price,
             string source, string group, string searchString)
         {
             var s="Default/SimilarProducts?name=" + name+ "&price=" + price + "&source=" + source + "&group=" + group+  "&searchString="+searchString;
             return (await ClientResponse(s));
             
         }
-        public static async Task<List<Product>> GetSimilarGroup(string name, string link, string photo, string price, string source, string itemsGroup)
+        public static async Task<List<ProductResponse>> GetSimilarGroup(string name, string link, string photo, string price, string source, string itemsGroup)
         {
-
             var s ="Default/GroupItems?gname=" + name + "&gprice=" + price + "&gsource=" + source + "&gitemsGroup=" + itemsGroup;
             return (await ClientResponse(s));
         }
 
-        public static async Task<List<Product>> ClientResponse(string uri)
+        public static async Task<List<ProductResponse>> ClientResponse(string uri, IPrincipal user = null)
         {
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(_baseUrl);
-                client.DefaultRequestHeaders.Clear();
+                //client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 HttpResponseMessage res = await client.GetAsync(uri);
@@ -86,7 +86,7 @@ namespace CheapShopWeb.Services
                 if (res.IsSuccessStatusCode)
                 {
                     var results = res.Content.ReadAsStringAsync().Result;
-                    filtered = JsonConvert.DeserializeObject<List<Models.Product>>(results);
+                    filtered = JsonConvert.DeserializeObject<List<ProductResponse>>(results);
                     return filtered;
                 }
 

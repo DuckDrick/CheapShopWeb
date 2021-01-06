@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using CheapShopWeb;
+using CheapShopWeb.DataContext;
 using CheapShopWeb.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -16,6 +17,7 @@ namespace CheapShopWeb.Controllers
 {
     public class AccountController : BaseController
     {
+        private readonly MyDbContext _dbContext = new MyDbContext();
         public AccountController(AppUserManager userManager, ApplicationSignInManager signInManager, AppRoleManager appRoleManager)
         : base(userManager, signInManager, appRoleManager)
         {
@@ -106,11 +108,22 @@ namespace CheapShopWeb.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public void Like(string id)
         {
-            //WIP produktų wishlistinimas/trackinimas
-            Console.WriteLine(id);
-            Console.WriteLine(Request.IsAuthenticated);
+            var product = _dbContext.Products.Find(int.Parse(id));
+            var userId = User.Identity.GetUserId();
+            var user = _dbContext.Users.Find(userId);
+            if (user.Likes.Contains(product))
+            {
+                user.Likes.Remove(product);
+            }
+            else
+            {
+                user.Likes.Add(product);
+            }
+
+            _dbContext.SaveChanges();
         }
         private IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
     }

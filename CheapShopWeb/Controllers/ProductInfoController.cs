@@ -13,7 +13,7 @@ namespace CheapShopWeb.Controllers
 {
     public class ProductInfoController : Controller
     {
-        private List<Product> filtered = new List<Product>();
+        private List<ProductResponse> filtered = new List<ProductResponse>();
 
         // GET: ProductInfo
         public async Task<ActionResult> ProductInfo(string name, string link, string photo, string price, string source, string group, string searchString)

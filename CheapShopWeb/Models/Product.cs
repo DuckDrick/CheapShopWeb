@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics;
 using System.Linq;
 using System.Web;
+using Newtonsoft.Json;
 
 namespace CheapShopWeb.Models
 {
@@ -39,7 +40,7 @@ namespace CheapShopWeb.Models
             this.Users = new HashSet<User>();
         }
 
-        
+        [JsonIgnore]
         public virtual ICollection<User> Users { get; set; }
 
     }

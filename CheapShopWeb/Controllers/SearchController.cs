@@ -22,7 +22,7 @@ namespace CheapShopWeb.Controllers
     {
         private readonly Lazy<MyDbContext> _productDbContext;
         private readonly Lazy<ScraperService> _scraperService;
-        private List<Product> _filtered = new List<Product>();
+        private List<ProductResponse> _filtered = new List<ProductResponse>();
 
         public SearchController(Lazy<ScraperService> scraperService, Lazy<MyDbContext> productDbContext)
         {
@@ -38,7 +38,11 @@ namespace CheapShopWeb.Controllers
             ViewBag.source = source;
             var pageSize = int.Parse(ConfigurationManager.AppSettings["PageSize"] ?? "3");
             var pageNumber = (page ?? 1);
-            _filtered = await ApiService.GetProductsForViewAll(search, priceFrom,priceTo,group,source);
+            if (User.Identity.IsAuthenticated)
+            {
+
+            }
+            _filtered = await ApiService.GetProductsForViewAll(search, priceFrom,priceTo,group,source, User);
             var counts = Filtering.CountAmounts(_filtered);
             ViewBag.siteCounts = counts.Item1;
             ViewBag.groupCounts = counts.Item2;

@@ -241,6 +241,7 @@
     <Compile Include="Controllers\ProductInfoController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Controllers\TrustedUserController.cs" />
     <Compile Include="DataContext\MyDbContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -285,6 +286,7 @@
     <Compile Include="Scrapers\Selenium\TopocentrasScraper.cs" />
     <Compile Include="Scrapers\Selenium\VarleScraper.cs" />
     <Compile Include="Services\ApiService.cs" />
+    <Compile Include="Services\DBService.cs" />
     <Compile Include="Services\Filtering.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Values\MainGroups.cs" />
@@ -473,6 +475,8 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\TrustedUser\TrustedUser.cshtml" />
+    <Content Include="Views\TrustedUser\TrustedUserEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

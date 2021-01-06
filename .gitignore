@@ -339,3 +339,4 @@ ASALocalRun/
 # BeatPulse healthcheck temp database
 healthchecksdb
 /CheapShopWeb/connections.config
+/CheapShopWeb/Secrets.cs

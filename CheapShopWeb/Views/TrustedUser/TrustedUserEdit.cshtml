@@ -1,0 +1,65 @@
+﻿@model CheapShopWeb.Models.Product
+@{
+    ViewBag.Title = "TrustedUserEdit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>TrustedUserEdit</h2>
+@using (Html.BeginForm("Edited", "TrustedUser", new
+{
+    id = @Model.id,
+    name = @Model.name,
+    source = Model.source,
+    product_link = Model.product_link,
+    price = Model.price,
+    group = Model.group,
+    photo_link = Model.photo_link
+}))
+{
+    @Html.ValidationSummary(true)
+    <div class="row-cols-md-1">
+        <div>
+            <h2>Source : @Model.name</h2>
+        </div>
+        <div>
+            <input type="text" id="nname" , name="nname" value="" />
+        </div>
+        <div>
+            <h2>Name : @Model.source</h2>
+        </div>
+        <div>
+            <input type="text" id="nsource" , name="nsource" value="" />
+        </div>
+        <div>
+            <h2>Link : @Model.product_link</h2>
+        </div>
+        <div>
+            <input type="text" id="nproduct_link" , name="nproduct_link" value="" />
+        </div>
+        <div>
+            <h2>Price : @Model.price</h2>
+        </div>
+        <div>
+            <input type="text" id="nprice" , name="nprice" value="" />
+        </div>
+        <div>
+            <h2>Group : @Model.group</h2>
+        </div>
+        <div>
+            <input type="text" id="ngroup" , name="ngroup" value="" />
+        </div>
+        <div>
+            <h2>Photo :</h2>
+        </div>
+        <div class="col-sm-12 col-md-3">
+            <img class="img-fluid mx-auto d-block" src=@Model.photo_link alt="" />
+        </div>
+        <div>
+            <input type="text" id="nphoto_link" , name="nphoto_link" value="" />
+        </div>
+    </div>
+    <div class="col-auto">
+        <input type="submit" value="Update" class="btn btn-lg btn-success"/>
+    </div>
+}
